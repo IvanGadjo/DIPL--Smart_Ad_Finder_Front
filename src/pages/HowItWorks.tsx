@@ -5,6 +5,7 @@ const HowItWorks: FC<{}> = () => {
 
     return (
         <>
+            How it works page
         </>
     )
 }

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    // "baseUrl": "src",        // ? INFO: Ako sakas da koristis absolute path imports - za pogolem proekt so pocomplex folder structure
     "target": "es5",
     "lib": [
       "dom",

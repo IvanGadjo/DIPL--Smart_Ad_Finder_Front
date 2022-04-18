@@ -5,6 +5,7 @@ const Home: FC<{}> = () => {
 
     return (
         <>
+            Home page
         </>
     )
 }

@@ -5,6 +5,7 @@ const Advertisments: FC<{}> = () => {
 
     return (
         <>
+            Ads page
         </>
     )
 }
