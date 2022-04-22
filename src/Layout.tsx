@@ -7,6 +7,8 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 
 
+// * Logikata za landing page-ot sto ne e ruta - dizajniraj isto kako vo custo
+
 
 const Layout: FC<{}> = () => {
 
