@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from "react";
 
 
-const ToolsGroup: FC<{}> = () => {
+const ActionsPanel: FC<{}> = () => {
 
 
 
@@ -13,4 +13,4 @@ const ToolsGroup: FC<{}> = () => {
     );
 }
 
-export default ToolsGroup;   
+export default ActionsPanel;   

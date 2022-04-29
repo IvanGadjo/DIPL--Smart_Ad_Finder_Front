@@ -1,17 +1,18 @@
 export interface IUserInterest {
+    id: number,
     active: boolean,
     category: string,
-    foundAdverts: [IFoundAdvert],
-    id: number,
-    keywords?: IKeywords,
+    keywords: IKeywords,
     region: string,
-    timeValObject: any,                  // ! FIX: Ne treba da bide any, sega e unused
+    timeValObject?: any,                  // ! FIX: Ne treba da bide any, sega e unused
     version?: number
+
+    foundAdverts: [IFoundAdvert]
 }
 
 export interface IFoundAdvert {
-    alreadyShownToUser: boolean,
     id: number,
+    alreadyShownToUser: boolean,
     imageUrl: string,
     price: string,
     title: string,
@@ -21,5 +22,5 @@ export interface IFoundAdvert {
 
 export interface IKeywords {
     mainKeyword: string,
-    otherKeywords: [string]
+    otherKeywords?: [string]
 }

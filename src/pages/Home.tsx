@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from "react";
 import UserInterestsTable from "../components/homePage/UserInterestsTable";
-import ToolsGroup from "../components/homePage/ToolsGroup";
+import ActionsPanel from "../components/homePage/ActionsPanel";
 import { mockUser } from "../utils/mockData";
 import { getAllUserInterestsOfUser } from "../utils/restServices/userInterestsService";
 import Loader from "../components/shared/Loader";
@@ -33,7 +33,7 @@ const Home: FC<{}> = () => {
                     </>
                 :
                     <>
-                        <ToolsGroup/>
+                        <ActionsPanel/>
                         <UserInterestsTable userInterests={userInterests}/>
                     </>
             }
