@@ -1,5 +1,5 @@
 export interface IUserInterest {
-    id: number,
+    id?: number,
     active: boolean,
     category: string,
     keywords: IKeywords,
@@ -11,7 +11,7 @@ export interface IUserInterest {
 }
 
 export interface IFoundAdvert {
-    id: number,
+    id?: number,
     alreadyShownToUser: boolean,
     imageUrl: string,
     price: string,

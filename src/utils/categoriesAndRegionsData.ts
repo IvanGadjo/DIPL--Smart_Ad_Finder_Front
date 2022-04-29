@@ -1,0 +1,42 @@
+export const categories = [
+    { value:"Avtomobili", text:"Автомобили" }, 
+    { value:"Kukji/Vili", text:"Куќи/Вили" }, 
+    { value:"Stanovi", text:"Станови" }, 
+    { value:"Mobilni telefoni", text:"Мобилни телефони" }, 
+    { value:"Desktop kompjuteri", text:"Десктоп компјутери" }, 
+    { value:"Laptop kompjuteri", text:"аптоп компјутери" }, 
+    { value:"Other", text:"Останато"} 
+]
+
+export const regions = [
+    { value:"Skopje", text:"Скопје" }, 
+    { value:"Bitola", text:"Битола" }, 
+    { value:"Kumanovo", text:"Куманово" }, 
+    { value:"Prilep", text:"Прилеп" }, 
+    { value:"Tetovo", text:"Тетово" }, 
+    { value:"Veles", text:"Велес" }, 
+    { value:"Stip", text:"Штип" }, 
+    { value:"Ohrid", text:"Охрид" }, 
+    { value:"Gostivar", text:"Гостивар" }, 
+    { value:"Strumica", text:"Струмица" }, 
+    { value:"Kavadarci", text:"Кавадарци" }, 
+    { value:"Kocani", text:"Кочани" }, 
+    { value:"Kicevo", text:"Кичево" }, 
+    { value:"Struga", text:"Струга" }, 
+    { value:"Radovis", text:"Радовиш" }, 
+    { value:"Gevgelija", text:"Гевгелија" }, 
+    { value:"Debar", text:"Дебар" }, 
+    { value:"Kriva Palanka", text:"Крива Паланка" }, 
+    { value:"Sveti Nikole", text:"Свети Николе" }, 
+    { value:"Negotino", text:"Неготино" }, 
+    { value:"Delcevo", text:"Делчево" }, 
+    { value:"Vinicia", text:"Виница" }, 
+    { value:"Resen", text:"Ресен" }, 
+    { value:"Probistip", text:"Пробиштип" }, 
+    { value:"Berovo", text:"Берово" }, 
+    { value:"Kratovo", text:"Кратово" }, 
+    { value:"Krusevo", text:"Крушево" }, 
+    { value:"Makedonski brod", text:"Македонски брод" }, 
+    { value:"Valandovo", text:"Валандово" }, 
+    { value:"Demir hisar", text:"Демир Хисар" }
+]
