@@ -2,6 +2,7 @@ import { FC } from "react";
 import Home from './pages/Home';
 import HowItWorks from "./pages/HowItWorks";
 import Advertisments from "./pages/Advertisments";
+import EditUserInterest from "./components/homePage/crudModals/EditUserInterest";
 import Navbar from "./components/shared/Navbar/Navbar";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 
@@ -25,6 +26,8 @@ const Layout: FC<{}> = () => {
                         <Route path="/" element={<Home/>} />
                         <Route path="/advertisments" element={<Advertisments/>} />
                         <Route path="/howItWorks" element={<HowItWorks/>} />
+
+                        <Route path="/editUserInterest" element={<EditUserInterest/>} />
 
                     </Routes>
 
