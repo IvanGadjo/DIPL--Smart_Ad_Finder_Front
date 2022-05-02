@@ -48,7 +48,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
                                 </h4>
                                
 
-                                {ui.foundAdverts.map(fa => <div key={fa.id}>{fa.id} {fa.title} </div>)}
+                                { ui.foundAdverts ? ui.foundAdverts.map(fa => <div key={fa.id}>{fa.id} {fa.title} </div>) : null}
 
                             </>
                         })

@@ -7,7 +7,7 @@ export interface IUserInterest {
     timeValObject?: any,                  // ! FIX: Ne treba da bide any, sega e unused
     version?: number
 
-    foundAdverts: [IFoundAdvert]
+    foundAdverts?: [IFoundAdvert]
 }
 
 export interface IFoundAdvert {

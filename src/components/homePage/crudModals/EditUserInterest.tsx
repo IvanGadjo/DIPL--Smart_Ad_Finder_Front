@@ -57,7 +57,7 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
     return (
         <>      
 
-            <h4>Променете го вашиот интерес:</h4>
+            <h4>Променете го вашето барање:</h4>
 
             <form onSubmit={handleSubmit}>
 
@@ -68,7 +68,7 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
                 <select onChange={handleCategoryChange}>
                     {
                         categories.map(cat => {
-                            return <option value={cat.value}>{cat.text}</option>
+                            return <option value={cat.value} key={cat.value}>{cat.text}</option>
                         })
                     }
                 </select>
@@ -77,7 +77,7 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
                 <select onChange={handleRegionChange}>
                     {
                         regions.map(reg => {
-                            return <option value={reg.value}>{reg.text}</option>
+                            return <option value={reg.value} key={reg.value}>{reg.text}</option>
                         })
                     }
                 </select>
