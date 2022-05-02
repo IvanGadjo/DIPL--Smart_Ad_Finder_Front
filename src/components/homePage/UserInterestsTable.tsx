@@ -1,20 +1,33 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IUserInterest } from "../../utils/interfaces";
+import { setActiveOnUserInterest, getAllUserInterestsOfUser } from '../../utils/restServices/userInterestsService';
 
 
 interface IProps {
-    userInterests: [IUserInterest]
+    userInterestsProps: [IUserInterest]
 }
 
-const UserInterestsTable: FC<IProps> = ({ userInterests }) => {
+const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
+
+    const [userInterests, setUserInterests] = useState(userInterestsProps);
 
 
+    const handleSetActiveInterest = async (userInterest: IUserInterest) => {
+        let newUserInt: IUserInterest;
 
+        if(userInterest.active)
+            newUserInt = await setActiveOnUserInterest(userInterest, 1, false);   // ! UserId na logged in user treba da e
+        else
+            newUserInt = await setActiveOnUserInterest(userInterest, 1, true);    // ! UserId na logged in user treba da e
 
-    const handleEditInterest = (userInterest: IUserInterest) => {
+        console.log(newUserInt)
+        
 
+        let newUserInterests = await getAllUserInterestsOfUser(1);     // ! UserId na logged in user treba da e
+        setUserInterests(newUserInterests);     // * State change triggers rerender
     }
+
 
 
     return (
@@ -29,10 +42,12 @@ const UserInterestsTable: FC<IProps> = ({ userInterests }) => {
                         userInterests.map(ui => {
                             return <>
 
-                                <h4 key={ui.id}>id: {ui.id}, word: {ui.keywords.mainKeyword}   
+                                <h4 key={ui.id}>id: {ui.id}, word: {ui.keywords.mainKeyword}, active: {ui.active.toString()}
                                     <Link to='/editUserInterest' state={ui}>
                                         <button>Edit</button>
                                     </Link>
+
+                                    <button onClick={() => handleSetActiveInterest(ui)}>Activate/deactivate</button>
                                 </h4>
                                
 
@@ -46,10 +61,6 @@ const UserInterestsTable: FC<IProps> = ({ userInterests }) => {
                 <> Сеуште немате внесено барање! </>
             }
 
-
-
-
-            
             
             
         </>

@@ -34,7 +34,7 @@ const Home: FC<{}> = () => {
                 :
                     <>
                         <ActionsPanel/>
-                        <UserInterestsTable userInterests={userInterests}/>
+                        <UserInterestsTable userInterestsProps={userInterests}/>
                     </>
             }
 

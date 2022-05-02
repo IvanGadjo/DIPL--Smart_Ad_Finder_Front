@@ -46,13 +46,15 @@ export const createUserInterest = async (newUserInterest:IUserInterest, userId: 
     }
 }
 
-export const deactivateUserInterest = async (userInterest:IUserInterest, userId: number) => {
+export const setActiveOnUserInterest = async (userInterest:IUserInterest, userId: number, active: boolean) => {
 
-    userInterest.active = false;
+    userInterest.active = active;
 
     try {
-        let resp = await axios.patch(`/api/userInterests/editUserInterest`, userInterest, {             // * URL params via axiosConfig
-            params: userId
+        let resp = await axios.patch(`/api/userInterests/editUserInterest`, userInterest, {
+            params: {
+                userId
+            }
         });
         console.log(resp.data);
 
@@ -66,8 +68,12 @@ export const deactivateUserInterest = async (userInterest:IUserInterest, userId:
 
 const handleError = (err: any) => {
     if(isAxiosError(err)) {
-        return err.response?.data;
+        console.log('---------- HANDLE AXIOS ERROR -----------');
+        console.log(err)
+        // @ts-ignore
+        return err.response?.data.message;
     } else {
+        console.log('---------- HANDLE OTHER ERROR -----------');
         console.log(err)        
         return err;
     }

@@ -9,7 +9,7 @@ import { editUserInterest } from "../../../utils/restServices/userInterestsServi
 const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorija i region treba da se zemaat od userInterest
 
     const location = useLocation();
-    const userInterest: any = location.state;        // * Pass props via <Link> component in react router v6 - via state in Link & useLocation() hook in component
+    const userInterest: any = location.state;        // * Pass props via <Link> component in react router v6 - via state prop in Link & useLocation() hook in component
     
 
     const [title, setTitle] = useState<string>('');
@@ -52,7 +52,7 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
         };
 
         console.log(userInterest);
-        await editUserInterest(userInterest, 1);
+        await editUserInterest(userInterest, 1);        // ! UserId na logged in user treba da e
     }
 
     return (
