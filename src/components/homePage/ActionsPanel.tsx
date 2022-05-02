@@ -1,4 +1,6 @@
 import { FC, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 
 
 const ActionsPanel: FC<{}> = () => {
@@ -8,7 +10,9 @@ const ActionsPanel: FC<{}> = () => {
 
     return (
         <>
-            TOOLS
+            <Link to='/createUserInterest'>
+                <button>Ново барање</button>
+            </Link>
         </>
     );
 }

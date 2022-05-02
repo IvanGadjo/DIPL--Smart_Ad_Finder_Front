@@ -1,59 +1,54 @@
 import { FC, useState } from "react";
-import { useLocation } from 'react-router-dom';
 import { categories, regions } from "../../../utils/categoriesAndRegionsData";
-import { editUserInterest } from "../../../utils/restServices/userInterestsService";
+import { createUserInterest } from "../../../utils/restServices/userInterestsService";
+import { IUserInterest } from "../../../utils/interfaces";
 import { useNavigate } from "react-router-dom";
 
 
 
-const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorija i region treba da se zemaat od userInterest
 
-    const location = useLocation();
-    const navigate = useNavigate();                  // * Navigate programatically with react-router v6
-    const userInterest: any = location.state;        // * Pass props via <Link> component in react router v6 - via state prop in Link & useLocation() hook in component
-    
+const CreateUserInterest: FC<{}> = () => {        // ! UNTESTED
 
     const [title, setTitle] = useState<string>('');
     const [category, setCategory] = useState<string>('');
     const [region, setRegion] = useState<string>('');
 
+    const navigate = useNavigate(); 
     
-
-
 
     const handleTitleChange = (e:any) => {
         e.preventDefault();
 
         setTitle(e.target.value);
-        // console.log(e.target.value)
     }
 
     const handleCategoryChange = (e:any) => {
         e.preventDefault();
 
         setCategory(e.target.value);
-        // console.log(e.target.value)
     }
 
     const handleRegionChange = (e:any) => {
         e.preventDefault();
 
         setRegion(e.target.value);
-        // console.log(e.target.value)
     }
 
     const handleSubmit = async (e:any) => {
 
         e.preventDefault();
 
-        userInterest.category = category;
-        userInterest.region = region;
-        userInterest.keywords = {
-            mainKeyword: title
+        let userInterest:IUserInterest = {
+            active: true,
+            category,
+            region,
+            keywords: {
+                mainKeyword: title
+            },
         };
 
         console.log(userInterest);
-        await editUserInterest(userInterest, 1);        // ! UserId na logged in user treba da e
+        await createUserInterest(userInterest, 1);        // ! UserId na logged in user treba da e
 
         navigate('../', { replace: true });       // * Navigates to '/', you can also pass state
     }
@@ -61,7 +56,7 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
     return (
         <>      
 
-            <h4>Променете го вашето барање:</h4>
+            <h4>Додади ново барање:</h4>
 
             <form onSubmit={handleSubmit}>
 
@@ -96,4 +91,4 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
     );
 }
 
-export default EditUserInterest;   
+export default CreateUserInterest;   
