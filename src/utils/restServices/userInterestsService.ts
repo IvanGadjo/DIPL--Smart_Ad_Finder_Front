@@ -14,6 +14,17 @@ export const getAllUserInterestsOfUser = async (userId: number) => {
     
 }
 
+export const getUserInterestById = async (userInterestId: number) => {
+    try {
+        let resp = await axios.get(`/api/userInterests/${userInterestId}`);
+        console.log(resp.data);
+
+        return resp.data;
+    } catch(err) {
+        return handleError(err);        // ! Not tested
+    }
+}
+
 export const editUserInterest = async (userInterest:IUserInterest, userId: number) => {
     try {
         let resp = await axios.patch(`/api/userInterests/editUserInterest`, userInterest, {             // * URL params via axiosConfig

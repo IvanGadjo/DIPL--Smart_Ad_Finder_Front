@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const CreateUserInterest: FC<{}> = () => {        // ! UNTESTED
+const CreateUserInterest: FC<{}> = () => {        
 
     const [title, setTitle] = useState<string>('');
     const [category, setCategory] = useState<string>('');

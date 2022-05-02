@@ -1,16 +1,23 @@
 import { FC, useState } from "react";
 import { Link } from "react-router-dom";
-import { IUserInterest } from "../../utils/interfaces";
-import { setActiveOnUserInterest, getAllUserInterestsOfUser } from '../../utils/restServices/userInterestsService';
+import { IFoundAdvert, IUserInterest } from "../../utils/interfaces";
+import { setActiveOnUserInterest, 
+         getAllUserInterestsOfUser,
+         getUserInterestById } from '../../utils/restServices/userInterestsService';
+import { deleteFoundAdvert } from '../../utils/restServices/foundAdvertsService';
 
 
 interface IProps {
-    userInterestsProps: [IUserInterest]
+    // userInterestsProps: [IUserInterest]      // * This is a TS tuple
+    userInterestsProps: IUserInterest[]         // * This is a TS array
+
 }
 
 const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
 
+    // const [userInterests, setUserInterests] = useState<[IUserInterest]>(userInterestsProps);
     const [userInterests, setUserInterests] = useState(userInterestsProps);
+
 
 
     const handleSetActiveInterest = async (userInterest: IUserInterest) => {
@@ -25,6 +32,25 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
         setUserInterests(newUserInterests);     // * State change triggers rerender
     }
 
+    const handleDeleteFoundAd = async (foundAdvert: IFoundAdvert, userInterestId: number) => {
+        
+        await deleteFoundAdvert(foundAdvert);
+        let newUserInterest = await getUserInterestById(userInterestId);
+
+        let oldUserInterest = userInterests.find(ui => ui.id === newUserInterest.id);
+
+        if(oldUserInterest) {
+
+            console.log(userInterests);
+
+            let usrInts = userInterests.splice(userInterests.indexOf(oldUserInterest), 1);
+            usrInts.push(newUserInterest);
+            setUserInterests(usrInts);
+        } else {
+            console.log('Greska bratmoj')
+        }
+
+    }
 
 
     return (
@@ -48,7 +74,18 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
                                 </h4>
                                
 
-                                { ui.foundAdverts ? ui.foundAdverts.map(fa => <div key={fa.id}>{fa.id} {fa.title} </div>) : null}
+                                { 
+                                    ui.foundAdverts ? 
+                                    ui.foundAdverts.map(fa => {
+                                        return <>
+                                            <div key={fa.id}>
+                                                <button onClick={() => {if(ui.id) handleDeleteFoundAd(fa, ui.id);}}>X</button>
+                                                {fa.id} {fa.title} 
+                                            </div>
+                                        </>
+                                    }) :
+                                    null
+                                }
 
                             </>
                         })

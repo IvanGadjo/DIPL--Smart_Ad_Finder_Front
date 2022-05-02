@@ -4,7 +4,7 @@ export const categories = [
     { value:"Stanovi", text:"Станови" }, 
     { value:"Mobilni telefoni", text:"Мобилни телефони" }, 
     { value:"Desktop kompjuteri", text:"Десктоп компјутери" }, 
-    { value:"Laptop kompjuteri", text:"аптоп компјутери" }, 
+    { value:"Laptop kompjuteri", text:"Лаптоп компјутери" }, 
     { value:"Other", text:"Останато"} 
 ]
 
