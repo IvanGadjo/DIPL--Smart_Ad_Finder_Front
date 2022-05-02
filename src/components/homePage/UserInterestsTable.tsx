@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import { IUserInterest } from "../../utils/interfaces";
 import { setActiveOnUserInterest, getAllUserInterestsOfUser } from '../../utils/restServices/userInterestsService';
@@ -14,15 +14,12 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
 
 
     const handleSetActiveInterest = async (userInterest: IUserInterest) => {
-        let newUserInt: IUserInterest;
 
         if(userInterest.active)
-            newUserInt = await setActiveOnUserInterest(userInterest, 1, false);   // ! UserId na logged in user treba da e
+            await setActiveOnUserInterest(userInterest, 1, false);   // ! UserId na logged in user treba da e
         else
-            newUserInt = await setActiveOnUserInterest(userInterest, 1, true);    // ! UserId na logged in user treba da e
+            await setActiveOnUserInterest(userInterest, 1, true);    // ! UserId na logged in user treba da e
 
-        console.log(newUserInt)
-        
 
         let newUserInterests = await getAllUserInterestsOfUser(1);     // ! UserId na logged in user treba da e
         setUserInterests(newUserInterests);     // * State change triggers rerender

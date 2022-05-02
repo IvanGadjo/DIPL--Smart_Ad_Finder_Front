@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import { categories, regions } from "../../../utils/categoriesAndRegionsData";
-import { IUserInterest } from "../../../utils/interfaces";
 import { editUserInterest } from "../../../utils/restServices/userInterestsService";
 
 
