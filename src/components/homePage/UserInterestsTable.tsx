@@ -43,34 +43,59 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
     }
 
     const handleWebsiteChoiceChange = (e:any) => {
-        e.preventDefault();
+        // e.preventDefault();
 
-        console.log(e.target.value)
+        // console.log(e.target.value)
+
+        // const unchangedUserInt = userInterests.find(ui => ui.id === shownUserInterest?.id);
+
+        // if(e.target.value === 'www.pazar3.mk') {
+        //     console.log(unchangedUserInt?.foundAdverts?.filter(fa => fa.url.split('/')[2] === e.target.value))
+        //     if(unchangedUserInt && unchangedUserInt.foundAdverts) {
+        //         unchangedUserInt.foundAdverts = unchangedUserInt?.foundAdverts?.filter(fa => fa.url.split('/')[2] === e.target.value)
+        //         console.log(unchangedUserInt)
+
+        //         setShownUserInterest(unchangedUserInt)
+        //     }
+        // } else if(e.target.value === 'reklama5.mk') {
+
+        // } else {
+
+        // }
     }
 
     const handleDeleteFoundAd = async (foundAdvert: IFoundAdvert, userInterestId: number) => {
         
         await deleteFoundAdvert(foundAdvert);
         let newUserInterest = await getUserInterestById(userInterestId);
-
         let oldUserInterest = userInterests.find(ui => ui.id === newUserInterest.id);
 
+
         if(oldUserInterest) {
+            userInterests.splice(userInterests.indexOf(oldUserInterest), 1);        // * Splice returns array of deleted elements :/
 
-            console.log(userInterests);
-
-            let usrInts = userInterests.splice(userInterests.indexOf(oldUserInterest), 1);
-            usrInts.push(newUserInterest);
-            setUserInterests(usrInts);
+            userInterests.push(newUserInterest)
+            setUserInterests(userInterests);
+            setShownUserInterest(newUserInterest)
         } else {
-            console.log('Greska bratmoj')
+            console.log('Error in handleDeleteFoundAd')
         }
+
+        // await deleteFoundAdvert(foundAdvert);        // * Another way of deleting, refetches data from back
+        // let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1);     // ! UserId na logged in user treba da e
+        // setUserInterests(newUserInterests);     
+
+        // let updatedUserInterest = newUserInterests.find(ui => ui.id === userInterestId)
+
+        // if(updatedUserInterest)
+        //     setShownUserInterest(updatedUserInterest)
 
     }
 
 
     return (
-        <>
+        <>  
+            {/* {console.log(userInterests)} */}
 
             {
 
@@ -78,39 +103,6 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
                 ?
                 <>
                     {
-                        // userInterests.map(ui => {
-                        //     return <>
-
-                        //         <h4 key={ui.id}>id: {ui.id}, word: {ui.keywords.mainKeyword}, active: {ui.active.toString()}
-                        //             <Link to='/editUserInterest' state={ui}>
-                        //                 <button>Edit</button>
-                        //             </Link>
-
-                                    // <button onClick={() => handleSetActiveInterest(ui)}>Activate/deactivate</button>
-
-                                    // <select onChange={handleWebsiteChoiceChange}>
-                                    //     <option value='all' key='all'>Сите</option>
-                                    //     <option value='pazar3' key='pazar3'>Пазар 3</option>
-                                    //     <option value='reklama5' key='reklama5'>Реклама 5</option>
-                                    // </select>
-                        //         </h4>
-                               
-
-                        //         { 
-                        //             ui.foundAdverts ? 
-                        //             ui.foundAdverts.map(fa => {
-                        //                 return <>
-                        //                     <div key={fa.id}>
-                        //                         <button onClick={() => {if(ui.id) handleDeleteFoundAd(fa, ui.id);}}>X</button>
-                        //                         {fa.id} {fa.url.split('/')[2]} --- {fa.title}  
-                        //                     </div>
-                        //                 </>
-                        //             }) :
-                        //             null
-                        //         }
-
-                        //     </>
-                        // })
 
                         <>
 
@@ -132,6 +124,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
                                 }
                             </select>
 
+                            {/* //* Tools for user interest */}
                             <Link to='/editUserInterest' state={shownUserInterest}>
                                 <button>Edit</button>
                             </Link>
@@ -140,21 +133,27 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
 
                             <select onChange={handleWebsiteChoiceChange}>
                                 <option value='all' key='all'>Сите</option>
-                                <option value='pazar3' key='pazar3'>Пазар 3</option>
-                                <option value='reklama5' key='reklama5'>Реклама 5</option>
+                                <option value='www.pazar3.mk' key='pazar3'>Пазар 3</option>
+                                <option value='reklama5.mk' key='reklama5'>Реклама 5</option>
                             </select>
+
+
+
 
 
                             {/* // * Found ads table */}
                             {
                                 shownUserInterest.foundAdverts ? 
                                 shownUserInterest.foundAdverts.map(fa => {
-                                    return <>
-                                            <div key={fa.id}>
-                                                <button onClick={() => {if(shownUserInterest.id) handleDeleteFoundAd(fa, shownUserInterest.id);}}>X</button>
+                                    return <div key={fa.id}>
+                                                <button onClick={() => {
+                                                    if(shownUserInterest.id) handleDeleteFoundAd(fa, shownUserInterest.id);
+                                                }}>
+                                                    X
+                                                </button>
                                                 {fa.id} {fa.url.split('/')[2]} --- {fa.title}  
                                             </div>
-                                        </>
+                                        
                                 }) :
                                 <> Сеуште нема пронајдени огласи! </>
                             }

@@ -17,7 +17,7 @@ export const getAllUserInterestsOfUser = async (userId: number) => {
 export const getUserInterestById = async (userInterestId: number) => {
     try {
         let resp = await axios.get(`/api/userInterests/${userInterestId}`);
-        console.log(resp.data);
+        // console.log(resp.data);
 
         return resp.data;
     } catch(err) {
