@@ -19,7 +19,7 @@ const Home: FC<{}> = () => {
         const usrInt =  await getAllUserInterestsOfUser(mockUser.id);
         setUserInterests(usrInt);
 
-        console.log(userInterests)
+        // console.log(userInterests)
     }
 
     return (

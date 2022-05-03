@@ -17,10 +17,18 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
 
     // const [userInterests, setUserInterests] = useState<[IUserInterest]>(userInterestsProps);
     const [userInterests, setUserInterests] = useState(userInterestsProps);
+    const [shownUserInterest, setShownUserInterest] = useState<IUserInterest>(userInterests[0]);       
 
 
+    const handleShownInterestChange = async (e:any) => {
+        const ui = userInterests.find(ui => ui.id === parseInt(e.target.value));
+            
+        if(ui)
+            setShownUserInterest(ui);
+        else console.log('Error in handleShownInterestChange()')            
+    } 
 
-    const handleSetActiveInterest = async (userInterest: IUserInterest) => {
+    const handleSetActiveOnInterest = async (userInterest: IUserInterest) => {
 
         if(userInterest.active)
             await setActiveOnUserInterest(userInterest, 1, false);   // ! UserId na logged in user treba da e
@@ -29,7 +37,15 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
 
 
         let newUserInterests = await getAllUserInterestsOfUser(1);     // ! UserId na logged in user treba da e
+
+
         setUserInterests(newUserInterests);     // * State change triggers rerender
+    }
+
+    const handleWebsiteChoiceChange = (e:any) => {
+        e.preventDefault();
+
+        console.log(e.target.value)
     }
 
     const handleDeleteFoundAd = async (foundAdvert: IFoundAdvert, userInterestId: number) => {
@@ -62,33 +78,88 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
                 ?
                 <>
                     {
-                        userInterests.map(ui => {
-                            return <>
+                        // userInterests.map(ui => {
+                        //     return <>
 
-                                <h4 key={ui.id}>id: {ui.id}, word: {ui.keywords.mainKeyword}, active: {ui.active.toString()}
-                                    <Link to='/editUserInterest' state={ui}>
-                                        <button>Edit</button>
-                                    </Link>
+                        //         <h4 key={ui.id}>id: {ui.id}, word: {ui.keywords.mainKeyword}, active: {ui.active.toString()}
+                        //             <Link to='/editUserInterest' state={ui}>
+                        //                 <button>Edit</button>
+                        //             </Link>
 
-                                    <button onClick={() => handleSetActiveInterest(ui)}>Activate/deactivate</button>
-                                </h4>
+                                    // <button onClick={() => handleSetActiveInterest(ui)}>Activate/deactivate</button>
+
+                                    // <select onChange={handleWebsiteChoiceChange}>
+                                    //     <option value='all' key='all'>Сите</option>
+                                    //     <option value='pazar3' key='pazar3'>Пазар 3</option>
+                                    //     <option value='reklama5' key='reklama5'>Реклама 5</option>
+                                    // </select>
+                        //         </h4>
                                
 
-                                { 
-                                    ui.foundAdverts ? 
-                                    ui.foundAdverts.map(fa => {
-                                        return <>
+                        //         { 
+                        //             ui.foundAdverts ? 
+                        //             ui.foundAdverts.map(fa => {
+                        //                 return <>
+                        //                     <div key={fa.id}>
+                        //                         <button onClick={() => {if(ui.id) handleDeleteFoundAd(fa, ui.id);}}>X</button>
+                        //                         {fa.id} {fa.url.split('/')[2]} --- {fa.title}  
+                        //                     </div>
+                        //                 </>
+                        //             }) :
+                        //             null
+                        //         }
+
+                        //     </>
+                        // })
+
+                        <>
+
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+
+
+
+                            {/* // * User interests dropdown */}
+                            <select onChange={handleShownInterestChange}>
+                                {
+                                    userInterests.map(ui => {
+                                        return <option key={ui.id} value={ui.id}>
+                                            {ui.id}, word: {ui.keywords.mainKeyword}, active: {ui.active.toString()}
+                                        </option>
+                                    })
+                                }
+                            </select>
+
+                            <Link to='/editUserInterest' state={shownUserInterest}>
+                                <button>Edit</button>
+                            </Link>
+                            
+                            <button onClick={() => handleSetActiveOnInterest(shownUserInterest)}>Activate/deactivate</button>
+
+                            <select onChange={handleWebsiteChoiceChange}>
+                                <option value='all' key='all'>Сите</option>
+                                <option value='pazar3' key='pazar3'>Пазар 3</option>
+                                <option value='reklama5' key='reklama5'>Реклама 5</option>
+                            </select>
+
+
+                            {/* // * Found ads table */}
+                            {
+                                shownUserInterest.foundAdverts ? 
+                                shownUserInterest.foundAdverts.map(fa => {
+                                    return <>
                                             <div key={fa.id}>
-                                                <button onClick={() => {if(ui.id) handleDeleteFoundAd(fa, ui.id);}}>X</button>
-                                                {fa.id} {fa.title} 
+                                                <button onClick={() => {if(shownUserInterest.id) handleDeleteFoundAd(fa, shownUserInterest.id);}}>X</button>
+                                                {fa.id} {fa.url.split('/')[2]} --- {fa.title}  
                                             </div>
                                         </>
-                                    }) :
-                                    null
-                                }
+                                }) :
+                                <> Сеуште нема пронајдени огласи! </>
+                            }
 
-                            </>
-                        })
+                        </>
                     }
                 </>
                 :
