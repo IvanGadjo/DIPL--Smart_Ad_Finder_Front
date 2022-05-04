@@ -36,7 +36,16 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
             await setActiveOnUserInterest(userInterest, 1, true);    // ! UserId na logged in user treba da e
 
 
-        let newUserInterests = await getAllUserInterestsOfUser(1);     // ! UserId na logged in user treba da e
+        let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1);     // ! UserId na logged in user treba da e
+
+        newUserInterests.sort((prev, next) => {       // * Sort userInterests by id and then show them in dropdown
+            if(prev.id && next.id){
+                if(prev.id > next.id) 
+                    return 1
+                else  return -1
+            }
+            else return 1
+        })
 
 
         setUserInterests(newUserInterests);     // * State change triggers rerender

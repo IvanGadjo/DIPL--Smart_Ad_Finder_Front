@@ -43,9 +43,9 @@ function App() {
 
 
   // * UseStates() for the context
-  const [category, setCategory] = useState<string>('all');
-  const [region, setRegion] = useState<string>('all');
-  const [showActiveUserInterests, setShowActiveUserInterests] = useState<boolean>(true);
+  // const [category, setCategory] = useState<string>('all');
+  // const [region, setRegion] = useState<string>('all');
+  // const [showActiveUserInterests, setShowActiveUserInterests] = useState<boolean>(true);
 
 
 
@@ -55,11 +55,11 @@ function App() {
     <>    
       {/* {console.log(websocketURL)} */}
 
-     <RenderUserInterestsInfoContext.Provider value={{category, setCategory, region, setRegion, showActiveUserInterests, setShowActiveUserInterests}} >
+     {/* <RenderUserInterestsInfoContext.Provider value={{category, setCategory, region, setRegion, showActiveUserInterests, setShowActiveUserInterests}} > */}
 
       <Layout/>
 
-     </RenderUserInterestsInfoContext.Provider>
+     {/* </RenderUserInterestsInfoContext.Provider> */}
 
     </>
   );

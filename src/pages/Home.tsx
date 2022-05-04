@@ -8,7 +8,7 @@ import { IUserInterest } from "../utils/interfaces";
 
 const Home: FC<{}> = () => {
 
-    const [ userInterests, setUserInterests ] = useState<[IUserInterest] | null>(null);
+    const [ userInterests, setUserInterests ] = useState<IUserInterest[] | null>(null);
 
     useEffect(() => {
         getUserInterests();
@@ -16,7 +16,17 @@ const Home: FC<{}> = () => {
     }, [])
 
     const getUserInterests = async () => {
-        const usrInt =  await getAllUserInterestsOfUser(mockUser.id);
+        const usrInt: IUserInterest[] =  await getAllUserInterestsOfUser(mockUser.id);
+
+        usrInt.sort((prev, next) => {       // * Sort userInterests by id and then show them in dropdown
+            if(prev.id && next.id){
+                if(prev.id > next.id) 
+                    return 1
+                else  return -1
+            }
+            else return 1
+        })
+
         setUserInterests(usrInt);
 
         // console.log(userInterests)
