@@ -15,7 +15,7 @@ interface IProps {
 
 const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
 
-    // const [userInterests, setUserInterests] = useState<[IUserInterest]>(userInterestsProps);
+    // const [userInterests, setUserInterests] = useState<[IUserInterest]>(userInterestsProps);     // * To trigger rerender you need to update both useStates
     const [userInterests, setUserInterests] = useState(userInterestsProps);
     const [shownUserInterest, setShownUserInterest] = useState<IUserInterest>(userInterests[0]);       
 
@@ -42,23 +42,27 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
         setUserInterests(newUserInterests);     // * State change triggers rerender
     }
 
+
+    // ! Ovie 2 metoda podole ke bide mn polesno da se rabotat ako imas samo use eden usestate so shownFoundAds
     const handleWebsiteChoiceChange = (e:any) => {
-        // e.preventDefault();
+        e.preventDefault();
+
+        // * Sredi da e funkcionalno posle UI design
 
         // console.log(e.target.value)
 
         // const unchangedUserInt = userInterests.find(ui => ui.id === shownUserInterest?.id);
 
-        // if(e.target.value === 'www.pazar3.mk') {
+        // if(e.target.value !== 'all') {
+
         //     console.log(unchangedUserInt?.foundAdverts?.filter(fa => fa.url.split('/')[2] === e.target.value))
+
         //     if(unchangedUserInt && unchangedUserInt.foundAdverts) {
         //         unchangedUserInt.foundAdverts = unchangedUserInt?.foundAdverts?.filter(fa => fa.url.split('/')[2] === e.target.value)
         //         console.log(unchangedUserInt)
 
         //         setShownUserInterest(unchangedUserInt)
         //     }
-        // } else if(e.target.value === 'reklama5.mk') {
-
         // } else {
 
         // }
