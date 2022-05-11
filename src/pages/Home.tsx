@@ -89,7 +89,7 @@ const Home: FC<{}> = () => {
                 :
                     <>
                         <ActionsPanel/>
-                        <UserInterestsTable userInterestsProps={userInterests}/>
+                        <UserInterestsTable userInterests={userInterests} setUserInterests={setUserInterests}/>
                     </>
             }
 

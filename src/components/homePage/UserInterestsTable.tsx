@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IFoundAdvert, IUserInterest } from "../../utils/interfaces";
 import { setActiveOnUserInterest, 
@@ -7,17 +7,21 @@ import { setActiveOnUserInterest,
 import { deleteFoundAdvert } from '../../utils/restServices/foundAdvertsService';
 
 
+
 interface IProps {
     // userInterestsProps: [IUserInterest]      // * This is a TS tuple
-    userInterestsProps: IUserInterest[]         // * This is a TS array
-
+    userInterests: IUserInterest[],         // * This is a TS array
+    setUserInterests: Dispatch<SetStateAction<IUserInterest[] | null>>
 }
 
-const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
+const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => {
 
-    // const [userInterests, setUserInterests] = useState<[IUserInterest]>(userInterestsProps);     // * To trigger rerender you need to update both useStates
-    const [userInterests, setUserInterests] = useState(userInterestsProps);
     const [shownUserInterest, setShownUserInterest] = useState<IUserInterest>(userInterests[0]);       
+
+
+    useEffect(() => {
+        setShownUserInterest(userInterests[0])
+    },[userInterests])
 
 
     const handleShownInterestChange = async (e:any) => {
@@ -108,8 +112,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
 
     return (
         <>  
-            {console.log('VO TABLE ')}
-            {console.log(userInterestsProps)}
+            {/* {console.log(shownUserInterest)} */}
 
             {
 
