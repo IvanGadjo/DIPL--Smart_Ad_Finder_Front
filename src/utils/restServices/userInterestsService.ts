@@ -5,7 +5,62 @@ export const getAllUserInterestsOfUser = async (userId: number) => {
 
     try {
         let resp = await axios.get(`/api/userInterests/all/byUser/${userId}`);
-        console.log(resp.data);
+        // console.log(resp.data);
+
+        return resp.data;
+    } catch(err) {
+        return handleError(err);        // ! Not tested
+    }
+    
+}
+
+export const getAllUserInterestsOfUserByCategory = async (category: string, userId: number) => {
+
+    try {
+        let resp = await axios.get(`/api/userInterests/byCategory/byUser`, {
+            params: {
+                category,
+                userId
+            }
+        });
+        // console.log(resp.data);
+
+        return resp.data;
+    } catch(err) {
+        return handleError(err);        // ! Not tested
+    }
+    
+}
+
+export const getAllUserInterestsOfUserByRegion = async (region: string, userId: number) => {
+
+    try {
+        let resp = await axios.get(`/api/userInterests/byRegion/byUser`, {
+            params: {
+                region,
+                userId
+            }
+        });
+        // console.log(resp.data);
+
+        return resp.data;
+    } catch(err) {
+        return handleError(err);        // ! Not tested
+    }
+    
+}
+
+export const getAllUserInterestsOfUserByCatrgoryAndRegion = async (category: string, region: string, userId: number) => {
+
+    try {
+        let resp = await axios.get(`/api/userInterests/byCategoryAndRegion/byUser`, {
+            params: {
+                category,
+                region,
+                userId
+            }
+        });
+        // console.log(resp.data);
 
         return resp.data;
     } catch(err) {

@@ -108,7 +108,8 @@ const UserInterestsTable: FC<IProps> = ({ userInterestsProps }) => {
 
     return (
         <>  
-            {/* {console.log(userInterests)} */}
+            {console.log('VO TABLE ')}
+            {console.log(userInterestsProps)}
 
             {
 
