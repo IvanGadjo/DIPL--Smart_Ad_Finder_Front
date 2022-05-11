@@ -20,7 +20,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
 
     useEffect(() => {
-        console.log(userInterests)
+        // console.log(userInterests)
         if(userInterests.length !== 0)
             setShownUserInterest(userInterests[0])
         else setShownUserInterest({
@@ -122,7 +122,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
     return (
         <>  
-            {console.log(shownUserInterest)}
+            {/* {console.log(shownUserInterest)} */}
 
             {
 
