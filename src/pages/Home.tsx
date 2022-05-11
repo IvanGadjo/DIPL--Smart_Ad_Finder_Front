@@ -42,24 +42,18 @@ const Home: FC<{}> = () => {
         }
 
         // console.log(userInterests)
-        return userInterests;
+        // return userInterests;
 
-
-        // ! UNCOMMENT
-        // if(showActiveUserInterests){        // * Show only active interests
-        //     return userInterests.filter(ui => ui.active)
-        // } else {        // * Show only deactivated interests
-        //     return userInterests.filter(ui => !ui.active)
-        // }
+        if(showActiveUserInterests){        // * Show only active interests
+            return userInterests.filter(ui => ui.active)
+        } else {        // * Show only deactivated interests
+            return userInterests.filter(ui => !ui.active)
+        }
     }
 
     const getUserInterests = async () => {
 
         const usrInt: IUserInterest[] =  await getFilteredUserInterests();
-
-        // await getFilteredUserInterests();
-        // const usrInt: IUserInterest[] =  await getAllUserInterestsOfUser(mockUser.id);
-
 
         usrInt.sort((prev, next) => {       // * Sort userInterests by id and then show them in dropdown
             if(prev.id && next.id){

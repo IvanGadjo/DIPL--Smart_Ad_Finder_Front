@@ -20,7 +20,17 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
 
     useEffect(() => {
-        setShownUserInterest(userInterests[0])
+        console.log(userInterests)
+        if(userInterests.length !== 0)
+            setShownUserInterest(userInterests[0])
+        else setShownUserInterest({
+            active: true,
+            category: '',
+            keywords: {
+                mainKeyword: ''
+            },
+            region: '',
+        })
     },[userInterests])
 
 
@@ -112,7 +122,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
     return (
         <>  
-            {/* {console.log(shownUserInterest)} */}
+            {console.log(shownUserInterest)}
 
             {
 
