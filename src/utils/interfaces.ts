@@ -24,3 +24,14 @@ export interface IKeywords {
     mainKeyword: string,
     otherKeywords?: [string]
 }
+
+export interface IFoundAdvertDTO {
+    foundAdId: number,
+    imageUrl: string,
+    price: string,
+    title: string,
+    url: string,
+
+    userInterestId: number,
+    userEmail?: string
+}

@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import Layout from './Layout';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
-import { RenderUserInterestsInfoContext } from './utils/contexts/renderUserInterestsInfoContext';
+import { useZustandStore } from "./utils/zustandStores/webhookFoundAdsStore";
+import shallow from 'zustand/shallow';
+
 
 
 const websocketURL: string = process.env.REACT_APP_WEB_SOCKET_URL as string;
@@ -13,6 +15,12 @@ const websocketURL: string = process.env.REACT_APP_WEB_SOCKET_URL as string;
 
 
 function App() {
+
+  const [ setWebhookFoundAds, 
+          addWebhookFoundAd, 
+          webhookFoundAds ] = useZustandStore(state => [state.setWebhookFoundAds, state.addWebhookFoundAd, state.webhookFoundAds], shallow)
+
+
 
   // * Connect to websocket with sockjs-client 
   let sockJSClient = new SockJS(websocketURL);
@@ -36,30 +44,18 @@ function App() {
       console.log('MESSAGE NUMBER: ' + ++msgCounter);
       console.log(JSON.parse(message.body))
 
+      addWebhookFoundAd(JSON.parse(message.body));
+
     });
- });
+  });
 
 
 
-
-  // * UseStates() for the context
-  // const [category, setCategory] = useState<string>('all');
-  // const [region, setRegion] = useState<string>('all');
-  // const [showActiveUserInterests, setShowActiveUserInterests] = useState<boolean>(true);
-
-
-
-  
 
   return (
     <>    
-      {/* {console.log(websocketURL)} */}
-
-     {/* <RenderUserInterestsInfoContext.Provider value={{category, setCategory, region, setRegion, showActiveUserInterests, setShowActiveUserInterests}} > */}
-
+      
       <Layout/>
-
-     {/* </RenderUserInterestsInfoContext.Provider> */}
 
     </>
   );
