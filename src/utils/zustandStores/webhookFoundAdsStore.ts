@@ -11,8 +11,8 @@ interface FoundAdsState {
 
 
 
-export const useZustandStore = create<FoundAdsState>()((set) => ({
+export const useFAS_ZustandStore = create<FoundAdsState>()((set) => ({
     webhookFoundAds: [],
-    setWebhookFoundAds: (newFoundAds) => set({ webhookFoundAds: newFoundAds}),
-    addWebhookFoundAd: (newFoundAd) => set(state => ({ webhookFoundAds: [...state.webhookFoundAds, newFoundAd]})),
+    setWebhookFoundAds: (newFoundAds: IFoundAdvertDTO[]) => set({ webhookFoundAds: newFoundAds}),
+    addWebhookFoundAd: (newFoundAd: IFoundAdvertDTO) => set(state => ({ webhookFoundAds: [...state.webhookFoundAds, newFoundAd]})),
 }))
