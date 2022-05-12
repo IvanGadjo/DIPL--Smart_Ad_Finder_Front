@@ -8,7 +8,7 @@ import { getAllUserInterestsOfUser,
          getAllUserInterestsOfUserByCatrgoryAndRegion } from "../utils/restServices/userInterestsService";
 import Loader from "../components/shared/Loader";
 import { IUserInterest } from "../utils/interfaces";
-import { useZustandStore } from "../utils/zustandStores/renderUserInterestsInfoStore";
+import { useRUIIS_ZustandStore } from "../utils/zustandStores/renderUserInterestsInfoStore";
 import shallow from 'zustand/shallow';
 
 
@@ -18,8 +18,9 @@ const Home: FC<{}> = () => {
 
     const [ category, 
             region, 
-            showActiveUserInterests] = useZustandStore(state => [state.category, state.region, state.showActiveUserInterests], shallow)
+            showActiveUserInterests] = useRUIIS_ZustandStore(state => [state.category, state.region, state.showActiveUserInterests], shallow);
 
+    
             
     useEffect(() => {
         getUserInterests();

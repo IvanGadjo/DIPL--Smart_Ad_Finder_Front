@@ -11,7 +11,7 @@ interface RenderUserInterestsInfoState {
 
 
 
-export const useZustandStore = create<RenderUserInterestsInfoState>()((set) => ({
+export const useRUIIS_ZustandStore = create<RenderUserInterestsInfoState>()((set) => ({
     category: 'all',
     setCategory: (newCategory) => set({ category: newCategory}),
     region: 'all',

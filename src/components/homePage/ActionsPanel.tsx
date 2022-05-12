@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { categories, regions } from "../../utils/categoriesAndRegionsData";
-import { useZustandStore } from "../../utils/zustandStores/renderUserInterestsInfoStore";
+import { useRUIIS_ZustandStore } from "../../utils/zustandStores/renderUserInterestsInfoStore";
 import shallow from 'zustand/shallow';
 
 
@@ -11,7 +11,7 @@ const ActionsPanel: FC<{}> = () => {
     const [ setCategory, 
             setRegion, 
             setShowActiveUserInterests,
-            showActiveUserInterests] = useZustandStore(state => [state.setCategory, state.setRegion, state.setShowActiveUserInterests, state.showActiveUserInterests], shallow)
+            showActiveUserInterests] = useRUIIS_ZustandStore(state => [state.setCategory, state.setRegion, state.setShowActiveUserInterests, state.showActiveUserInterests], shallow)
 
 
     // * These 3 values go into Zustand state / renderUserInterestsInfo context, that decides how userInterests are rendered in Home page
