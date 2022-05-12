@@ -3,7 +3,7 @@ import './App.css';
 import Layout from './Layout';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
-import { useZustandStore } from "./utils/zustandStores/webhookFoundAdsStore";
+import { useUI_ZustandStore } from "./utils/zustandStores/userInterestsStore";
 import shallow from 'zustand/shallow';
 
 
@@ -16,9 +16,11 @@ const websocketURL: string = process.env.REACT_APP_WEB_SOCKET_URL as string;
 
 function App() {
 
-  const [ setWebhookFoundAds, 
-          addWebhookFoundAd, 
-          webhookFoundAds ] = useZustandStore(state => [state.setWebhookFoundAds, state.addWebhookFoundAd, state.webhookFoundAds], shallow)
+  // const [ setWebhookFoundAds, 
+  //         addWebhookFoundAd, 
+  //         webhookFoundAds ] = useFAS_ZustandStore(state => [state.setWebhookFoundAds, state.addWebhookFoundAd, state.webhookFoundAds], shallow)
+
+  
 
 
 
@@ -41,10 +43,18 @@ function App() {
       // console.log(JSON.parse(message.toString()))
       // console.log(JSON.parse(message.body).content)
 
-      console.log('MESSAGE NUMBER: ' + ++msgCounter);
-      console.log(JSON.parse(message.body))
 
-      addWebhookFoundAd(JSON.parse(message.body));
+
+
+      // console.log('MESSAGE NUMBER: ' + ++msgCounter);
+      // console.log(JSON.parse(message.body))
+
+
+
+
+
+
+      // addWebhookFoundAd(JSON.parse(message.body));
 
     });
   });
@@ -54,7 +64,7 @@ function App() {
 
   return (
     <>    
-      
+    
       <Layout/>
 
     </>

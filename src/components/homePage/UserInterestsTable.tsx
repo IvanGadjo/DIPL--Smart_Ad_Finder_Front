@@ -11,12 +11,13 @@ import { deleteFoundAdvert } from '../../utils/restServices/foundAdvertsService'
 interface IProps {
     // userInterestsProps: [IUserInterest]      // * This is a TS tuple
     userInterests: IUserInterest[],         // * This is a TS array
-    setUserInterests: Dispatch<SetStateAction<IUserInterest[] | null>>
+    // setUserInterests: Dispatch<SetStateAction<IUserInterest[] | null>>
+    setUserInterests: (userInterests: IUserInterest[]) => void
 }
 
 const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => {
 
-    const [shownUserInterest, setShownUserInterest] = useState<IUserInterest>(userInterests[0]);       
+    const [shownUserInterest, setShownUserInterest] = useState<IUserInterest>(userInterests[0]);
 
 
     useEffect(() => {

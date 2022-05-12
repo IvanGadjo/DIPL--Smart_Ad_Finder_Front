@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useEffect } from "react";
 import UserInterestsTable from "../components/homePage/UserInterestsTable";
 import ActionsPanel from "../components/homePage/ActionsPanel";
 import { mockUser } from "../utils/mockData";
@@ -9,16 +9,21 @@ import { getAllUserInterestsOfUser,
 import Loader from "../components/shared/Loader";
 import { IUserInterest } from "../utils/interfaces";
 import { useRUIIS_ZustandStore } from "../utils/zustandStores/renderUserInterestsInfoStore";
+import { useUI_ZustandStore } from "../utils/zustandStores/userInterestsStore";
 import shallow from 'zustand/shallow';
 
 
 const Home: FC<{}> = () => {
 
-    const [ userInterests, setUserInterests ] = useState<IUserInterest[] | null>(null);
 
     const [ category, 
             region, 
             showActiveUserInterests] = useRUIIS_ZustandStore(state => [state.category, state.region, state.showActiveUserInterests], shallow);
+
+    const [ setUserInterests, 
+            addUserInterest, 
+            addFoundAdvert,
+            userInterests ] = useUI_ZustandStore(state => [state.setUserInterests, state.addUserInterest, state.addFoundAdvert, state.userInterests], shallow)
 
     
             
