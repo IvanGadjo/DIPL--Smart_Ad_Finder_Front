@@ -1,41 +1,44 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IFoundAdvert, IUserInterest } from "../../utils/interfaces";
 import { setActiveOnUserInterest, 
          getAllUserInterestsOfUser,
          getUserInterestById } from '../../utils/restServices/userInterestsService';
 import { deleteFoundAdvert } from '../../utils/restServices/foundAdvertsService';
+import { useUI_ZustandStore } from '../../utils/zustandStores/userInterestsStore';
+import shallow from 'zustand/shallow';
 
 
 
 interface IProps {
     // userInterestsProps: [IUserInterest]      // * This is a TS tuple
     userInterests: IUserInterest[],         // * This is a TS array
-    // setUserInterests: Dispatch<SetStateAction<IUserInterest[] | null>>
     setUserInterests: (userInterests: IUserInterest[]) => void
 }
 
 const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => {
 
-    const [shownUserInterest, setShownUserInterest] = useState<IUserInterest>(userInterests[0]);
+    // const [shownUserInterest, setShownUserInterest] = useState<IUserInterest>(userInterests[0]);
+
+    const [ shownUserInterest, setShownUserInterest ] = useUI_ZustandStore(state => [state.shownUserInterest, state.setShownUserInterest], shallow);
 
 
-    useEffect(() => {                       // ! Treba shownUserInt da e vo global state mesto vaka da se updejta
-        // console.log(userInterests)
-        if(userInterests.length !== 0){     // ! Ova napravi go nekako so druga logika da se desava
-            // console.log(shownUserInterest)
-            // setShownUserInterest(userInterests[0])
+    // useEffect(() => {                       // ! Treba shownUserInt da e vo global state mesto vaka da se updejta
+    //     // console.log(userInterests)
+    //     if(userInterests.length !== 0){     // ! Ova napravi go nekako so druga logika da se desava
+    //         // console.log(shownUserInterest)
+    //         // setShownUserInterest(userInterests[0])
 
-        }
-        else setShownUserInterest({
-            active: true,
-            category: '',
-            keywords: {
-                mainKeyword: ''
-            },
-            region: '',
-        })
-    },[userInterests])
+    //     }
+    //     else setShownUserInterest({
+    //         active: true,
+    //         category: '',
+    //         keywords: {
+    //             mainKeyword: ''
+    //         },
+    //         region: '',
+    //     })
+    // },[userInterests])
 
 
     const handleShownInterestChange = async (e:any) => {
@@ -126,7 +129,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
     return (
         <>  
-            {/* {console.log(shownUserInterest)} */}
+            {console.log(userInterests)}
 
             {
 

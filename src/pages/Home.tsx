@@ -23,7 +23,10 @@ const Home: FC<{}> = () => {
     const [ setUserInterests, 
             addUserInterest, 
             addFoundAdvert,
-            userInterests ] = useUI_ZustandStore(state => [state.setUserInterests, state.addUserInterest, state.addFoundAdvert, state.userInterests], shallow);
+            userInterests,
+            shownUserInterest,
+            setShownUserInterest ] = useUI_ZustandStore(state => [state.setUserInterests, state.addUserInterest, state.addFoundAdvert, 
+                                                                    state.userInterests, state.shownUserInterest, state.setShownUserInterest], shallow);
 
     
             
@@ -32,12 +35,6 @@ const Home: FC<{}> = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [category, region, showActiveUserInterests])
 
-
-    // ! TEST
-    // useEffect(() => {
-    //     console.log('Se menjaat')
-    //     console.log(userInterests.find(ui => ui.id === 4)?.foundAdverts)
-    // }, [userInterests])
 
     const getFilteredUserInterests = async () => {      
 
@@ -68,15 +65,30 @@ const Home: FC<{}> = () => {
         const usrInt: IUserInterest[] =  await getFilteredUserInterests();
 
         usrInt.sort((prev, next) => {       // * Sort userInterests by id and then show them in dropdown
-            if(prev.id && next.id){
-                if(prev.id > next.id) 
-                    return 1
-                else  return -1
+
+            if(shownUserInterest && prev.id === shownUserInterest.id){
+                return -1;
+            } else {
+
+                if(prev.id && next.id){
+                    if(prev.id > next.id) 
+                        return 1
+                    else  return -1
+                }
+                else return 1
             }
-            else return 1
         })
 
         setUserInterests(usrInt);
+
+        // console.log(shownUserInterest)
+
+        setShownUserInterest(usrInt[0]);
+
+
+        // console.log(shownUserInterest)
+
+
     }
 
     // console.log(category, region, showActiveUserInterests)

@@ -16,10 +16,6 @@ const websocketURL: string = process.env.REACT_APP_WEB_SOCKET_URL as string;
 
 function App() {
 
-  // const [ setWebhookFoundAds, 
-  //         addWebhookFoundAd, 
-  //         webhookFoundAds ] = useFAS_ZustandStore(state => [state.setWebhookFoundAds, state.addWebhookFoundAd, state.webhookFoundAds], shallow)
-
   const [ setUserInterests, 
           addUserInterest, 
           addFoundAdvert,
