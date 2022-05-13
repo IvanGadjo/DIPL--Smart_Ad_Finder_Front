@@ -20,10 +20,13 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
     const [shownUserInterest, setShownUserInterest] = useState<IUserInterest>(userInterests[0]);
 
 
-    useEffect(() => {
+    useEffect(() => {                       // ! Treba shownUserInt da e vo global state mesto vaka da se updejta
         // console.log(userInterests)
-        if(userInterests.length !== 0)
-            setShownUserInterest(userInterests[0])
+        if(userInterests.length !== 0){     // ! Ova napravi go nekako so druga logika da se desava
+            // console.log(shownUserInterest)
+            // setShownUserInterest(userInterests[0])
+
+        }
         else setShownUserInterest({
             active: true,
             category: '',

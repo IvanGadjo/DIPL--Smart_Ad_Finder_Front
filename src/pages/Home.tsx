@@ -23,7 +23,7 @@ const Home: FC<{}> = () => {
     const [ setUserInterests, 
             addUserInterest, 
             addFoundAdvert,
-            userInterests ] = useUI_ZustandStore(state => [state.setUserInterests, state.addUserInterest, state.addFoundAdvert, state.userInterests], shallow)
+            userInterests ] = useUI_ZustandStore(state => [state.setUserInterests, state.addUserInterest, state.addFoundAdvert, state.userInterests], shallow);
 
     
             
@@ -32,6 +32,12 @@ const Home: FC<{}> = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [category, region, showActiveUserInterests])
 
+
+    // ! TEST
+    // useEffect(() => {
+    //     console.log('Se menjaat')
+    //     console.log(userInterests.find(ui => ui.id === 4)?.foundAdverts)
+    // }, [userInterests])
 
     const getFilteredUserInterests = async () => {      
 
@@ -75,6 +81,7 @@ const Home: FC<{}> = () => {
 
     // console.log(category, region, showActiveUserInterests)
     // console.log(userInterests)
+    // console.log(userInterests.find(ui => ui.id === 3)?.foundAdverts)
 
 
     return (

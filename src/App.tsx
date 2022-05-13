@@ -20,7 +20,10 @@ function App() {
   //         addWebhookFoundAd, 
   //         webhookFoundAds ] = useFAS_ZustandStore(state => [state.setWebhookFoundAds, state.addWebhookFoundAd, state.webhookFoundAds], shallow)
 
-  
+  const [ setUserInterests, 
+          addUserInterest, 
+          addFoundAdvert,
+          userInterests ] = useUI_ZustandStore(state => [state.setUserInterests, state.addUserInterest, state.addFoundAdvert, state.userInterests], shallow)
 
 
 
@@ -50,11 +53,9 @@ function App() {
       // console.log(JSON.parse(message.body))
 
 
-
-
-
-
       // addWebhookFoundAd(JSON.parse(message.body));
+      addFoundAdvert(JSON.parse(message.body));     // * Dobro se polnat
+      // console.log(userInterests.find(ui => ui.id === 4)?.foundAdverts)
 
     });
   });
