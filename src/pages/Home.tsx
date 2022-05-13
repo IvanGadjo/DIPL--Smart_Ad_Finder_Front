@@ -21,12 +21,9 @@ const Home: FC<{}> = () => {
             showActiveUserInterests] = useRUIIS_ZustandStore(state => [state.category, state.region, state.showActiveUserInterests], shallow);
 
     const [ setUserInterests, 
-            addUserInterest, 
-            addFoundAdvert,
             userInterests,
             shownUserInterest,
-            setShownUserInterest ] = useUI_ZustandStore(state => [state.setUserInterests, state.addUserInterest, state.addFoundAdvert, 
-                                                                    state.userInterests, state.shownUserInterest, state.setShownUserInterest], shallow);
+            setShownUserInterest ] = useUI_ZustandStore(state => [state.setUserInterests, state.userInterests, state.shownUserInterest, state.setShownUserInterest], shallow);
 
     
             

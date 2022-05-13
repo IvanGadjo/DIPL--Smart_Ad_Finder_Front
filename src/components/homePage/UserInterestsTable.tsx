@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Link } from "react-router-dom";
 import { IFoundAdvert, IUserInterest } from "../../utils/interfaces";
 import { setActiveOnUserInterest, 
