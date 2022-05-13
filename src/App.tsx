@@ -11,9 +11,6 @@ import shallow from 'zustand/shallow';
 const websocketURL: string = process.env.REACT_APP_WEB_SOCKET_URL as string;
 
 
-
-
-
 function App() {
 
   const [ setUserInterests, 
@@ -27,8 +24,6 @@ function App() {
 
     // * Connect to websocket with sockjs-client 
     let sockJSClient = new SockJS(websocketURL);
-    let msgCounter: number = 0;
-
     let stompClient = Stomp.over(sockJSClient);
     stompClient.debug = () => null;     // ? Disable debugging & message logs in console
 
@@ -45,15 +40,8 @@ function App() {
 
       });
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-
-  (function(){
-    console.log('EDNASKA')
-  }());
-  
-  
-
 
 
 

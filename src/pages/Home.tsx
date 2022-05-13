@@ -47,8 +47,6 @@ const Home: FC<{}> = () => {
             userInterests = await getAllUserInterestsOfUserByCatrgoryAndRegion(category, region, mockUser.id);
         }
 
-        // console.log(userInterests)
-        // return userInterests;
 
         if(showActiveUserInterests){        // * Show only active interests
             return userInterests.filter(ui => ui.active)
@@ -77,15 +75,7 @@ const Home: FC<{}> = () => {
         })
 
         setUserInterests(usrInt);
-
-        // console.log(shownUserInterest)
-
         setShownUserInterest(usrInt[0]);
-
-
-        // console.log(shownUserInterest)
-
-
     }
 
     // console.log(category, region, showActiveUserInterests)
