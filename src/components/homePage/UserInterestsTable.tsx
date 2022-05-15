@@ -18,31 +18,11 @@ interface IProps {
 
 const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => {
 
-    // const [shownUserInterest, setShownUserInterest] = useState<IUserInterest>(userInterests[0]);
-
     const [ shownUserInterest, setShownUserInterest ] = useUI_ZustandStore(state => [state.shownUserInterest, state.setShownUserInterest], shallow);
 
 
-    // useEffect(() => {                       // ! Treba shownUserInt da e vo global state mesto vaka da se updejta
-    //     // console.log(userInterests)
-    //     if(userInterests.length !== 0){     // ! Ova napravi go nekako so druga logika da se desava
-    //         // console.log(shownUserInterest)
-    //         // setShownUserInterest(userInterests[0])
-
-    //     }
-    //     else setShownUserInterest({
-    //         active: true,
-    //         category: '',
-    //         keywords: {
-    //             mainKeyword: ''
-    //         },
-    //         region: '',
-    //     })
-    // },[userInterests])
-
-
-    const handleShownInterestChange = async (e:any) => {
-        const ui = userInterests.find(ui => ui.id === parseInt(e.target.value));
+    const handleShownInterestChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const ui = userInterests.find(ui => ui.id === parseInt(e.currentTarget.value));
             
         if(ui)
             setShownUserInterest(ui);
@@ -74,12 +54,12 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
 
     // ! Ovie 2 metoda podole ke bide mn polesno da se rabotat ako imas samo use eden usestate so shownFoundAds
-    const handleWebsiteChoiceChange = (e:any) => {
+    const handleWebsiteChoiceChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
 
         // * Sredi da e funkcionalno posle UI design
 
-        // console.log(e.target.value)
+        // console.log(e.currentTarget.value)
 
         // const unchangedUserInt = userInterests.find(ui => ui.id === shownUserInterest?.id);
 

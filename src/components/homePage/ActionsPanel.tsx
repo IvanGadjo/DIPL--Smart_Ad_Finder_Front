@@ -17,12 +17,12 @@ const ActionsPanel: FC<{}> = () => {
     // * These 3 values go into Zustand state / renderUserInterestsInfo context, that decides how userInterests are rendered in Home page
     // * Now I work with Zustand state
 
-    const handleCategoryChange = (e:any) => {       // * Filter done on backend
-        setCategory(e.target.value);
+    const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {       // * Filter done on backend
+        setCategory(e.currentTarget.value);
     }
 
-    const handleRegionChange = (e:any) => {         // * Filter done on backend
-        setRegion(e.target.value)
+    const handleRegionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {         // * Filter done on backend
+        setRegion(e.currentTarget.value)
     }
 
     const handleToggle_activeInterests = () => {        // * Filter done when rendering on front

@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { categories, regions } from "../../../utils/categoriesAndRegionsData";
 import { createUserInterest } from "../../../utils/restServices/userInterestsService";
 import { IUserInterest } from "../../../utils/interfaces";
@@ -16,26 +16,29 @@ const CreateUserInterest: FC<{}> = () => {
     const navigate = useNavigate(); 
     
 
-    const handleTitleChange = (e:any) => {
+    const handleTitleChange = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
 
-        setTitle(e.target.value);
+        // setTitle(e.target.value);
+        setTitle(e.currentTarget.value)
     }
 
-    const handleCategoryChange = (e:any) => {
+    const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
 
-        setCategory(e.target.value);
+        // setCategory(e.target.value);
+        setCategory(e.currentTarget.value);
     }
 
-    const handleRegionChange = (e:any) => {
+    const handleRegionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
 
-        setRegion(e.target.value);
+        // setRegion(e.target.value);
+        setRegion(e.currentTarget.value);
+
     }
 
-    const handleSubmit = async (e:any) => {
-
+    const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
 
         let userInterest:IUserInterest = {
@@ -50,7 +53,7 @@ const CreateUserInterest: FC<{}> = () => {
         console.log(userInterest);
         await createUserInterest(userInterest, 1);        // ! UserId na logged in user treba da e
 
-        navigate('../', { replace: true });       // * Navigates to '/', you can also pass state
+        // navigate('../', { replace: true });       // * Navigates to '/', you can also pass state
     }
 
     return (

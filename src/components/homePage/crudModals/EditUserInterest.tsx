@@ -21,29 +21,28 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
 
 
 
-    const handleTitleChange = (e:any) => {
+    const handleTitleChange = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
 
-        setTitle(e.target.value);
+        setTitle(e.currentTarget.value);
         // console.log(e.target.value)
     }
 
-    const handleCategoryChange = (e:any) => {
+    const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
 
-        setCategory(e.target.value);
+        setCategory(e.currentTarget.value);
         // console.log(e.target.value)
     }
 
-    const handleRegionChange = (e:any) => {
+    const handleRegionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
 
-        setRegion(e.target.value);
+        setRegion(e.currentTarget.value);
         // console.log(e.target.value)
     }
 
-    const handleSubmit = async (e:any) => {
-
+    const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
 
         userInterest.category = category;
