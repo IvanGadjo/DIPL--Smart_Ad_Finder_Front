@@ -1,11 +1,14 @@
 import { FC } from "react";
+import ActionsPanel from "../components/advertisments/ActionsPanel";
+import AdvertCard from "../components/advertisments/AdvertCard";
 
 
 const Advertisments: FC<{}> = () => {
 
     return (
         <>
-            Ads page
+            <ActionsPanel/>
+            <AdvertCard/>
         </>
     )
 }
