@@ -52,7 +52,7 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
         };
 
         console.log(userInterest);
-        await editUserInterest(userInterest, 1);        // ! UserId na logged in user treba da e
+        await editUserInterest(userInterest, 1);        // ! MOCK USER ID !
 
         navigate('../', { replace: true });       // * Navigates to '/', you can also pass state
     }

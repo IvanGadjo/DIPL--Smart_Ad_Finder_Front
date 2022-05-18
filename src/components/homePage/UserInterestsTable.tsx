@@ -32,12 +32,12 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
     const handleSetActiveOnInterest = async (userInterest: IUserInterest) => {
 
         if(userInterest.active)
-            await setActiveOnUserInterest(userInterest, 1, false);   // ! UserId na logged in user treba da e
+            await setActiveOnUserInterest(userInterest, 1, false);   // ! MOCK USER ID !
         else
-            await setActiveOnUserInterest(userInterest, 1, true);    // ! UserId na logged in user treba da e
+            await setActiveOnUserInterest(userInterest, 1, true);    // ! MOCK USER ID !
 
 
-        let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1);     // ! UserId na logged in user treba da e
+        let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1);     // ! MOCK USER ID !
 
         newUserInterests.sort((prev, next) => {       // * Sort userInterests by id and then show them in dropdown
             if(prev.id && next.id){
@@ -96,7 +96,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
         }
 
         // await deleteFoundAdvert(foundAdvert);        // * Another way of deleting, refetches data from back
-        // let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1);     // ! UserId na logged in user treba da e
+        // let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1);     // ! MOCK USER ID !
         // setUserInterests(newUserInterests);     
 
         // let updatedUserInterest = newUserInterests.find(ui => ui.id === userInterestId)

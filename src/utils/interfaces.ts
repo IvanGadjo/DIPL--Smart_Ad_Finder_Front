@@ -20,6 +20,18 @@ export interface IFoundAdvert {
     version?: number
 }
 
+export interface IUserAdvert {
+    id?: number,
+    isActive?: boolean,
+    image: File | undefined,        // ? Ne sum sig za ova
+    title: string,
+    description: string,
+    category: string,
+    region: string,
+    price: string,
+    version?: number
+}
+
 export interface IKeywords {
     mainKeyword: string,
     otherKeywords?: [string]

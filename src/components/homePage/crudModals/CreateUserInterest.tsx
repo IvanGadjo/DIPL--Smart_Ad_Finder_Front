@@ -51,7 +51,7 @@ const CreateUserInterest: FC<{}> = () => {
         };
 
         console.log(userInterest);
-        await createUserInterest(userInterest, 1);        // ! UserId na logged in user treba da e
+        await createUserInterest(userInterest, 1);        // ! MOCK USER ID !
 
         navigate('../', { replace: true });       // * Navigates to '/', you can also pass state
     }
