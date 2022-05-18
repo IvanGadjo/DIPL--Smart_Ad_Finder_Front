@@ -23,7 +23,7 @@ export interface IFoundAdvert {
 export interface IUserAdvert {
     id?: number,
     isActive?: boolean,
-    image: File | undefined,        // ? Ne sum sig za ova
+    image?: File | undefined,        // ? Ne sum sig za ova
     title: string,
     description: string,
     category: string,

@@ -1,14 +1,43 @@
 import axios, { isAxiosError } from '../axiosConfig';
-import { IFoundAdvert } from '../interfaces';
+import { IUserAdvert } from '../interfaces';
 
 
 export const getAllAdverts = async () => {
 
     try {
-        let resp = await axios.delete(`/api/userAdverts/all`);
+        let resp = await axios.get(`/api/userAdverts/all`);
+        console.log(resp.data);
         return resp.data;
     } catch(err) {
-        return handleError(err);        // ! Not tested
+        return handleError(err);
+    }
+}
+
+
+
+export const createUserAdvert = async (newAd:IUserAdvert, formData: FormData, userId: number) => {
+    
+    try {
+        let resp = await axios.post(`/api/userAdverts/createUserAdvert?userId=${userId}`, formData, {
+            params: {
+                isActive: true,
+                category: newAd.category,
+                region: newAd.region,
+                title: newAd.title,
+                description: newAd.description,
+                price: newAd.price,
+            }
+        });         // * URL params directly in URL string
+        console.log(resp.data);
+
+        return resp.data;
+    } catch (err) {
+        if(isAxiosError(err)) {             // ! Posle testiranje samo povikaj handleError()
+            return err.response?.data;
+        } else {
+            console.log(err)        // ! Not tested
+            return err;
+        }
     }
 }
 

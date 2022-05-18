@@ -6,6 +6,7 @@ import EditUserInterest from "./components/homePage/crudModals/EditUserInterest"
 import CreateUserInterest from "./components/homePage/crudModals/CreateUserInterest";
 import Navbar from "./components/shared/Navbar/Navbar";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
+import CreateUserAdvert from "./components/advertisments/crudModals/CreateUserAdvert";
 
 
 
@@ -30,6 +31,9 @@ const Layout: FC<{}> = () => {
 
                         <Route path="/createUserInterest" element={<CreateUserInterest/>} />
                         <Route path="/editUserInterest" element={<EditUserInterest/>} />
+
+                        <Route path="/createUserAdvert" element={<CreateUserAdvert/>} />
+
 
                     </Routes>
 
