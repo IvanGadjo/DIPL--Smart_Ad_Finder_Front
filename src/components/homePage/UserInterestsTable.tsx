@@ -140,10 +140,10 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
                             {/* //* Tools for user interest */}
                             <Link to='/editUserInterest' state={shownUserInterest}>
-                                <button>Edit</button>
+                                <button>Промени</button>
                             </Link>
                             
-                            <button onClick={() => handleSetActiveOnInterest(shownUserInterest)}>Activate/deactivate</button>
+                            <button onClick={() => handleSetActiveOnInterest(shownUserInterest)}>Активирај/Деактивирај</button>
 
                             <select onChange={handleWebsiteChoiceChange}>
                                 <option value='all' key='all'>Сите</option>
