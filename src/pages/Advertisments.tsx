@@ -25,7 +25,7 @@ const Advertisments: FC<{}> = () => {
                     <br/>
                     
                     {
-                        allAdverts.map((adv: IUserAdvert) => <AdvertCard userAdvert={adv}/>)
+                        allAdverts.map((adv: IUserAdvert) => <AdvertCard key={adv.id} userAdvert={adv}/>)
                     }
 
                 </>

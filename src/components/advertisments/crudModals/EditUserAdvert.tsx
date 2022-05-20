@@ -77,11 +77,10 @@ const EditUserAdvert: FC<{}> = () => {
 
         if(image){
             frmData.append('image', image)
-            console.log('yes')
         }
 
-        console.log(userAd);
-        console.log(frmData.get("image"));
+        // console.log(userAd);
+        // console.log(frmData.get("image"));
 
 
 

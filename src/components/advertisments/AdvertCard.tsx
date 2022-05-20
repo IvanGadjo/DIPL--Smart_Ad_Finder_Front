@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { IUserAdvert } from "../../utils/interfaces";
+import { setActiveOnUserAdvert } from '../../utils/restServices/userAdvertsService';
+import { useUserAdverts } from "../../utils/swrHooks/useUserAdverts";
 
 interface IProps {
     userAdvert: IUserAdvert,         
@@ -10,6 +12,9 @@ interface IProps {
 
 const AdvertCard: FC<IProps> = ({ userAdvert }) => {
 
+
+
+    const { allAdverts, setAdverts } = useUserAdverts();
 
 
     
@@ -24,6 +29,27 @@ const AdvertCard: FC<IProps> = ({ userAdvert }) => {
         return window.btoa( binary );
     }
 
+    const handleSetActiveOnAdvert = async () => {       // ? IMAGETO KOGA SE PRAKJA NA SERVER E SEKOGAS NULL
+
+        const frmData = new FormData();
+        if(userAdvert.image)
+            frmData.append('image', userAdvert.image)
+
+
+        if(userAdvert.isActive){
+            await setActiveOnUserAdvert(userAdvert, frmData, 1, false);          // ! MOCK USER ID !
+        } else await setActiveOnUserAdvert(userAdvert, frmData, 1, true);            // ! MOCK USER ID !
+
+
+        let newAdsArray = allAdverts.map((ad: IUserAdvert) => {     // * Triggers component rerender
+            if(ad.id === userAdvert.id){
+                ad.isActive = false;
+            }
+            return ad;
+        })
+
+        setAdverts(newAdsArray);
+    } 
     
 
    
@@ -39,9 +65,11 @@ const AdvertCard: FC<IProps> = ({ userAdvert }) => {
                         <button>Промени</button>
                     </Link>
 
+                    <button onClick={() => {handleSetActiveOnAdvert()}}>Активирај/Деактивирај</button>
+
 
                     <h2>{userAdvert.title}</h2>
-                    <p>{userAdvert.description}, {userAdvert.price}, {userAdvert.isActive ? userAdvert.isActive.toString() : null}, {userAdvert.id}</p>
+                    <p>{userAdvert.description}, {userAdvert.price}, {userAdvert.isActive ? userAdvert.isActive.toString() : 'false'}, {userAdvert.id}</p>
 
 
                     <img alt='нема слика' src={"data:image/png;base64," + arrayBufferToBase64(userAdvert.image)} style={{ width: '250px', height:'250px'}}/>
