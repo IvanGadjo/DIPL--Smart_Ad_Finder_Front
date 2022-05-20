@@ -66,6 +66,10 @@ const EditUserAdvert: FC<{}> = () => {
         setImage(fileList[0]);
     }
 
+    const handleBackButtonClick = () => {
+        navigate('../advertisments', { replace: true });       
+    }
+
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
 
@@ -151,7 +155,9 @@ const EditUserAdvert: FC<{}> = () => {
                 </select>
 
                 <button type="submit">Зачувај</button>
-                <button type="reset">Назад</button>
+                <button type="reset">Ресетирај</button>
+                <button onClick={()=>{handleBackButtonClick()}}>Назад</button>
+
 
             </form>
             

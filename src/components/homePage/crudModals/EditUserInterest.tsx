@@ -42,6 +42,10 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
         // console.log(e.target.value)
     }
 
+    const handleBackButtonClick = () => {
+        navigate('../', { replace: true });       
+    }
+
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
 
@@ -86,7 +90,9 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
                 </select>
 
                 <button type="submit">Зачувај</button>
-                <button type="reset">Назад</button>
+                <button type="reset">Ресетирај</button>
+                <button onClick={()=>{handleBackButtonClick()}}>Назад</button>
+
 
             </form>
             

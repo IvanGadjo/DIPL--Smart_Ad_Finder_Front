@@ -38,6 +38,10 @@ const CreateUserInterest: FC<{}> = () => {
 
     }
 
+    const handleBackButtonClick = () => {
+        navigate('../', { replace: true });       
+    }
+
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
 
@@ -85,7 +89,9 @@ const CreateUserInterest: FC<{}> = () => {
                 </select>
 
                 <button type="submit">Зачувај</button>
-                <button type="reset">Назад</button>
+                <button type="reset">Ресетирај</button>
+                <button onClick={()=>{handleBackButtonClick()}}>Назад</button>
+
 
             </form>
             

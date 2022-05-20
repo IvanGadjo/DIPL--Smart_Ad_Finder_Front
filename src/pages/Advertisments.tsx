@@ -13,7 +13,6 @@ const Advertisments: FC<{}> = () => {
 
     useEffect(() => {
         console.log('Se desava')
-        // console.log(allAdverts)
         setShownAdverts(allAdverts)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[isLoadingData])
