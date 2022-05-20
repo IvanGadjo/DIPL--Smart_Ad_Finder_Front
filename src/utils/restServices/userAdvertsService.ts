@@ -19,8 +19,8 @@ export const getAllAdverts = async () => {
             
         })
 
-        console.log(sortedAdverts)
-        return sortedAdverts
+        // console.log(sortedAdverts);
+        return sortedAdverts;
     } catch(err) {
         return handleError(err);
     }
@@ -39,6 +39,7 @@ export const createUserAdvert = async (newAd:IUserAdvert, formData: FormData, us
                 title: newAd.title,
                 description: newAd.description,
                 price: newAd.price,
+                contactInfo: newAd.contactInfo
             }
         });         
 
@@ -68,6 +69,7 @@ export const editUserAdvert = async (userAdvert: IUserAdvert, formData: FormData
                 title: userAdvert.title,
                 description: userAdvert.description,
                 price: userAdvert.price,
+                contactInfo: userAdvert.contactInfo
             }
         });         
 
@@ -84,7 +86,7 @@ export const editUserAdvert = async (userAdvert: IUserAdvert, formData: FormData
 }
 
 
-export const setActiveOnUserAdvert = async (userAdvert: IUserAdvert, formData: FormData, userId: number, isActive: boolean) => {
+export const setActiveOnUserAdvert = async (userAdvert: IUserAdvert, userId: number, isActive: boolean) => {
 
     userAdvert.isActive = isActive;
 

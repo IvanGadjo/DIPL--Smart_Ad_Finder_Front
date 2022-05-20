@@ -13,6 +13,7 @@ const CreateUserAdvert: FC<{}> = () => {
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [price, setPrice] = useState<string>('');
+    const [contactInfo, setContactInfo] = useState<string>('');
     const [image, setImage] = useState<File | undefined>();
 
     const [category, setCategory] = useState<string>('');
@@ -49,6 +50,11 @@ const CreateUserAdvert: FC<{}> = () => {
         setPrice(e.currentTarget.value);
     }
 
+    const handleContactInfoChange = (e: React.FormEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setContactInfo(e.currentTarget.value);
+    }
+
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
 
@@ -69,6 +75,7 @@ const CreateUserAdvert: FC<{}> = () => {
             title,
             description,
             price,
+            contactInfo
         };
 
         const frmData = new FormData();
@@ -106,6 +113,10 @@ const CreateUserAdvert: FC<{}> = () => {
 
                 <label>Цена:</label>
                 <input type='text' onChange={handlePriceChange}/>
+                <br/>
+
+                <label>Информации за контакт:</label>
+                <input type='text' onChange={handleContactInfoChange}/>
                 <br/>
 
 

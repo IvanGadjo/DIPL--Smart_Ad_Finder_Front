@@ -37,8 +37,8 @@ const AdvertCard: FC<IProps> = ({ userAdvert }) => {
 
 
         if(userAdvert.isActive){
-            await setActiveOnUserAdvert(userAdvert, frmData, 1, false);          // ! MOCK USER ID !
-        } else await setActiveOnUserAdvert(userAdvert, frmData, 1, true);            // ! MOCK USER ID !
+            await setActiveOnUserAdvert(userAdvert, 1, false);          // ! MOCK USER ID !
+        } else await setActiveOnUserAdvert(userAdvert, 1, true);            // ! MOCK USER ID !
 
 
         let newAdsArray = allAdverts.map((ad: IUserAdvert) => {     // * Triggers component rerender
@@ -70,6 +70,8 @@ const AdvertCard: FC<IProps> = ({ userAdvert }) => {
 
                     <h2>{userAdvert.title}</h2>
                     <p>{userAdvert.description}, {userAdvert.price}, {userAdvert.isActive ? userAdvert.isActive.toString() : 'false'}, {userAdvert.id}</p>
+                    <p>{userAdvert.contactInfo}</p>
+
 
 
                     <img alt='нема слика' src={"data:image/png;base64," + arrayBufferToBase64(userAdvert.image)} style={{ width: '250px', height:'250px'}}/>

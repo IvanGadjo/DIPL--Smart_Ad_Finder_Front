@@ -29,6 +29,7 @@ export interface IUserAdvert {
     category: string,
     region: string,
     price: string,
+    contactInfo: string,
     version?: number
 }
 
