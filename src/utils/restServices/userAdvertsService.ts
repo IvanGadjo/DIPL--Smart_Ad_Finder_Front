@@ -26,7 +26,29 @@ export const getAllAdverts = async () => {
     }
 }
 
+export const getAllAdvertsByUserId = async (userId: number) => {
 
+    try {
+        let resp = await axios.get(`/api/userAdverts/all/byUser/${userId}`);
+        // console.log(resp.data);
+
+        let sortedAdverts = resp.data.sort((prev: IUserAdvert, next: IUserAdvert) => {       // * Sort userInterests by id and then show them in dropdown
+
+            if(prev.id && next.id){
+                if(prev.id > next.id) 
+                    return 1
+                else  return -1
+            }
+            else return 1
+            
+        })
+
+        // console.log(sortedAdverts);
+        return sortedAdverts;
+    } catch(err) {
+        return handleError(err);
+    }
+}
 
 export const createUserAdvert = async (newAd:IUserAdvert, formData: FormData, userId: number) => {
     

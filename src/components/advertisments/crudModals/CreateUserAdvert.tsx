@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
 import { categories, regions } from "../../../utils/categoriesAndRegionsData";
-import { createUserInterest } from "../../../utils/restServices/userInterestsService";
-import { IUserAdvert, IUserInterest } from "../../../utils/interfaces";
+import { IUserAdvert } from "../../../utils/interfaces";
 import { useNavigate } from "react-router-dom";
 import { createUserAdvert } from "../../../utils/restServices/userAdvertsService";
 
