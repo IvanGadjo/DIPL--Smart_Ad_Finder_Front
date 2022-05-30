@@ -40,7 +40,9 @@ export const useUI_ZustandStore = create<UserInterestsState>()((set) => ({
                                     imageUrl: newFoundAdDTO.imageUrl,
                                     price: newFoundAdDTO.price,
                                     title: newFoundAdDTO.title,
-                                    url: newFoundAdDTO.url
+                                    url: newFoundAdDTO.url,
+                                    carYear: newFoundAdDTO.carYear,
+                                    carMileage: newFoundAdDTO.carMileage
                                 }
 
                                 ui.foundAdverts?.push(newFoundAd);

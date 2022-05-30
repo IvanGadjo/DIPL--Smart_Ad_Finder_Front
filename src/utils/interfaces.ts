@@ -17,6 +17,8 @@ export interface IFoundAdvert {
     price: string,
     title: string,
     url: string,
+    carYear: number,
+    carMileage: number,
     version?: number
 }
 
@@ -44,6 +46,9 @@ export interface IFoundAdvertDTO {
     price: string,
     title: string,
     url: string,
+
+    carYear: number,
+    carMileage: number,
 
     userInterestId: number,
     userEmail?: string
