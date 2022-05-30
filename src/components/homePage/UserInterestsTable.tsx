@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IFoundAdvert, IUserInterest } from "../../utils/interfaces";
 import { setActiveOnUserInterest, 
@@ -7,6 +7,7 @@ import { setActiveOnUserInterest,
 import { deleteFoundAdvert } from '../../utils/restServices/foundAdvertsService';
 import { useUI_ZustandStore } from '../../utils/zustandStores/userInterestsStore';
 import shallow from 'zustand/shallow';
+import CarFiltersInputs from './CarFiltersInputs';
 
 
 
@@ -19,14 +20,27 @@ interface IProps {
 const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => {
 
     const [ shownUserInterest, setShownUserInterest ] = useUI_ZustandStore(state => [state.shownUserInterest, state.setShownUserInterest], shallow);
+    const [ shownAds, setShownAds ] = useState<IFoundAdvert[] | undefined>();
+    const [ prevShownAds, setPrevShownAds ] = useState<IFoundAdvert[] | undefined>();
 
+
+    const [ carYear, setCarYear ] = useState<string>('');
+    const [ carMileage, setCarMileage ] = useState<string>('');
+
+
+    useEffect(() => {
+        // console.log(shownUserInterest.foundAdverts)
+        if(shownUserInterest)setShownAds(shownUserInterest.foundAdverts)
+    },[shownUserInterest])
 
     const handleShownInterestChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+
         const ui = userInterests.find(ui => ui.id === parseInt(e.currentTarget.value));
             
         if(ui)
             setShownUserInterest(ui);
-        else console.log('Error in handleShownInterestChange()')            
+        else console.log('Error in handleShownInterestChange()');
+
     } 
 
     const handleSetActiveOnInterest = async (userInterest: IUserInterest) => {
@@ -52,8 +66,6 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
         setUserInterests(newUserInterests);     // * State change triggers rerender
     }
 
-
-    // ! Ovie 2 metoda podole ke bide mn polesno da se rabotat ako imas samo use eden usestate so shownFoundAds
     const handleWebsiteChoiceChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
 
@@ -106,10 +118,90 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
     }
 
+    // * Car filters handle methods    
+    // ! KRSH SE OVIE
+    const handleCarYearChange = (e: React.FormEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setCarYear(e.currentTarget.value);
+
+
+        if(e.currentTarget.value !== ''){       // ? Ne e prazno godina poleto
+
+            const godina = parseInt(e.currentTarget.value);
+
+            if(carMileage !== '') {
+                const newFoundAds = prevShownAds?.filter(fa => fa.carYear === godina);
+
+                console.log(newFoundAds)
+
+                if(newFoundAds?.length===0){
+                    setShownAds([]);
+                } else {
+                    setShownAds(newFoundAds)
+                    setPrevShownAds(newFoundAds)
+                }
+
+            } else {
+                const newFoundAds = shownUserInterest.foundAdverts?.filter(fa => fa.carYear === godina);
+
+                setShownAds(newFoundAds)
+                setPrevShownAds(newFoundAds)
+            }
+            
+        } else {            // ? Prazno e godina poleto
+
+            if(carMileage === '') {
+                setShownAds(shownUserInterest.foundAdverts)
+                setPrevShownAds(shownUserInterest.foundAdverts)
+            }
+
+       
+        }
+    }
+
+    const handleCarMileageChange = (e: React.FormEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setCarMileage(e.currentTarget.value);
+
+
+        if(e.currentTarget.value !== ''){
+
+            const km = parseInt(e.currentTarget.value);
+
+            if(carYear !== ''){         // ? raboti so prevShownAds
+                console.log('KEC')
+                console.log(prevShownAds)
+                const newFoundAds = prevShownAds?.filter(fa => fa.carMileage <= km);
+
+                console.log(newFoundAds)
+
+                if(newFoundAds?.length===0){
+                    setShownAds([]);
+                } else {
+                    setShownAds(newFoundAds)
+                    setPrevShownAds(newFoundAds)
+                }
+            } else {            // ? raboti so shownUserInterest.foundAdverts
+                console.log('DVA')
+                const newFoundAds = shownUserInterest.foundAdverts?.filter(fa => fa.carMileage <= km);
+
+                console.log(newFoundAds)
+                setShownAds(newFoundAds)
+                setPrevShownAds(newFoundAds)
+            }
+
+        } else {
+            setShownAds(shownUserInterest.foundAdverts)
+            setPrevShownAds(shownUserInterest.foundAdverts)
+        }
+    }
+
+ 
 
     return (
         <>  
-            {console.log(userInterests)}
+            {/* {console.log(userInterests)} */}
+            {/* {console.log(shownAds)} */}
 
             {
 
@@ -138,7 +230,8 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
                                 }
                             </select>
 
-                            {/* //* Tools for user interest */}
+
+                            {/* //* Tools for user interests */}
                             <Link to='/editUserInterest' state={shownUserInterest}>
                                 <button>Промени</button>
                             </Link>
@@ -152,11 +245,35 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
                             </select>
 
 
+                            {/* //* Car filters */}
+                            { 
+                                shownUserInterest.category === 'Avtomobili' ?
+                                <CarFiltersInputs handleCarMileageChange={handleCarMileageChange} handleCarYearChange={handleCarYearChange}/> :
+                                null
+                            }
+
+
 
 
 
                             {/* // * Found ads table */}
                             {
+                                shownAds ? 
+                                shownAds.map(fa => {
+                                    return <div key={fa.id}>
+                                                <button onClick={() => {
+                                                    if(shownUserInterest.id) handleDeleteFoundAd(fa, shownUserInterest.id);
+                                                }}>
+                                                    X
+                                                </button>
+                                                {fa.id} {fa.url.split('/')[2]} --- {fa.title}  
+                                                --- {fa.carYear}, {fa.carMileage}km
+                                            </div>
+                                        
+                                }) :
+                                <> Сеуште нема пронајдени огласи! </>
+                            }
+                            {/* {
                                 shownUserInterest.foundAdverts ? 
                                 shownUserInterest.foundAdverts.map(fa => {
                                     return <div key={fa.id}>
@@ -166,11 +283,12 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
                                                     X
                                                 </button>
                                                 {fa.id} {fa.url.split('/')[2]} --- {fa.title}  
+                                                --- {fa.carYear}, {fa.carMileage}km
                                             </div>
                                         
                                 }) :
                                 <> Сеуште нема пронајдени огласи! </>
-                            }
+                            } */}
 
                         </>
                     }
