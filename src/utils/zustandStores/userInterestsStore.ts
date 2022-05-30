@@ -45,7 +45,9 @@ export const useUI_ZustandStore = create<UserInterestsState>()((set) => ({
                                     carMileage: newFoundAdDTO.carMileage
                                 }
 
-                                ui.foundAdverts?.push(newFoundAd);
+                                if(!ui.foundAdverts?.map(fa => fa.url).includes(newFoundAdDTO.url)){        // ? Ponekogas doagjaat 2 isti ad-a od websocketot, zatoa ova
+                                    ui.foundAdverts?.push(newFoundAd);
+                                }
                                 return ui;
                             } else return ui;
                         })

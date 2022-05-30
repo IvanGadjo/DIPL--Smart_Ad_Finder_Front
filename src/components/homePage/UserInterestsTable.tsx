@@ -29,7 +29,6 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
 
     useEffect(() => {
-        // console.log(shownUserInterest.foundAdverts)
         if(shownUserInterest)setShownAds(shownUserInterest.foundAdverts)
     },[shownUserInterest])
 
