@@ -5,7 +5,7 @@ import Advertisments from "./pages/Advertisments";
 import EditUserInterest from "./components/homePage/crudModals/EditUserInterest";
 import CreateUserInterest from "./components/homePage/crudModals/CreateUserInterest";
 import Navbar from "./components/shared/Navbar/Navbar";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import CreateUserAdvert from "./components/advertisments/crudModals/CreateUserAdvert";
 import EditUserAdvert from "./components/advertisments/crudModals/EditUserAdvert";
 
@@ -19,8 +19,6 @@ const Layout: FC<{}> = () => {
 
     return (
         <>
-
-            <BrowserRouter>
 
                 <Navbar/>
                 <main>
@@ -41,7 +39,6 @@ const Layout: FC<{}> = () => {
 
                 </main>
 
-            </BrowserRouter>
         </>
     );
 }

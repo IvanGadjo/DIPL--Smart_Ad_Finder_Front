@@ -3,13 +3,30 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Auth0ProroviderWithHistory from './utils/auth/auth0-provider-with-history';
+import { BrowserRouter } from "react-router-dom";
+
+
+
+
+let auth0_domain: string = process.env.REACT_APP_AUTH0_DOMAIN as string;
+let auth0_clientId: string = process.env.REACT_APP_AUTH0_CLIENT_ID as string;
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+
+    <BrowserRouter>
+
+      <Auth0ProroviderWithHistory domain={auth0_domain} clientId={auth0_clientId}>
+        <App />
+      </Auth0ProroviderWithHistory>
+
+    </BrowserRouter>
+
   </React.StrictMode>
 );
 
