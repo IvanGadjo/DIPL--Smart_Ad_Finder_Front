@@ -8,7 +8,7 @@ const Navbar: FC<{}> = () => {
 
             <ul>
                 <li>
-                    <NavItem name='Почетна' path='/' Icon={<></>} />
+                    <NavItem name='Почетна' path='/home' Icon={<></>} />
                 </li>
                 <li>
                     <NavItem name='Огласи' path='/advertisments' Icon={<></>} />

@@ -5,6 +5,10 @@ const LandingPage: FC<{}> = () => {
 
     return (
         <>
+            *** WELCOME TO SMART AD FINDER ***
+
+            ==^^==         ==^^==
+                  _________
         </>
     )
 }

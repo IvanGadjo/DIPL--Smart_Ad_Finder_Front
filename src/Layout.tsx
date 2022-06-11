@@ -2,6 +2,7 @@ import { FC } from "react";
 import Home from './pages/Home';
 import HowItWorks from "./pages/HowItWorks";
 import Advertisments from "./pages/Advertisments";
+import LandingPage from "./pages/LandingPage";
 import EditUserInterest from "./components/homePage/crudModals/EditUserInterest";
 import CreateUserInterest from "./components/homePage/crudModals/CreateUserInterest";
 import Navbar from "./components/shared/Navbar/Navbar";
@@ -24,7 +25,12 @@ const Layout: FC<{}> = () => {
                 <main>
 
                     <Routes>
-                        <Route path="/" element={<Home/>} />
+                        {/* <Route path="/" element={<Home/>} /> */}
+
+                        <Route path="/" element={<LandingPage/>} />
+                        <Route path="/home" element={<Home/>} />
+
+
                         <Route path="/advertisments" element={<Advertisments/>} />
                         <Route path="/howItWorks" element={<HowItWorks/>} />
 

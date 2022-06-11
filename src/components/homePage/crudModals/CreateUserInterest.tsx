@@ -19,27 +19,25 @@ const CreateUserInterest: FC<{}> = () => {
     const handleTitleChange = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
 
-        // setTitle(e.target.value);
         setTitle(e.currentTarget.value)
     }
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
 
-        // setCategory(e.target.value);
         setCategory(e.currentTarget.value);
     }
 
     const handleRegionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
 
-        // setRegion(e.target.value);
         setRegion(e.currentTarget.value);
 
     }
 
     const handleBackButtonClick = () => {
-        navigate('../', { replace: true });       
+        navigate('../home', { replace: true });       
+
     }
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
@@ -57,7 +55,7 @@ const CreateUserInterest: FC<{}> = () => {
         console.log(userInterest);
         await createUserInterest(userInterest, 1);        // ! MOCK USER ID !
 
-        navigate('../', { replace: true });       // * Navigates to '/', you can also pass state
+        navigate('../home', { replace: true });       // * Navigates to '/home', you can also pass state
     }
 
     return (

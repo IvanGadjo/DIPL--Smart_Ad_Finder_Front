@@ -25,25 +25,23 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
         e.preventDefault();
 
         setTitle(e.currentTarget.value);
-        // console.log(e.target.value)
     }
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
 
         setCategory(e.currentTarget.value);
-        // console.log(e.target.value)
     }
 
     const handleRegionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
 
         setRegion(e.currentTarget.value);
-        // console.log(e.target.value)
     }
 
     const handleBackButtonClick = () => {
-        navigate('../', { replace: true });       
+        navigate('../home', { replace: true });       
+
     }
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
@@ -58,7 +56,7 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
         console.log(userInterest);
         await editUserInterest(userInterest, 1);        // ! MOCK USER ID !
 
-        navigate('../', { replace: true });       // * Navigates to '/', you can also pass state
+        navigate('../home', { replace: true });       // * Navigates to '/home', you can also pass state
     }
 
     return (
