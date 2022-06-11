@@ -1,4 +1,6 @@
 import { FC } from "react";
+import LogInButton from "../components/auth/logInButton";
+
 
 
 const LandingPage: FC<{}> = () => {
@@ -9,6 +11,9 @@ const LandingPage: FC<{}> = () => {
 
             ==^^==         ==^^==
                   _________
+
+            <LogInButton/>
+
         </>
     )
 }
