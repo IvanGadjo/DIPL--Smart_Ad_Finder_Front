@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext } from 'react';                // ! UNUSED BECAUSE OF ZUSTAND STORE
 
 export type RenderUserInterestsInfo = {
   category: string;
