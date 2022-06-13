@@ -10,19 +10,19 @@ const LogOutButton: FC<{}> = () => {
   return (
     <>
       <button
-        className='inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
         onClick={() =>
           logout({
             // returnTo: "https://harvel.io",
-            returnTo: "window.location.origin",
+            // returnTo: "window.location.origin",
+            returnTo: "http://localhost:3000",
+
           })
         }
       >
         Log Out
-        <LogoutIcon
-          className='ml-2 -mr-0.5 h-4 w-4'
+        {/* <LogoutIcon
           aria-hidden='true'
-        ></LogoutIcon>
+        ></LogoutIcon> */}
       </button>
     </>
   );

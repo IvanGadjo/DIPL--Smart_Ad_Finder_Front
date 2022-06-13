@@ -11,6 +11,7 @@ import { IUserInterest } from "../utils/interfaces";
 import { useRUIIS_ZustandStore } from "../utils/zustandStores/renderUserInterestsInfoStore";
 import { useUI_ZustandStore } from "../utils/zustandStores/userInterestsStore";
 import shallow from 'zustand/shallow';
+import LogOutButton from "../components/auth/logOutButton";
 
 
 const Home: FC<{}> = () => {
@@ -94,6 +95,7 @@ const Home: FC<{}> = () => {
                     </>
                 :
                     <>
+                        <LogOutButton/>
                         <ActionsPanel/>
                         <UserInterestsTable userInterests={userInterests} setUserInterests={setUserInterests}/>
                     </>
