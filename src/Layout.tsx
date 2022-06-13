@@ -11,6 +11,7 @@ import CreateUserAdvert from "./components/advertisments/crudModals/CreateUserAd
 import EditUserAdvert from "./components/advertisments/crudModals/EditUserAdvert";
 import { useAuth0 } from '@auth0/auth0-react';
 import Loader from "./components/shared/Loader";
+import Settings from "./pages/Settings";
 
 
 
@@ -26,9 +27,9 @@ const Layout: FC<{}> = () => {
 
                 <Routes>
                     <Route path="/home" element={<Home/>} />
-
                     <Route path="/advertisments" element={<Advertisments/>} />
                     <Route path="/howItWorks" element={<HowItWorks/>} />
+                    <Route path="/settings" element={<Settings/>} />
 
                     <Route path="/createUserInterest" element={<CreateUserInterest/>} />
                     <Route path="/editUserInterest" element={<EditUserInterest/>} />

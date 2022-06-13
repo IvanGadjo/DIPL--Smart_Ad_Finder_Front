@@ -16,6 +16,9 @@ const Navbar: FC<{}> = () => {
                 <li>
                     <NavItem name='Како работи' path='/howItWorks' Icon={<></>} />
                 </li>
+                <li>
+                    <NavItem name='Подесувања и профил' path='/settings' Icon={<></>} />
+                </li>
             </ul>
         
         </>
