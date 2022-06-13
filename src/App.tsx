@@ -3,7 +3,7 @@ import './App.css';
 import Layout from './Layout';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
-import { useUI_ZustandStore } from "./utils/zustandStores/userInterestsStore";
+import { useUI_ZustandStore } from "./utils/zustandStores/userInfoStore";
 import shallow from 'zustand/shallow';
 
 

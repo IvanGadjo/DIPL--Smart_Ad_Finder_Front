@@ -9,7 +9,7 @@ import { getAllUserInterestsOfUser,
 import Loader from "../components/shared/Loader";
 import { IUserInterest } from "../utils/interfaces";
 import { useRUIIS_ZustandStore } from "../utils/zustandStores/renderUserInterestsInfoStore";
-import { useUI_ZustandStore } from "../utils/zustandStores/userInterestsStore";
+import { useUI_ZustandStore } from "../utils/zustandStores/userInfoStore";
 import shallow from 'zustand/shallow';
 import LogOutButton from "../components/auth/logOutButton";
 
@@ -24,7 +24,8 @@ const Home: FC<{}> = () => {
     const [ setUserInterests, 
             userInterests,
             shownUserInterest,
-            setShownUserInterest ] = useUI_ZustandStore(state => [state.setUserInterests, state.userInterests, state.shownUserInterest, state.setShownUserInterest], shallow);
+            setShownUserInterest,
+            auth0UserInfo ] = useUI_ZustandStore(state => [state.setUserInterests, state.userInterests, state.shownUserInterest, state.setShownUserInterest, state.auth0UserInfo], shallow);
 
     
             
@@ -82,6 +83,7 @@ const Home: FC<{}> = () => {
     // console.log(category, region, showActiveUserInterests)
     // console.log(userInterests)
     // console.log(userInterests.find(ui => ui.id === 3)?.foundAdverts)
+    console.log(auth0UserInfo)
 
 
     return (

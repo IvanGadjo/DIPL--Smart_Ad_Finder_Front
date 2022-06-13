@@ -5,7 +5,7 @@ import { setActiveOnUserInterest,
          getAllUserInterestsOfUser,
          getUserInterestById } from '../../utils/restServices/userInterestsService';
 import { deleteFoundAdvert } from '../../utils/restServices/foundAdvertsService';
-import { useUI_ZustandStore } from '../../utils/zustandStores/userInterestsStore';
+import { useUI_ZustandStore } from '../../utils/zustandStores/userInfoStore';
 import shallow from 'zustand/shallow';
 import CarFiltersInputs from './CarFiltersInputs';
 

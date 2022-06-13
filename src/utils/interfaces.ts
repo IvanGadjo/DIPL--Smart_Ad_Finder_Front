@@ -53,3 +53,9 @@ export interface IFoundAdvertDTO {
     userInterestId: number,
     userEmail?: string
 }
+
+export interface IAuth0UserInfo {
+    name: string,
+    email: string,
+    token: string
+}

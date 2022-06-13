@@ -1,5 +1,5 @@
 import create from "zustand";
-import { IUserInterest, IFoundAdvertDTO, IFoundAdvert } from "../interfaces";
+import { IUserInterest, IFoundAdvertDTO, IFoundAdvert, IAuth0UserInfo } from "../interfaces";
 
 // * State for found adverts coming from the webhook
 
@@ -10,6 +10,9 @@ interface UserInterestsState {
 
     shownUserInterest: IUserInterest;
     setShownUserInterest: (userInterest: IUserInterest) => void;
+
+    auth0UserInfo: IAuth0UserInfo;
+    setAuth0UserInfo: (auth0info: IAuth0UserInfo) => void;
 
     addFoundAdvert: (foundAdvert: IFoundAdvertDTO) => void;
 }
@@ -31,6 +34,10 @@ export const useUI_ZustandStore = create<UserInterestsState>()((set) => ({
     },
     setShownUserInterest: (userInterestToShow: IUserInterest) => set(({ shownUserInterest: userInterestToShow })),
 
+    auth0UserInfo: {
+        name: '', email: '', token: ''
+    },
+    setAuth0UserInfo: (auth0info: IAuth0UserInfo) => set(({ auth0UserInfo: auth0info })),
 
     addFoundAdvert: (newFoundAdDTO: IFoundAdvertDTO) => set((state) => ({
             userInterests: state.userInterests.map(ui => {         // * Find needed userInterest, update it
