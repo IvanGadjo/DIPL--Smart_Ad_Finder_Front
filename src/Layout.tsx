@@ -15,7 +15,6 @@ import Loader from "./components/shared/Loader";
 
 
 
-
 const Layout: FC<{}> = () => {
 
     const { isAuthenticated, isLoading } = useAuth0();
@@ -85,4 +84,4 @@ const Layout: FC<{}> = () => {
     );
 }
 
-export default Layout;      // * Tuka HOC za Auth
+export default Layout;

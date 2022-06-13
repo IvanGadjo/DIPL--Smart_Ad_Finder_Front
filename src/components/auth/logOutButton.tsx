@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { LogoutIcon } from '@heroicons/react/solid';
+// import { LogoutIcon } from '@heroicons/react/solid';
 
 const LogOutButton: FC<{}> = () => {
   // * clears app session & redirects
