@@ -14,9 +14,9 @@ import Loader from "./components/shared/Loader";
 import Settings from "./pages/Settings";
 import { useUI_ZustandStore } from "./utils/zustandStores/userInfoStore";
 import shallow from 'zustand/shallow';
-import { useRUIIS_ZustandStore } from "./utils/zustandStores/renderUserInterestsInfoStore";
 import { IUserInterest } from "./utils/interfaces";
 import { getAllUserInterestsOfUser } from "./utils/restServices/userInterestsService";
+import { createUser, getUserByEmail } from "./utils/restServices/usersService";
 
 
 
@@ -37,7 +37,7 @@ const Layout: FC<{}> = () => {
     }, [user]);
 
 
-    async function fetchToken() {
+    const fetchToken = async () => {
         const token = await getAccessTokenSilently();
 
         if(user && user.name && user.email){        // * This can also extract user.picture and add it in the store
@@ -46,16 +46,28 @@ const Layout: FC<{}> = () => {
                 email: user.email,
                 token
             })
+
+            await getLoggedInUser(user.email, token);
+
         }
-        console.log(token)
+        // console.log(token)
 
         await getUserInterestsFirstTime(token);     // * First time call to API to ger user interests, needs to be done right after token retrieval - otherwise token is not set fast enough in 
                                                     // * zustand store, and when calling getUserInterests() from Home - the token is undefined
     }
 
+    const getLoggedInUser = async (email: string, token: string) => {
+        let newUser = await getUserByEmail(email, token);
+        if(newUser === ''){
+            await createUser({
+                userEmail: email
+            }, token)
+        }
+    }
+
     const getUserInterestsFirstTime = async (token: string) => {
 
-        let usrInt: IUserInterest[] =  await getAllUserInterestsOfUser(1, token);
+        let usrInt: IUserInterest[] =  await getAllUserInterestsOfUser(1, token);  // ! MOCK USER ID !
         usrInt = usrInt.filter(ui => ui.active)
 
         usrInt.sort((prev, next) => {       // * Sort userInterests by id and then show them in dropdown

@@ -25,7 +25,7 @@ export interface IFoundAdvert {
 export interface IUserAdvert {
     id?: number,
     isActive?: boolean,
-    image?: File | undefined,        // ? Ne sum sig za ova
+    image?: File | undefined,
     title: string,
     description: string,
     category: string,
@@ -58,4 +58,8 @@ export interface IAuth0UserInfo {
     name: string,
     email: string,
     token: string
+}
+
+export interface IUser {
+    userEmail: string
 }
