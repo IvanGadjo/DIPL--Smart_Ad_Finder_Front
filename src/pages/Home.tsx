@@ -30,6 +30,7 @@ const Home: FC<{}> = () => {
     
             
     useEffect(() => {
+        // console.log(userInterests)
         getUserInterests();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [category, region, showActiveUserInterests])

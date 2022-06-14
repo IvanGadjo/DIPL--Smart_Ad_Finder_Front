@@ -2,19 +2,22 @@ import axios, { isAxiosError } from '../axiosConfig';
 import { IUserInterest } from '../interfaces';
 
 export const getAllUserInterestsOfUser = async (userId: number, token: string) => {
-    console.log(token)      // ! IF TOKEN E '' NE PRAVI POVIK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    try {
-        let resp = await axios.get(`/api/userInterests/all/byUser/${userId}`,{
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        // console.log(resp.data);
+    if(token !== '') {
 
-        return resp.data;
-    } catch(err) {
-        return handleError(err);        // ! Not tested
+        try {
+            let resp = await axios.get(`/api/userInterests/all/byUser/${userId}`,{
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            // console.log(resp.data);
+
+            return resp.data;
+        } catch(err) {
+            return handleError(err);        // ! Not tested
+        }
+
     }
     
 }

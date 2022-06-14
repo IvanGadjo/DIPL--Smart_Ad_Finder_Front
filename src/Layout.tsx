@@ -14,6 +14,9 @@ import Loader from "./components/shared/Loader";
 import Settings from "./pages/Settings";
 import { useUI_ZustandStore } from "./utils/zustandStores/userInfoStore";
 import shallow from 'zustand/shallow';
+import { useRUIIS_ZustandStore } from "./utils/zustandStores/renderUserInterestsInfoStore";
+import { IUserInterest } from "./utils/interfaces";
+import { getAllUserInterestsOfUser } from "./utils/restServices/userInterestsService";
 
 
 
@@ -23,6 +26,11 @@ const Layout: FC<{}> = () => {
     const [ setAuth0UserInfo ] = useUI_ZustandStore(state => [state.setAuth0UserInfo], shallow);
     const { isAuthenticated, isLoading, getAccessTokenSilently, user } = useAuth0();
 
+    const [ setUserInterests, 
+            shownUserInterest,
+            setShownUserInterest ] = useUI_ZustandStore(state => [state.setUserInterests, state.shownUserInterest, state.setShownUserInterest], shallow);
+
+    
     useEffect(() => {
         fetchToken();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,7 +47,33 @@ const Layout: FC<{}> = () => {
                 token
             })
         }
-        // console.log(token)
+        console.log(token)
+
+        await getUserInterestsFirstTime(token);     // * First time call to API to ger user interests, needs to be done right after token retrieval - otherwise token is not set fast enough in 
+                                                    // * zustand store, and when calling getUserInterests() from Home - the token is undefined
+    }
+
+    const getUserInterestsFirstTime = async (token: string) => {
+
+        let usrInt: IUserInterest[] =  await getAllUserInterestsOfUser(1, token);
+        usrInt = usrInt.filter(ui => ui.active)
+
+        usrInt.sort((prev, next) => {       // * Sort userInterests by id and then show them in dropdown
+            if(shownUserInterest && prev.id === shownUserInterest.id){
+                return -1;
+            } else {
+
+                if(prev.id && next.id){
+                    if(prev.id > next.id) 
+                        return 1
+                    else  return -1
+                }
+                else return 1
+            }
+        })
+
+        setUserInterests(usrInt);
+        setShownUserInterest(usrInt[0]);
     }
 
 
