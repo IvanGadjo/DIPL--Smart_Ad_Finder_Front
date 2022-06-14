@@ -3,7 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { categories, regions } from "../../../utils/categoriesAndRegionsData";
 import { editUserInterest } from "../../../utils/restServices/userInterestsService";
 import { useNavigate } from "react-router-dom";
-
+import { useUI_ZustandStore } from "../../../utils/zustandStores/userInfoStore";
+import shallow from 'zustand/shallow';
 
 
 const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorija i region treba da se zemaat od userInterest
@@ -12,6 +13,7 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
     const navigate = useNavigate();                  // * Navigate programatically with react-router v6
     const userInterest: any = location.state;        // * Pass props via <Link> component in react router v6 - via state prop in Link & useLocation() hook in component
     
+    const [ auth0UserInfo ] = useUI_ZustandStore(state => [state.auth0UserInfo], shallow);
 
     const [title, setTitle] = useState<string>('');
     const [category, setCategory] = useState<string>('');
@@ -53,8 +55,8 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
             mainKeyword: title
         };
 
-        console.log(userInterest);
-        await editUserInterest(userInterest, 1);        // ! MOCK USER ID !
+        // console.log(userInterest);
+        await editUserInterest(userInterest, 1, auth0UserInfo.token);        // ! MOCK USER ID !
 
         navigate('../home', { replace: true });       // * Navigates to '/home', you can also pass state
     }

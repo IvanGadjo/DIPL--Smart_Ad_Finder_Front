@@ -40,13 +40,13 @@ const Home: FC<{}> = () => {
         let userInterests: IUserInterest[];
 
         if(category === 'all' && region === 'all'){         
-            userInterests = await getAllUserInterestsOfUser(mockUser.id);
+            userInterests = await getAllUserInterestsOfUser(mockUser.id, auth0UserInfo.token);
         } else if(category !== 'all' && region === 'all'){
-            userInterests = await getAllUserInterestsOfUserByCategory(category, mockUser.id);
+            userInterests = await getAllUserInterestsOfUserByCategory(category, mockUser.id, auth0UserInfo.token);
         } else if(category === 'all' && region !== 'all') {
-            userInterests = await getAllUserInterestsOfUserByRegion(region, mockUser.id);
+            userInterests = await getAllUserInterestsOfUserByRegion(region, mockUser.id, auth0UserInfo.token);
         } else {                                        // * Specific category & region
-            userInterests = await getAllUserInterestsOfUserByCatrgoryAndRegion(category, region, mockUser.id);
+            userInterests = await getAllUserInterestsOfUserByCatrgoryAndRegion(category, region, mockUser.id, auth0UserInfo.token);
         }
 
 
@@ -83,7 +83,7 @@ const Home: FC<{}> = () => {
     // console.log(category, region, showActiveUserInterests)
     // console.log(userInterests)
     // console.log(userInterests.find(ui => ui.id === 3)?.foundAdverts)
-    console.log(auth0UserInfo)
+    // console.log(auth0UserInfo)
 
 
     return (

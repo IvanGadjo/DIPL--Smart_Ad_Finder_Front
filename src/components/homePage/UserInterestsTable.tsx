@@ -19,7 +19,7 @@ interface IProps {
 
 const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => {
 
-    const [ shownUserInterest, setShownUserInterest ] = useUI_ZustandStore(state => [state.shownUserInterest, state.setShownUserInterest], shallow);
+    const [ shownUserInterest, setShownUserInterest, auth0UserInfo ] = useUI_ZustandStore(state => [state.shownUserInterest, state.setShownUserInterest, state.auth0UserInfo], shallow);
     const [ shownAds, setShownAds ] = useState<IFoundAdvert[] | undefined>();
     const [ prevShownAds, setPrevShownAds ] = useState<IFoundAdvert[] | undefined>();
 
@@ -45,12 +45,12 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
     const handleSetActiveOnInterest = async (userInterest: IUserInterest) => {
 
         if(userInterest.active)
-            await setActiveOnUserInterest(userInterest, 1, false);   // ! MOCK USER ID !
+            await setActiveOnUserInterest(userInterest, 1, false, auth0UserInfo.token);   // ! MOCK USER ID !
         else
-            await setActiveOnUserInterest(userInterest, 1, true);    // ! MOCK USER ID !
+            await setActiveOnUserInterest(userInterest, 1, true, auth0UserInfo.token);    // ! MOCK USER ID !
 
 
-        let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1);     // ! MOCK USER ID !
+        let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1, auth0UserInfo.token);     // ! MOCK USER ID !
 
         newUserInterests.sort((prev, next) => {       // * Sort userInterests by id and then show them in dropdown
             if(prev.id && next.id){
@@ -92,7 +92,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
     const handleDeleteFoundAd = async (foundAdvert: IFoundAdvert, userInterestId: number) => {
         
         await deleteFoundAdvert(foundAdvert);
-        let newUserInterest = await getUserInterestById(userInterestId);
+        let newUserInterest = await getUserInterestById(userInterestId, auth0UserInfo.token);
         let oldUserInterest = userInterests.find(ui => ui.id === newUserInterest.id);
 
 

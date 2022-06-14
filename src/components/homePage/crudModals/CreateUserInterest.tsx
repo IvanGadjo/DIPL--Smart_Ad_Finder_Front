@@ -3,11 +3,17 @@ import { categories, regions } from "../../../utils/categoriesAndRegionsData";
 import { createUserInterest } from "../../../utils/restServices/userInterestsService";
 import { IUserInterest } from "../../../utils/interfaces";
 import { useNavigate } from "react-router-dom";
+import { useUI_ZustandStore } from "../../../utils/zustandStores/userInfoStore";
+import shallow from 'zustand/shallow';
 
 
 
 
 const CreateUserInterest: FC<{}> = () => {        
+
+    const [ auth0UserInfo ] = useUI_ZustandStore(state => [state.auth0UserInfo], shallow);
+
+
 
     const [title, setTitle] = useState<string>('');
     const [category, setCategory] = useState<string>('');
@@ -53,7 +59,7 @@ const CreateUserInterest: FC<{}> = () => {
         };
 
         console.log(userInterest);
-        await createUserInterest(userInterest, 1);        // ! MOCK USER ID !
+        await createUserInterest(userInterest, 1, auth0UserInfo.token);        // ! MOCK USER ID !
 
         navigate('../home', { replace: true });       // * Navigates to '/home', you can also pass state
     }
