@@ -54,7 +54,7 @@ export interface IFoundAdvertDTO {
     userEmail?: string
 }
 
-export interface IAuth0UserInfo {
+export interface IAuth0UserInfo {           // * Can be extended to hold more auth0 user info extracted from the user in useAuth0()
     name: string,
     email: string,
     token: string

@@ -14,6 +14,9 @@ interface UserInterestsState {
     auth0UserInfo: IAuth0UserInfo;
     setAuth0UserInfo: (auth0info: IAuth0UserInfo) => void;
 
+    userId: number | null;
+    setUserId: (newUserId: number) => void;
+
     addFoundAdvert: (foundAdvert: IFoundAdvertDTO) => void;
 }
 
@@ -39,25 +42,28 @@ export const useUI_ZustandStore = create<UserInterestsState>()((set) => ({
     },
     setAuth0UserInfo: (auth0info: IAuth0UserInfo) => set(({ auth0UserInfo: auth0info })),
 
-    addFoundAdvert: (newFoundAdDTO: IFoundAdvertDTO) => set((state) => ({
-            userInterests: state.userInterests.map(ui => {         // * Find needed userInterest, update it
-                            if(ui.id === newFoundAdDTO.userInterestId){
-                                let newFoundAd: IFoundAdvert = {        // * Make new ad from DTO
-                                    alreadyShownToUser: false,
-                                    imageUrl: newFoundAdDTO.imageUrl,
-                                    price: newFoundAdDTO.price,
-                                    title: newFoundAdDTO.title,
-                                    url: newFoundAdDTO.url,
-                                    carYear: newFoundAdDTO.carYear,
-                                    carMileage: newFoundAdDTO.carMileage
-                                }
+    userId: null,
+    setUserId: (newUserId: number) => set({ userId: newUserId }),
 
-                                if(!ui.foundAdverts?.map(fa => fa.url).includes(newFoundAdDTO.url)){        // ? Ponekogas doagjaat 2 isti ad-a od websocketot, zatoa ova
-                                    ui.foundAdverts?.push(newFoundAd);
-                                }
-                                return ui;
-                            } else return ui;
-                        })
-            })
-        )}
-    ))
+    addFoundAdvert: (newFoundAdDTO: IFoundAdvertDTO) => set((state) => ({
+        userInterests: state.userInterests.map(ui => {         // * Find needed userInterest, update it
+                        if(ui.id === newFoundAdDTO.userInterestId){
+                            let newFoundAd: IFoundAdvert = {        // * Make new ad from DTO
+                                alreadyShownToUser: false,
+                                imageUrl: newFoundAdDTO.imageUrl,
+                                price: newFoundAdDTO.price,
+                                title: newFoundAdDTO.title,
+                                url: newFoundAdDTO.url,
+                                carYear: newFoundAdDTO.carYear,
+                                carMileage: newFoundAdDTO.carMileage
+                            }
+
+                            if(!ui.foundAdverts?.map(fa => fa.url).includes(newFoundAdDTO.url)){        // ? Ponekogas doagjaat 2 isti ad-a od websocketot, zatoa ova
+                                ui.foundAdverts?.push(newFoundAd);
+                            }
+                            return ui;
+                        } else return ui;
+                    })
+        })
+    ),
+}))

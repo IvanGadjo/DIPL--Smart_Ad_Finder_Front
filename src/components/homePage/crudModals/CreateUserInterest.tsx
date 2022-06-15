@@ -11,7 +11,7 @@ import shallow from 'zustand/shallow';
 
 const CreateUserInterest: FC<{}> = () => {        
 
-    const [ auth0UserInfo ] = useUI_ZustandStore(state => [state.auth0UserInfo], shallow);
+    const [ auth0UserInfo, userId ] = useUI_ZustandStore(state => [state.auth0UserInfo, state.userId], shallow);
 
 
 
@@ -66,7 +66,7 @@ const CreateUserInterest: FC<{}> = () => {
 
     return (
         <>      
-
+            {console.log(userId)}
             <h4>Додади ново барање:</h4>
 
             <form onSubmit={handleSubmit}>
