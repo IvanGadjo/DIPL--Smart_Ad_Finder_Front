@@ -5,12 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { createUserAdvert } from "../../../utils/restServices/userAdvertsService";
 import { useUI_ZustandStore } from "../../../utils/zustandStores/userInfoStore";
 import shallow from 'zustand/shallow';
+import { useUserAdverts } from "../../../utils/swrHooks/useUserAdverts";
 
 
 
 const CreateUserAdvert: FC<{}> = () => {        
 
     const [ auth0UserInfo, userId ] = useUI_ZustandStore(state => [state.auth0UserInfo, state.userId], shallow);
+    const { allAdverts, setAdverts } = useUserAdverts();
+
 
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -93,13 +96,14 @@ const CreateUserAdvert: FC<{}> = () => {
                 console.log('yes')
             }
 
-            console.log(userAd);
-            console.log(frmData.get("image"));
+            // console.log(userAd);
+            // console.log(frmData.get("image"));
 
 
 
-            await createUserAdvert(userAd, frmData, userId, auth0UserInfo.token);
-
+            let newAd = await createUserAdvert(userAd, frmData, userId, auth0UserInfo.token);
+            
+            setAdverts([...allAdverts, newAd])      // * Update ads in swr hook for real time render of ads
 
             navigate('../advertisments', { replace: true });   
         } else {
