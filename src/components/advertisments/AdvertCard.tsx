@@ -7,12 +7,13 @@ import { useUI_ZustandStore } from "../../utils/zustandStores/userInfoStore";
 import shallow from 'zustand/shallow';
 
 interface IProps {
-    userAdvert: IUserAdvert,         
+    userAdvert: IUserAdvert, 
+    typeOfAdsShown: string,        
 }
 
 
 
-const AdvertCard: FC<IProps> = ({ userAdvert }) => {
+const AdvertCard: FC<IProps> = ({ userAdvert, typeOfAdsShown }) => {
 
 
     const [ auth0UserInfo, userId ] = useUI_ZustandStore(state => [state.auth0UserInfo, state.userId], shallow);
@@ -41,8 +42,8 @@ const AdvertCard: FC<IProps> = ({ userAdvert }) => {
 
 
             if(userAdvert.isActive){
-                await setActiveOnUserAdvert(userAdvert, 1, false, auth0UserInfo.token);
-            } else await setActiveOnUserAdvert(userAdvert, 1, true, auth0UserInfo.token);
+                await setActiveOnUserAdvert(userAdvert, userId, false, auth0UserInfo.token);
+            } else await setActiveOnUserAdvert(userAdvert, userId, true, auth0UserInfo.token);
 
 
             let newAdsArray = allAdverts.map((ad: IUserAdvert) => {     // * Triggers component rerender
@@ -64,15 +65,29 @@ const AdvertCard: FC<IProps> = ({ userAdvert }) => {
 
     return(
         <>
+                
 
                 <div style={{backgroundColor: '#f1fcc7', width: '400px'}}>
                     <strong>{userAdvert.category}, {userAdvert.region}</strong>
 
-                    <Link to='/editUserAdvert' state={userAdvert}>
-                        <button>Промени</button>
-                    </Link>
 
-                    <button onClick={() => {handleSetActiveOnAdvert()}}>Активирај/Деактивирај</button>
+                    <>
+                        {
+                            typeOfAdsShown === 'byUser' ?
+
+                            <>
+                                <Link to='/editUserAdvert' state={userAdvert}>
+                                    <button>Промени</button>
+                                </Link>
+
+                                <button onClick={() => {handleSetActiveOnAdvert()}}>Активирај/Деактивирај</button>
+                            </>
+                            : 
+
+                            <></>
+                        }
+                        
+                    </>
 
 
                     <h2>{userAdvert.title}</h2>

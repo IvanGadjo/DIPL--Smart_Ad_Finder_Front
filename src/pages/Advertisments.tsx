@@ -10,6 +10,7 @@ const Advertisments: FC<{}> = () => {
 
     const { allAdverts, isLoadingData } = useUserAdverts();
     const [ shownAdverts, setShownAdverts ] = useState<IUserAdvert[]>();
+    const [ typeOfAdsShown, setTypeOfAdsShown ] = useState<string>('all');
 
     useEffect(() => {
         // console.log(allAdverts)
@@ -19,7 +20,9 @@ const Advertisments: FC<{}> = () => {
 
     return (
         <>  
-        {/* {console.log(shownAdverts)} */}
+        {console.log(shownAdverts)}
+        {console.log(typeOfAdsShown)}
+
             {
                 isLoadingData 
                 ? 
@@ -28,14 +31,14 @@ const Advertisments: FC<{}> = () => {
                 </> 
                 :
                 <>
-                    <ActionsPanel setShownAdverts={setShownAdverts}/>
+                    <ActionsPanel setShownAdverts={setShownAdverts} typeOfAdsShown={typeOfAdsShown} setTypeOfAdsShown={setTypeOfAdsShown}/>
                     <br/>
                     <br/>
 
                     {/* {allAdverts.map((adv: IUserAdvert) => <AdvertCard key={adv.id} userAdvert={adv}/>)} */}
                     
                     {
-                        shownAdverts? shownAdverts.map((adv: IUserAdvert) => <AdvertCard key={adv.id} userAdvert={adv}/>) : null
+                        shownAdverts? shownAdverts.map((adv: IUserAdvert) => <AdvertCard key={adv.id} userAdvert={adv} typeOfAdsShown={typeOfAdsShown}/>) : null
                     }
 
                 </>

@@ -106,7 +106,8 @@ const EditUserAdvert: FC<{}> = () => {
                 if(ad.id){
                     if(ad.id !== editedAd.id)
                         return ad
-                }      
+                } 
+                return null;    
             })
 
             console.log(filteredAds)

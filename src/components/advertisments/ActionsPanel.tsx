@@ -6,30 +6,34 @@ import { useUI_ZustandStore } from '../../utils/zustandStores/userInfoStore';
 import shallow from 'zustand/shallow';
 
 interface IProps {
-    setShownAdverts: Dispatch<SetStateAction<IUserAdvert[] | undefined>>
+    setShownAdverts: Dispatch<SetStateAction<IUserAdvert[] | undefined>>,
+    typeOfAdsShown: string,
+    setTypeOfAdsShown: Dispatch<SetStateAction<string>>
 }
 
 
 
-const ActionsPanel: FC<IProps> = ({ setShownAdverts }) => {
+const ActionsPanel: FC<IProps> = ({ setShownAdverts, typeOfAdsShown, setTypeOfAdsShown }) => {
 
     const [ userId, auth0UserInfo ] = useUI_ZustandStore(state => [state.userId, state.auth0UserInfo], shallow);
-    const [shownAdsType, setShownAdsType] = useState('byUser');
-    
 
+    
     const handleToggle_advertsShownType = async () => {
-        if(shownAdsType === 'byUser') {
+        if(typeOfAdsShown === 'byUser') {
+
+            let userAds = await getAllAdverts();   
+            
+            setShownAdverts(userAds);
+            setTypeOfAdsShown('all');
+            
+        } else {
             if(userId){
                 let userAds = await getAllAdvertsByUserId(userId, auth0UserInfo.token);
                 setShownAdverts(userAds);
-                setShownAdsType('all');
+                setTypeOfAdsShown('byUser');
             } else {
                 console.error('UserID e UNDEFINED!')
             }
-        } else {
-            let userAds = await getAllAdverts();      
-            setShownAdverts(userAds);
-            setShownAdsType('byUser');
         }
     }
 
