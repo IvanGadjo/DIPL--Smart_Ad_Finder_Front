@@ -3,11 +3,14 @@ import { categories, regions } from "../../../utils/categoriesAndRegionsData";
 import { IUserAdvert } from "../../../utils/interfaces";
 import { useNavigate, useLocation } from "react-router-dom";
 import { editUserAdvert } from "../../../utils/restServices/userAdvertsService";
-
+import { useUI_ZustandStore } from "../../../utils/zustandStores/userInfoStore";
+import shallow from 'zustand/shallow';
 
 
 
 const EditUserAdvert: FC<{}> = () => {        
+
+    const [ auth0UserInfo, userId ] = useUI_ZustandStore(state => [state.auth0UserInfo, state.userId], shallow);
 
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -73,31 +76,33 @@ const EditUserAdvert: FC<{}> = () => {
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
 
-        let userAd:IUserAdvert = {
-            id: userAdvert.id,
-            isActive: true,
-            category,
-            region,
-            title,
-            description,
-            price,
-            contactInfo
-        };
+        if(userId) {
 
-        const frmData = new FormData();
+            let userAd:IUserAdvert = {
+                id: userAdvert.id,
+                isActive: true,
+                category,
+                region,
+                title,
+                description,
+                price,
+                contactInfo
+            };
 
-        if(image){
-            frmData.append('image', image)
+            const frmData = new FormData();
+
+            if(image){
+                frmData.append('image', image)
+            }
+
+            // await editUserAdvert(userAd, frmData, 1);        // ! MOCK USER ID !
+            await editUserAdvert(userAd, frmData, userId, auth0UserInfo.token);
+
+
+            navigate('../advertisments', { replace: true });     
+        } else {
+            console.error('UserID e UNDEFINED!')
         }
-
-        // console.log(userAd);
-        // console.log(frmData.get("image"));
-
-
-
-        await editUserAdvert(userAd, frmData, 1);        // ! MOCK USER ID !
-
-        navigate('../advertisments', { replace: true });       
     }
 
     return (

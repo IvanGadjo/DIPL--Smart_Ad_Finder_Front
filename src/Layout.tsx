@@ -28,11 +28,13 @@ const Layout: FC<{}> = () => {
 
     const [ setUserInterests, 
             shownUserInterest,
-            setShownUserInterest ] = useUI_ZustandStore(state => [state.setUserInterests, state.shownUserInterest, state.setShownUserInterest], shallow);
+            setShownUserInterest,
+            userId,
+            setUserId ] = useUI_ZustandStore(state => [state.setUserInterests, state.shownUserInterest, state.setShownUserInterest, state.userId, state.setUserId], shallow);
 
     
     useEffect(() => {
-        fetchToken();
+        fetchToken();       // * Calls getLoggedInUser() which then calls getUserInterestsFirstTime()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
 
@@ -48,26 +50,35 @@ const Layout: FC<{}> = () => {
             })
 
             await getLoggedInUser(user.email, token);
-
+            
         }
         // console.log(token)
-
-        await getUserInterestsFirstTime(token);     // * First time call to API to ger user interests, needs to be done right after token retrieval - otherwise token is not set fast enough in 
-                                                    // * zustand store, and when calling getUserInterests() from Home - the token is undefined
     }
 
     const getLoggedInUser = async (email: string, token: string) => {
         let newUser = await getUserByEmail(email, token);
+
         if(newUser === ''){
-            await createUser({
+            newUser = await createUser({
                 userEmail: email
             }, token)
+
+            setUserId(newUser.id)
+        } else {
+            setUserId(newUser.id)
         }
+
+
+        await getUserInterestsFirstTime(newUser.id, token);     // * First time call to API to ger user interests, needs to be done right after token retrieval - otherwise token is not set fast enough in 
+                                                    // * zustand store, and when calling getUserInterests() from Home - the token is undefined
     }
 
-    const getUserInterestsFirstTime = async (token: string) => {
+    const getUserInterestsFirstTime = async (firstTimeUserId: number, token: string) => {
 
-        let usrInt: IUserInterest[] =  await getAllUserInterestsOfUser(1, token);  // ! MOCK USER ID !
+
+        let usrInt: IUserInterest[] =  await getAllUserInterestsOfUser(firstTimeUserId, token);  
+        console.log(usrInt)
+
         usrInt = usrInt.filter(ui => ui.active)
 
         usrInt.sort((prev, next) => {       // * Sort userInterests by id and then show them in dropdown
@@ -83,6 +94,8 @@ const Layout: FC<{}> = () => {
                 else return 1
             }
         })
+
+        // console.log(usrInt)
 
         setUserInterests(usrInt);
         setShownUserInterest(usrInt[0]);

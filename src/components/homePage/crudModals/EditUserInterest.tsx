@@ -13,7 +13,7 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
     const navigate = useNavigate();                  // * Navigate programatically with react-router v6
     const userInterest: any = location.state;        // * Pass props via <Link> component in react router v6 - via state prop in Link & useLocation() hook in component
     
-    const [ auth0UserInfo ] = useUI_ZustandStore(state => [state.auth0UserInfo], shallow);
+    const [ auth0UserInfo, userId ] = useUI_ZustandStore(state => [state.auth0UserInfo, state.userId], shallow);
 
     const [title, setTitle] = useState<string>('');
     const [category, setCategory] = useState<string>('');
@@ -49,16 +49,22 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
 
-        userInterest.category = category;
-        userInterest.region = region;
-        userInterest.keywords = {
-            mainKeyword: title
-        };
+        if(userId) {
 
-        // console.log(userInterest);
-        await editUserInterest(userInterest, 1, auth0UserInfo.token);        // ! MOCK USER ID !
+            userInterest.category = category;
+            userInterest.region = region;
+            userInterest.keywords = {
+                mainKeyword: title
+            };
 
-        navigate('../home', { replace: true });       // * Navigates to '/home', you can also pass state
+            // console.log(userInterest);
+            // await editUserInterest(userInterest, 1, auth0UserInfo.token);        // ! MOCK USER ID !
+            await editUserInterest(userInterest, userId, auth0UserInfo.token);       
+
+            navigate('../home', { replace: true });       // * Navigates to '/home', you can also pass state
+        } else {
+            console.error('UserID e UNDEFINED!')
+        }
     }
 
     return (

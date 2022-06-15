@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { IUserAdvert } from "../../utils/interfaces";
 import { setActiveOnUserAdvert } from '../../utils/restServices/userAdvertsService';
 import { useUserAdverts } from "../../utils/swrHooks/useUserAdverts";
+import { useUI_ZustandStore } from "../../utils/zustandStores/userInfoStore";
+import shallow from 'zustand/shallow';
 
 interface IProps {
     userAdvert: IUserAdvert,         
@@ -13,7 +15,7 @@ interface IProps {
 const AdvertCard: FC<IProps> = ({ userAdvert }) => {
 
 
-
+    const [ auth0UserInfo, userId ] = useUI_ZustandStore(state => [state.auth0UserInfo, state.userId], shallow);
     const { allAdverts, setAdverts } = useUserAdverts();
 
 
@@ -29,26 +31,31 @@ const AdvertCard: FC<IProps> = ({ userAdvert }) => {
         return window.btoa( binary );
     }
 
-    const handleSetActiveOnAdvert = async () => {       // ? IMAGETO KOGA SE PRAKJA NA SERVER E SEKOGAS NULL
+    const handleSetActiveOnAdvert = async () => {
 
-        const frmData = new FormData();
-        if(userAdvert.image)
-            frmData.append('image', userAdvert.image)
+        if(userId) {
 
-
-        if(userAdvert.isActive){
-            await setActiveOnUserAdvert(userAdvert, 1, false);          // ! MOCK USER ID !
-        } else await setActiveOnUserAdvert(userAdvert, 1, true);            // ! MOCK USER ID !
+            const frmData = new FormData();
+            if(userAdvert.image)
+                frmData.append('image', userAdvert.image)
 
 
-        let newAdsArray = allAdverts.map((ad: IUserAdvert) => {     // * Triggers component rerender
-            if(ad.id === userAdvert.id){
-                ad.isActive = false;
-            }
-            return ad;
-        })
+            if(userAdvert.isActive){
+                await setActiveOnUserAdvert(userAdvert, 1, false, auth0UserInfo.token);          // ! MOCK USER ID !
+            } else await setActiveOnUserAdvert(userAdvert, 1, true, auth0UserInfo.token);            // ! MOCK USER ID !
 
-        setAdverts(newAdsArray);
+
+            let newAdsArray = allAdverts.map((ad: IUserAdvert) => {     // * Triggers component rerender
+                if(ad.id === userAdvert.id){
+                    ad.isActive = false;
+                }
+                return ad;
+            })
+
+            setAdverts(newAdsArray);
+        } else {
+            console.error('UserID e UNDEFINED!')
+        }
     } 
     
 

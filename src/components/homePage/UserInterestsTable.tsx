@@ -19,7 +19,10 @@ interface IProps {
 
 const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => {
 
-    const [ shownUserInterest, setShownUserInterest, auth0UserInfo ] = useUI_ZustandStore(state => [state.shownUserInterest, state.setShownUserInterest, state.auth0UserInfo], shallow);
+    const [ shownUserInterest, 
+            setShownUserInterest, 
+            auth0UserInfo,
+            userId ] = useUI_ZustandStore(state => [state.shownUserInterest, state.setShownUserInterest, state.auth0UserInfo, state.userId], shallow);
     const [ shownAds, setShownAds ] = useState<IFoundAdvert[] | undefined>();
     const [ prevShownAds, setPrevShownAds ] = useState<IFoundAdvert[] | undefined>();
 
@@ -44,25 +47,38 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
     const handleSetActiveOnInterest = async (userInterest: IUserInterest) => {
 
-        if(userInterest.active)
-            await setActiveOnUserInterest(userInterest, 1, false, auth0UserInfo.token);   // ! MOCK USER ID !
-        else
-            await setActiveOnUserInterest(userInterest, 1, true, auth0UserInfo.token);    // ! MOCK USER ID !
+        if(userId) {
 
+            if(userInterest.active){
+                // await setActiveOnUserInterest(userInterest, 1, false, auth0UserInfo.token);   // ! MOCK USER ID !
+                await setActiveOnUserInterest(userInterest, userId, false, auth0UserInfo.token);
 
-        let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1, auth0UserInfo.token);     // ! MOCK USER ID !
-
-        newUserInterests.sort((prev, next) => {       // * Sort userInterests by id and then show them in dropdown
-            if(prev.id && next.id){
-                if(prev.id > next.id) 
-                    return 1
-                else  return -1
             }
-            else return 1
-        })
+            else {
+                // await setActiveOnUserInterest(userInterest, 1, true, auth0UserInfo.token);    // ! MOCK USER ID !
+                await setActiveOnUserInterest(userInterest, userId, true, auth0UserInfo.token);
+
+            }
 
 
-        setUserInterests(newUserInterests);     // * State change triggers rerender
+            // let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1, auth0UserInfo.token);     // ! MOCK USER ID !
+            let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(userId, auth0UserInfo.token);
+
+
+            newUserInterests.sort((prev, next) => {       // * Sort userInterests by id and then show them in dropdown
+                if(prev.id && next.id){
+                    if(prev.id > next.id) 
+                        return 1
+                    else  return -1
+                }
+                else return 1
+            })
+
+
+            setUserInterests(newUserInterests);     // * State change triggers rerender
+        } else {
+            console.error('UserID e UNDEFINED!')
+        }
     }
 
     const handleWebsiteChoiceChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
@@ -90,30 +106,35 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
     }
 
     const handleDeleteFoundAd = async (foundAdvert: IFoundAdvert, userInterestId: number) => {
+
+        if(userId) {
         
-        await deleteFoundAdvert(foundAdvert);
-        let newUserInterest = await getUserInterestById(userInterestId, auth0UserInfo.token);
-        let oldUserInterest = userInterests.find(ui => ui.id === newUserInterest.id);
+            await deleteFoundAdvert(foundAdvert, auth0UserInfo.token);
+            let newUserInterest = await getUserInterestById(userInterestId, auth0UserInfo.token);
+            let oldUserInterest = userInterests.find(ui => ui.id === newUserInterest.id);
 
 
-        if(oldUserInterest) {
-            userInterests.splice(userInterests.indexOf(oldUserInterest), 1);        // * Splice returns array of deleted elements :/
+            if(oldUserInterest) {
+                userInterests.splice(userInterests.indexOf(oldUserInterest), userId);        // * Splice returns array of deleted elements :/
 
-            userInterests.push(newUserInterest)
-            setUserInterests(userInterests);
-            setShownUserInterest(newUserInterest)
+                userInterests.push(newUserInterest)
+                setUserInterests(userInterests);
+                setShownUserInterest(newUserInterest)
+            } else {
+                console.log('Error in handleDeleteFoundAd')
+            }
+
+            // await deleteFoundAdvert(foundAdvert);        // * Another way of deleting, refetches data from back
+            // let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1);     // ! MOCK USER ID !
+            // setUserInterests(newUserInterests);     
+
+            // let updatedUserInterest = newUserInterests.find(ui => ui.id === userInterestId)
+
+            // if(updatedUserInterest)
+            //     setShownUserInterest(updatedUserInterest)
         } else {
-            console.log('Error in handleDeleteFoundAd')
+            console.error('UserID e UNDEFINED!')
         }
-
-        // await deleteFoundAdvert(foundAdvert);        // * Another way of deleting, refetches data from back
-        // let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1);     // ! MOCK USER ID !
-        // setUserInterests(newUserInterests);     
-
-        // let updatedUserInterest = newUserInterests.find(ui => ui.id === userInterestId)
-
-        // if(updatedUserInterest)
-        //     setShownUserInterest(updatedUserInterest)
 
     }
 

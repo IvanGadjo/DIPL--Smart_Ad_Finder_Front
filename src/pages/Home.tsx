@@ -25,7 +25,8 @@ const Home: FC<{}> = () => {
             userInterests,
             shownUserInterest,
             setShownUserInterest,
-            auth0UserInfo ] = useUI_ZustandStore(state => [state.setUserInterests, state.userInterests, state.shownUserInterest, state.setShownUserInterest, state.auth0UserInfo], shallow);
+            auth0UserInfo,
+            userId ] = useUI_ZustandStore(state => [state.setUserInterests, state.userInterests, state.shownUserInterest, state.setShownUserInterest, state.auth0UserInfo, state.userId], shallow);
 
     
             
@@ -38,47 +39,56 @@ const Home: FC<{}> = () => {
 
     const getFilteredUserInterests = async () => {      
 
-        let userInterests: IUserInterest[];
+        if(userId) {
 
-        if(category === 'all' && region === 'all'){         
-            userInterests = await getAllUserInterestsOfUser(mockUser.id, auth0UserInfo.token);
-        } else if(category !== 'all' && region === 'all'){
-            userInterests = await getAllUserInterestsOfUserByCategory(category, mockUser.id, auth0UserInfo.token);
-        } else if(category === 'all' && region !== 'all') {
-            userInterests = await getAllUserInterestsOfUserByRegion(region, mockUser.id, auth0UserInfo.token);
-        } else {                                        // * Specific category & region
-            userInterests = await getAllUserInterestsOfUserByCatrgoryAndRegion(category, region, mockUser.id, auth0UserInfo.token);
-        }
+            let userInterests: IUserInterest[];
+
+            if(category === 'all' && region === 'all'){         
+                userInterests = await getAllUserInterestsOfUser(userId, auth0UserInfo.token);
+            } else if(category !== 'all' && region === 'all'){
+                userInterests = await getAllUserInterestsOfUserByCategory(category, userId, auth0UserInfo.token);
+            } else if(category === 'all' && region !== 'all') {
+                userInterests = await getAllUserInterestsOfUserByRegion(region, userId, auth0UserInfo.token);
+            } else {                                        // * Specific category & region
+                userInterests = await getAllUserInterestsOfUserByCatrgoryAndRegion(category, region, userId, auth0UserInfo.token);
+            }
 
 
-        if(showActiveUserInterests){        // * Show only active interests
-            return userInterests.filter(ui => ui.active)
-        } else {        // * Show only deactivated interests
-            return userInterests.filter(ui => !ui.active)
+            if(showActiveUserInterests){        // * Show only active interests
+                return userInterests.filter(ui => ui.active)
+            } else {        // * Show only deactivated interests
+                return userInterests.filter(ui => !ui.active)
+            }
+        } else {
+            console.error('UserID e UNDEFINED!')
         }
     }
 
     const getUserInterests = async () => {
 
-        const usrInt: IUserInterest[] =  await getFilteredUserInterests();
+        const usrInt: IUserInterest[]|undefined =  await getFilteredUserInterests();
 
-        usrInt.sort((prev, next) => {       // * Sort userInterests by id and then show them in dropdown
+        if(usrInt) {
+            usrInt.sort((prev, next) => {       // * Sort userInterests by id and then show them in dropdown
 
-            if(shownUserInterest && prev.id === shownUserInterest.id){
-                return -1;
-            } else {
+                if(shownUserInterest && prev.id === shownUserInterest.id){
+                    return -1;
+                } else {
 
-                if(prev.id && next.id){
-                    if(prev.id > next.id) 
-                        return 1
-                    else  return -1
+                    if(prev.id && next.id){
+                        if(prev.id > next.id) 
+                            return 1
+                        else  return -1
+                    }
+                    else return 1
                 }
-                else return 1
-            }
-        })
+            })
 
-        setUserInterests(usrInt);
-        setShownUserInterest(usrInt[0]);
+            setUserInterests(usrInt);
+            setShownUserInterest(usrInt[0]);
+        } else {
+            console.error('UserID e UNDEFINED!')
+        }
     }
 
     // console.log(category, region, showActiveUserInterests)

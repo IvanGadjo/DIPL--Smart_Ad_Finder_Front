@@ -3,11 +3,14 @@ import { categories, regions } from "../../../utils/categoriesAndRegionsData";
 import { IUserAdvert } from "../../../utils/interfaces";
 import { useNavigate } from "react-router-dom";
 import { createUserAdvert } from "../../../utils/restServices/userAdvertsService";
-
+import { useUI_ZustandStore } from "../../../utils/zustandStores/userInfoStore";
+import shallow from 'zustand/shallow';
 
 
 
 const CreateUserAdvert: FC<{}> = () => {        
+
+    const [ auth0UserInfo, userId ] = useUI_ZustandStore(state => [state.auth0UserInfo, state.userId], shallow);
 
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -71,31 +74,38 @@ const CreateUserAdvert: FC<{}> = () => {
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
 
-        let userAd:IUserAdvert = {
-            isActive: true,
-            category,
-            region,
-            title,
-            description,
-            price,
-            contactInfo
-        };
+        if(userId) {
 
-        const frmData = new FormData();
+            let userAd:IUserAdvert = {
+                isActive: true,
+                category,
+                region,
+                title,
+                description,
+                price,
+                contactInfo
+            };
 
-        if(image){
-            frmData.append('image', image)
-            console.log('yes')
-        }
+            const frmData = new FormData();
 
-        console.log(userAd);
-        console.log(frmData.get("image"));
+            if(image){
+                frmData.append('image', image)
+                console.log('yes')
+            }
+
+            console.log(userAd);
+            console.log(frmData.get("image"));
 
 
 
-        await createUserAdvert(userAd, frmData, 1);        // ! MOCK USER ID !
+            // await createUserAdvert(userAd, frmData, 1);        // ! MOCK USER ID !
+            await createUserAdvert(userAd, frmData, userId, auth0UserInfo.token);
 
-        navigate('../advertisments', { replace: true });       
+
+            navigate('../advertisments', { replace: true });   
+        } else {
+            console.error('UserID e UNDEFINED!')
+        }   
     }
 
     return (

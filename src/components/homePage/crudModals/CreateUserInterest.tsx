@@ -49,24 +49,30 @@ const CreateUserInterest: FC<{}> = () => {
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
 
-        let userInterest:IUserInterest = {
-            active: true,
-            category,
-            region,
-            keywords: {
-                mainKeyword: title
-            },
-        };
+        if(userId) {
 
-        console.log(userInterest);
-        await createUserInterest(userInterest, 1, auth0UserInfo.token);        // ! MOCK USER ID !
+            let userInterest:IUserInterest = {
+                active: true,
+                category,
+                region,
+                keywords: {
+                    mainKeyword: title
+                },
+            };
 
-        navigate('../home', { replace: true });       // * Navigates to '/home', you can also pass state
+            // console.log(userInterest);
+            
+            // await createUserInterest(userInterest, 1, auth0UserInfo.token);        // ! MOCK USER ID !
+            await createUserInterest(userInterest, userId, auth0UserInfo.token);
+
+            navigate('../home', { replace: true });       // * Navigates to '/home', you can also pass state
+        } else {
+            console.error('UserID e UNDEFINED!')
+        }
     }
 
     return (
         <>      
-            {console.log(userId)}
             <h4>Додади ново барање:</h4>
 
             <form onSubmit={handleSubmit}>
