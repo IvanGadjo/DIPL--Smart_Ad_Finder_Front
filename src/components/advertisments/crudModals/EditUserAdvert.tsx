@@ -95,7 +95,6 @@ const EditUserAdvert: FC<{}> = () => {
                 frmData.append('image', image)
             }
 
-            // await editUserAdvert(userAd, frmData, 1);        // ! MOCK USER ID !
             await editUserAdvert(userAd, frmData, userId, auth0UserInfo.token);
 
 

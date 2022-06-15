@@ -98,7 +98,6 @@ const CreateUserAdvert: FC<{}> = () => {
 
 
 
-            // await createUserAdvert(userAd, frmData, 1);        // ! MOCK USER ID !
             await createUserAdvert(userAd, frmData, userId, auth0UserInfo.token);
 
 

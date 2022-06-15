@@ -19,7 +19,6 @@ const ActionsPanel: FC<IProps> = ({ setShownAdverts }) => {
 
     const handleToggle_advertsShownType = async () => {
         if(shownAdsType === 'byUser') {
-            // let userAds = await getAllAdvertsByUserId(1);      // ! MOCK USER ID
             if(userId){
                 let userAds = await getAllAdvertsByUserId(userId, auth0UserInfo.token);
                 setShownAdverts(userAds);

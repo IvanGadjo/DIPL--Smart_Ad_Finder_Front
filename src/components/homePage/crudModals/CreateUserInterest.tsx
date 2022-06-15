@@ -62,7 +62,6 @@ const CreateUserInterest: FC<{}> = () => {
 
             // console.log(userInterest);
             
-            // await createUserInterest(userInterest, 1, auth0UserInfo.token);        // ! MOCK USER ID !
             await createUserInterest(userInterest, userId, auth0UserInfo.token);
 
             navigate('../home', { replace: true });       // * Navigates to '/home', you can also pass state

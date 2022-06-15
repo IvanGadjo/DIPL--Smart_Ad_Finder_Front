@@ -50,18 +50,12 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
         if(userId) {
 
             if(userInterest.active){
-                // await setActiveOnUserInterest(userInterest, 1, false, auth0UserInfo.token);   // ! MOCK USER ID !
                 await setActiveOnUserInterest(userInterest, userId, false, auth0UserInfo.token);
-
             }
             else {
-                // await setActiveOnUserInterest(userInterest, 1, true, auth0UserInfo.token);    // ! MOCK USER ID !
                 await setActiveOnUserInterest(userInterest, userId, true, auth0UserInfo.token);
-
             }
 
-
-            // let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1, auth0UserInfo.token);     // ! MOCK USER ID !
             let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(userId, auth0UserInfo.token);
 
 
@@ -125,7 +119,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
             }
 
             // await deleteFoundAdvert(foundAdvert);        // * Another way of deleting, refetches data from back
-            // let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1);     // ! MOCK USER ID !
+            // let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(1); 
             // setUserInterests(newUserInterests);     
 
             // let updatedUserInterest = newUserInterests.find(ui => ui.id === userInterestId)

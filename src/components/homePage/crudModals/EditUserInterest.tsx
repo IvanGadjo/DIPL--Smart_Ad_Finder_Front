@@ -58,7 +58,6 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
             };
 
             // console.log(userInterest);
-            // await editUserInterest(userInterest, 1, auth0UserInfo.token);        // ! MOCK USER ID !
             await editUserInterest(userInterest, userId, auth0UserInfo.token);       
 
             navigate('../home', { replace: true });       // * Navigates to '/home', you can also pass state

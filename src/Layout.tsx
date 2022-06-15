@@ -29,8 +29,7 @@ const Layout: FC<{}> = () => {
     const [ setUserInterests, 
             shownUserInterest,
             setShownUserInterest,
-            userId,
-            setUserId ] = useUI_ZustandStore(state => [state.setUserInterests, state.shownUserInterest, state.setShownUserInterest, state.userId, state.setUserId], shallow);
+            setUserId ] = useUI_ZustandStore(state => [state.setUserInterests, state.shownUserInterest, state.setShownUserInterest, state.setUserId], shallow);
 
     
     useEffect(() => {

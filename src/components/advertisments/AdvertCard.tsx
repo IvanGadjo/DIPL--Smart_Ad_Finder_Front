@@ -41,8 +41,8 @@ const AdvertCard: FC<IProps> = ({ userAdvert }) => {
 
 
             if(userAdvert.isActive){
-                await setActiveOnUserAdvert(userAdvert, 1, false, auth0UserInfo.token);          // ! MOCK USER ID !
-            } else await setActiveOnUserAdvert(userAdvert, 1, true, auth0UserInfo.token);            // ! MOCK USER ID !
+                await setActiveOnUserAdvert(userAdvert, 1, false, auth0UserInfo.token);
+            } else await setActiveOnUserAdvert(userAdvert, 1, true, auth0UserInfo.token);
 
 
             let newAdsArray = allAdverts.map((ad: IUserAdvert) => {     // * Triggers component rerender
