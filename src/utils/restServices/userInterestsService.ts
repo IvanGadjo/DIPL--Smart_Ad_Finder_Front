@@ -127,7 +127,7 @@ export const createUserInterest = async (newUserInterest:IUserInterest, userId: 
                 Authorization: `Bearer ${token}`,
             },
         });         // * URL params directly in URL string
-        console.log(resp.data);
+        // console.log(resp.data);
 
         return resp.data;
     } catch (err) {

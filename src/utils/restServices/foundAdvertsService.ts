@@ -2,10 +2,14 @@ import axios, { isAxiosError } from '../axiosConfig';
 import { IFoundAdvert } from '../interfaces';
 
 
-export const deleteFoundAdvert = async (foundAd: IFoundAdvert) => {
+export const deleteFoundAdvert = async (foundAd: IFoundAdvert, token:string) => {
 
     try {
-        let resp = await axios.delete(`/api/foundAdverts/${foundAd.id}`);
+        let resp = await axios.delete(`/api/foundAdverts/${foundAd.id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
 
         return resp.data;
     } catch(err) {
