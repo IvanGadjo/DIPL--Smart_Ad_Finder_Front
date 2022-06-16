@@ -16,12 +16,26 @@ const Advertisments: FC<{}> = () => {
         // console.log(allAdverts)
         setShownAdverts(allAdverts)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[isLoadingData])
+    },[isLoadingData]);
+
+
+
+
+    const renderAdvertCards = () => {
+        if(shownAdverts){
+            if(shownAdverts.length === 0){
+                return <>Сеуште немате внесено оглас!</>
+            } else {
+                return shownAdverts.map((adv: IUserAdvert) => <AdvertCard key={adv.id} userAdvert={adv} typeOfAdsShown={typeOfAdsShown}/>)
+            }
+        } else {
+            return <></>
+        }
+    }
 
     return (
         <>  
         {console.log(shownAdverts)}
-        {console.log(typeOfAdsShown)}
 
             {
                 isLoadingData 
@@ -37,9 +51,8 @@ const Advertisments: FC<{}> = () => {
 
                     {/* {allAdverts.map((adv: IUserAdvert) => <AdvertCard key={adv.id} userAdvert={adv}/>)} */}
                     
-                    {
-                        shownAdverts? shownAdverts.map((adv: IUserAdvert) => <AdvertCard key={adv.id} userAdvert={adv} typeOfAdsShown={typeOfAdsShown}/>) : null
-                    }
+
+                    { renderAdvertCards() } 
 
                 </>
             }
