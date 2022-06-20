@@ -36,10 +36,17 @@ function App() {
 
       stompClient.subscribe('/topic/group', (message: Stomp.Message) => {     // * Receive messages
 
+        // console.log(JSON.parse(message.body))
+
         addFoundAdvert(JSON.parse(message.body));     // * Dobro se polnat
 
       });
     });
+
+
+
+
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

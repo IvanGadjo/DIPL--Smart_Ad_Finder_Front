@@ -47,6 +47,9 @@ export const useUI_ZustandStore = create<UserInterestsState>()((set) => ({
 
     addFoundAdvert: (newFoundAdDTO: IFoundAdvertDTO) => set((state) => ({
         userInterests: state.userInterests.map(ui => {         // * Find needed userInterest, update it
+
+
+
                         if(ui.id === newFoundAdDTO.userInterestId){
                             let newFoundAd: IFoundAdvert = {        // * Make new ad from DTO
                                 alreadyShownToUser: false,
@@ -58,9 +61,15 @@ export const useUI_ZustandStore = create<UserInterestsState>()((set) => ({
                                 carMileage: newFoundAdDTO.carMileage
                             }
 
+
                             if(!ui.foundAdverts?.map(fa => fa.url).includes(newFoundAdDTO.url)){        // ? Ponekogas doagjaat 2 isti ad-a od websocketot, zatoa ova
+                                // console.log('Gi kladov!')
                                 ui.foundAdverts?.push(newFoundAd);
                             }
+                            // ui.foundAdverts?.push(newFoundAd);
+
+                            console.log(ui)
+
                             return ui;
                         } else return ui;
                     })

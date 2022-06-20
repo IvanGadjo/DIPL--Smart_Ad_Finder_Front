@@ -1,7 +1,6 @@
 import { FC, useEffect } from "react";
 import UserInterestsTable from "../components/homePage/UserInterestsTable";
 import ActionsPanel from "../components/homePage/ActionsPanel";
-import { mockUser } from "../utils/mockData";
 import { getAllUserInterestsOfUser,
          getAllUserInterestsOfUserByCategory,
          getAllUserInterestsOfUserByRegion,
@@ -93,7 +92,7 @@ const Home: FC<{}> = () => {
 
     // console.log(category, region, showActiveUserInterests)
     // console.log(userInterests)
-    // console.log(userInterests.find(ui => ui.id === 3)?.foundAdverts)
+    // console.log(userInterests.find(ui => ui.id === 18)?.foundAdverts)
     // console.log(auth0UserInfo)
 
 
