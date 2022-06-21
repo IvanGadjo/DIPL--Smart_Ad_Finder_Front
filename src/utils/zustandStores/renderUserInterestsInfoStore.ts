@@ -7,6 +7,9 @@ interface RenderUserInterestsInfoState {
     setRegion: (region: string) => void;
     showActiveUserInterests: boolean;
     setShowActiveUserInterests: (active: boolean) => void;
+
+    menuSidebarOpen: boolean,
+    setMenuSidebarOpen: (open: boolean) => void;
 }
 
 
@@ -17,5 +20,8 @@ export const useRUIIS_ZustandStore = create<RenderUserInterestsInfoState>()((set
     region: 'all',
     setRegion: (newRegion) => set({ region: newRegion}),
     showActiveUserInterests: true,
-    setShowActiveUserInterests: (newActiveVal) => set({ showActiveUserInterests: newActiveVal})
+    setShowActiveUserInterests: (newActiveVal) => set({ showActiveUserInterests: newActiveVal}),
+
+    menuSidebarOpen: true,
+    setMenuSidebarOpen: (open) => set({ menuSidebarOpen: open})
 }))

@@ -55,8 +55,9 @@ function App() {
   return (
     <>    
     
-      <Layout/>
-
+      <div className="h-full">
+        <Layout/>
+      </div>
     </>
   );
 }
