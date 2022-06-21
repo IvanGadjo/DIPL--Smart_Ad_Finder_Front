@@ -1,19 +1,13 @@
 import { FC, Fragment, useState } from "react";
 import { Dialog, Transition } from '@headlessui/react'
 import {
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
-  HomeIcon,
-  InboxIcon,
-  MenuIcon,
-  UsersIcon,
   XIcon,
 } from '@heroicons/react/outline';
 import NavItem from "./NavItem";
 import { useRUIIS_ZustandStore } from "../../../utils/zustandStores/renderUserInterestsInfoStore";
 import shallow from 'zustand/shallow';
 import { navigation } from "../../../utils/navigationData";
+import smartAdFinderLogo from '../../../shared/logo_transparent_crop.png';
 
 
 function classNames(...classes: string[]) {
@@ -31,24 +25,9 @@ const Navbar: FC<{}> = () => {
     return (
         <>
 
-            {/* <ul>
-                <li>
-                    <NavItem name='Почетна' path='/home' Icon={<></>} />
-                </li>
-                <li>
-                    <NavItem name='Огласи' path='/advertisments' Icon={<></>} />
-                </li>
-                <li>
-                    <NavItem name='Како работи' path='/howItWorks' Icon={<></>} />
-                </li>
-                <li>
-                    <NavItem name='Подесувања и профил' path='/settings' Icon={<></>} />
-                </li>
-            </ul> */}
-
-
 
           <div>
+
               <Transition.Root show={menuSidebarOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40 md:hidden" onClose={setMenuSidebarOpen}>
                   <Transition.Child
@@ -97,9 +76,10 @@ const Navbar: FC<{}> = () => {
                         <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
                           <div className="flex-shrink-0 flex items-center px-4">
                             <img
-                              className="h-8 w-auto"
-                              src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                              alt="Workflow"
+                              className="h-14 w-auto"
+                              // src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                              src={smartAdFinderLogo}
+                              alt="smartAdFinderLogo"
                             />
                           </div>
                           <nav className="mt-5 px-2 space-y-1">
@@ -158,9 +138,10 @@ const Navbar: FC<{}> = () => {
                   <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
                     <div className="flex items-center flex-shrink-0 px-4">
                       <img
-                        className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                        alt="Workflow"
+                        className="h-14 w-auto"
+                        // src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                        src={smartAdFinderLogo}
+                        alt="smartAdFinderLogo"
                       />
                     </div>
                     <nav className="mt-5 flex-1 px-2 space-y-1">
@@ -206,9 +187,6 @@ const Navbar: FC<{}> = () => {
 
               </div>
 
-
-              
-              
           </div>
         
         </>

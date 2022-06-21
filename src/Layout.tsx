@@ -158,31 +158,6 @@ const Layout: FC<{}> = () => {
                 </main>
             </div>
 
-
-
-            {/* <main>
-
-                <Routes>
-                    <Route path="/home" element={<Home/>} />
-                    <Route path="/advertisments" element={<Advertisments/>} />
-                    <Route path="/howItWorks" element={<HowItWorks/>} />
-                    <Route path="/settings" element={<Settings/>} />
-
-                    <Route path="/createUserInterest" element={<CreateUserInterest/>} />
-                    <Route path="/editUserInterest" element={<EditUserInterest/>} />
-
-                    <Route path="/createUserAdvert" element={<CreateUserAdvert/>} />
-                    <Route path="/editUserAdvert" element={<EditUserAdvert/>} />
-
-                    <Route
-                        path="*"
-                        element={<Navigate to="/home" replace />}
-                    />
-
-
-                </Routes>
-
-            </main> */}
         </>
     }
 

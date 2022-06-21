@@ -1,8 +1,8 @@
 import {
-    CalendarIcon,
-    FolderIcon,
     HomeIcon,
+    QuestionMarkCircleIcon,
     UsersIcon,
+    DocumentSearchIcon,
   } from '@heroicons/react/outline';
 
 
@@ -10,9 +10,9 @@ import {
 
 export const navigation = [
     { name: 'Почетна', href: 'home', icon: HomeIcon, current: true },
-    { name: 'Огласи', href: 'advertisments', icon: UsersIcon, current: false },
-    { name: 'Како работи', href: 'howItWorks', icon: FolderIcon, current: false },
-    { name: 'Подесувања и профил', href: 'settings', icon: CalendarIcon, current: false },
+    { name: 'Огласи', href: 'advertisments', icon: DocumentSearchIcon, current: false },
+    { name: 'Како работи', href: 'howItWorks', icon: QuestionMarkCircleIcon, current: false },
+    { name: 'Подесувања и профил', href: 'settings', icon: UsersIcon, current: false },
 ]
 
 
