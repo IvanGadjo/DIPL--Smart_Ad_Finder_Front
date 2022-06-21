@@ -26,7 +26,17 @@ const Navbar: FC<{}> = () => {
     const [ auth0UserInfo ] = useUI_ZustandStore(state => [state.auth0UserInfo], shallow);
 
 
+    // * Logic for highliting selected page in nav
+    navigation.map(nv => {
+      if(nv.href === window.location.href.split('/')[3]){
+        nv.current = true;
+        return nv;
+      } else return nv;
+    });
 
+
+
+    
     return (
         <>
 
