@@ -5,9 +5,12 @@ import {
 } from '@heroicons/react/outline';
 import NavItem from "./NavItem";
 import { useRUIIS_ZustandStore } from "../../../utils/zustandStores/renderUserInterestsInfoStore";
+import { useUI_ZustandStore } from "../../../utils/zustandStores/userInfoStore";
 import shallow from 'zustand/shallow';
 import { navigation } from "../../../utils/navigationData";
 import smartAdFinderLogo from '../../../shared/logo_transparent_crop.png';
+import userAvatarLogo from '../../../shared/User_Avatar_Outline.png';
+
 
 
 function classNames(...classes: string[]) {
@@ -20,6 +23,8 @@ const Navbar: FC<{}> = () => {
 
 
     const [ menuSidebarOpen, setMenuSidebarOpen ] = useRUIIS_ZustandStore(state => [state.menuSidebarOpen, state.setMenuSidebarOpen], shallow);
+    const [ auth0UserInfo ] = useUI_ZustandStore(state => [state.auth0UserInfo], shallow);
+
 
 
     return (
@@ -52,7 +57,7 @@ const Navbar: FC<{}> = () => {
                       leaveFrom="translate-x-0"
                       leaveTo="-translate-x-full"
                     >
-                      <Dialog.Panel className="relative flex-1 flex flex-col max-w-xs w-full bg-gray-800">
+                      <Dialog.Panel className="relative flex-1 flex flex-col max-w-xs w-full bg-green-700">
                         <Transition.Child
                           as={Fragment}
                           enter="ease-in-out duration-300"
@@ -76,7 +81,7 @@ const Navbar: FC<{}> = () => {
                         <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
                           <div className="flex-shrink-0 flex items-center px-4">
                             <img
-                              className="h-14 w-auto"
+                              className="h-16 mx-14 w-auto"
                               // src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
                               src={smartAdFinderLogo}
                               alt="smartAdFinderLogo"
@@ -89,14 +94,14 @@ const Navbar: FC<{}> = () => {
                                 href={item.href}
                                 className={classNames(
                                   item.current
-                                    ? 'bg-gray-900 text-white'
-                                    : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                    ? 'bg-green-800 text-white'
+                                    : 'text-gray-300 hover:bg-green-800 hover:text-white',
                                   'group flex items-center px-2 py-2 text-base font-medium rounded-md'
                                 )}
                               >
                                 <item.icon
                                   className={classNames(
-                                    item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
+                                    item.current ? 'text-white' : 'text-gray-300 group-hover:text-gray-300',
                                     'mr-4 flex-shrink-0 h-6 w-6'
                                   )}
                                   aria-hidden="true"
@@ -106,19 +111,19 @@ const Navbar: FC<{}> = () => {
                             ))}
                           </nav>
                         </div>
-                        <div className="flex-shrink-0 flex bg-gray-700 p-4">
-                          <a href="#" className="flex-shrink-0 group block">
+                        <div className="flex-shrink-0 flex bg-green-800 p-4">
+                          <a href="/settings" className="flex-shrink-0 group block">
                             <div className="flex items-center">
                               <div>
                                 <img
                                   className="inline-block h-10 w-10 rounded-full"
-                                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                  alt=""
+                                  src={userAvatarLogo}
+                                  alt="User logo"
                                 />
                               </div>
                               <div className="ml-3">
-                                <p className="text-base font-medium text-white">Tom Cook</p>
-                                <p className="text-sm font-medium text-gray-400 group-hover:text-gray-300">View profile</p>
+                                <p className="text-base font-medium text-white">{auth0UserInfo.name}</p>
+                                <p className="text-sm font-medium text-gray-400 group-hover:text-gray-300">Види профил</p>
                               </div>
                             </div>
                           </a>
@@ -134,11 +139,11 @@ const Navbar: FC<{}> = () => {
               {/* Static sidebar for desktop */}
               <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
 
-                <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
+                <div className="flex-1 flex flex-col min-h-0 bg-green-700">
                   <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
                     <div className="flex items-center flex-shrink-0 px-4">
                       <img
-                        className="h-14 w-auto"
+                        className="h-16 mx-9 w-auto"
                         // src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
                         src={smartAdFinderLogo}
                         alt="smartAdFinderLogo"
@@ -150,13 +155,13 @@ const Navbar: FC<{}> = () => {
                           key={item.name}
                           href={item.href}
                           className={classNames(
-                            item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                            item.current ? 'bg-green-800 text-white' : 'text-gray-300 hover:bg-green-800 hover:text-white',
                             'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                           )}
                         >
                           <item.icon
                             className={classNames(
-                              item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
+                              item.current ? 'text-white' : 'text-gray-300 group-hover:text-gray-300',
                               'mr-3 flex-shrink-0 h-6 w-6'
                             )}
                             aria-hidden="true"
@@ -166,19 +171,21 @@ const Navbar: FC<{}> = () => {
                       ))}
                     </nav>
                   </div>
-                  <div className="flex-shrink-0 flex bg-gray-700 p-4">
-                    <a href="#" className="flex-shrink-0 w-full group block">
+
+                  {/* Profile section */}
+                  <div className="flex-shrink-0 flex bg-green-800 p-4">
+                    <a href="/settings" className="flex-shrink-0 w-full group block">
                       <div className="flex items-center">
                         <div>
                           <img
                             className="inline-block h-9 w-9 rounded-full"
-                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
+                            src={userAvatarLogo}
+                            alt="User logo"
                           />
                         </div>
                         <div className="ml-3">
-                          <p className="text-sm font-medium text-white">Tom Cook</p>
-                          <p className="text-xs font-medium text-gray-300 group-hover:text-gray-200">View profile</p>
+                          <p className="text-sm font-medium text-white">{auth0UserInfo.name}</p>
+                          <p className="text-xs font-medium text-gray-300 group-hover:text-gray-200">Види профил</p>
                         </div>
                       </div>
                     </a>
