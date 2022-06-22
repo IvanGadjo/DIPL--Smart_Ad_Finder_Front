@@ -13,12 +13,6 @@ import userAvatarLogo from '../../../shared/User_Avatar_Outline.png';
 
 
 
-function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
-}
-
-
-
 const Navbar: FC<{}> = () => {
 
 
