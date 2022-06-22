@@ -26,16 +26,6 @@ const Navbar: FC<{}> = () => {
     const [ auth0UserInfo ] = useUI_ZustandStore(state => [state.auth0UserInfo], shallow);
 
 
-    // * Logic for highliting selected page in nav
-    navigation.map(nv => {
-      if(nv.href === window.location.href.split('/')[3]){
-        nv.current = true;
-        return nv;
-      } else return nv;
-    });
-
-
-
     
     return (
         <>
@@ -99,25 +89,7 @@ const Navbar: FC<{}> = () => {
                           </div>
                           <nav className="mt-5 px-2 space-y-1">
                             {navigation.map((item) => (
-                              <a
-                                key={item.name}
-                                href={item.href}
-                                className={classNames(
-                                  item.current
-                                    ? 'bg-green-800 text-white'
-                                    : 'text-gray-300 hover:bg-green-800 hover:text-white',
-                                  'group flex items-center px-2 py-2 text-base font-medium rounded-md'
-                                )}
-                              >
-                                <item.icon
-                                  className={classNames(
-                                    item.current ? 'text-white' : 'text-gray-300 group-hover:text-gray-300',
-                                    'mr-4 flex-shrink-0 h-6 w-6'
-                                  )}
-                                  aria-hidden="true"
-                                />
-                                {item.name}
-                              </a>
+                              <NavItem name={item.name} path={item.href} Icon={item.icon} />
                             ))}
                           </nav>
                         </div>
@@ -154,30 +126,13 @@ const Navbar: FC<{}> = () => {
                     <div className="flex items-center flex-shrink-0 px-4">
                       <img
                         className="h-16 mx-9 w-auto"
-                        // src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
                         src={smartAdFinderLogo}
                         alt="smartAdFinderLogo"
                       />
                     </div>
                     <nav className="mt-5 flex-1 px-2 space-y-1">
                       {navigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            item.current ? 'bg-green-800 text-white' : 'text-gray-300 hover:bg-green-800 hover:text-white',
-                            'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-                          )}
-                        >
-                          <item.icon
-                            className={classNames(
-                              item.current ? 'text-white' : 'text-gray-300 group-hover:text-gray-300',
-                              'mr-3 flex-shrink-0 h-6 w-6'
-                            )}
-                            aria-hidden="true"
-                          />
-                          {item.name}
-                        </a>
+                        <NavItem name={item.name} path={item.href} Icon={item.icon} />
                       ))}
                     </nav>
                   </div>
