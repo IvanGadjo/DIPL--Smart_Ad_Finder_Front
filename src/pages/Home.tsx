@@ -107,7 +107,6 @@ const Home: FC<{}> = () => {
                     </>
                 :
                     <>
-                        <LogOutButton/>
                         <ActionsPanel/>
                         <UserInterestsTable userInterests={userInterests} setUserInterests={setUserInterests}/>
                     </>

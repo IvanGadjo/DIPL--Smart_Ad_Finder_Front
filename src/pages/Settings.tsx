@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
+import LogOutButton from "../components/auth/logOutButton";
 
 const Settings: FC<{}> = () => {
 
@@ -7,6 +8,7 @@ const Settings: FC<{}> = () => {
 
     return (
         <>
+            <LogOutButton/>
             {
                 user && user.name && user.picture && user.email ?
                 <>
