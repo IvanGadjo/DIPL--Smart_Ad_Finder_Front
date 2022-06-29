@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from "react";
+import { FC, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { categories, regions } from "../../utils/categoriesAndRegionsData";
 import { useRUIIS_ZustandStore } from "../../utils/zustandStores/renderUserInterestsInfoStore";
@@ -31,17 +31,12 @@ const ActionsPanel: FC<{}> = () => {
     // * These 3 values go into Zustand state / renderUserInterestsInfo context, that decides how userInterests are rendered in Home page
     // * Now I work with Zustand state
 
-    const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {       // * Filter done on backend
-        setCategory(e.currentTarget.value);
+    const handleCategoryChange = (category: any) => {       // * Filter done on backend
+        setCategory(category.value);
     }
 
-    // const handleRegionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {         // * Filter done on backend
-    //     setRegion(e.currentTarget.value)
-    // }
-
-    const handleRegionChange2 = (region: any) => {         // * Filter done on backend
+    const handleRegionChange = (region: any) => {         // * Filter done on backend
         setRegion(region.value)
-        // console.log(region)
     }
 
     const handleToggle_activeInterests = () => {        // * Filter done when rendering on front
@@ -51,11 +46,13 @@ const ActionsPanel: FC<{}> = () => {
             setShowActiveUserInterests(true);
     }
 
-    const renderMKDName_region = (region: string) => {
-        console.log(region)
-        const mkRegion = regions.find(reg => reg.value === region)
-        console.log(mkRegion)
+    const renderMKDName_category = (category: string) => {
+        const mkCategory = categories.find(cat => cat.value === category)
+        return <span className="block truncate">{mkCategory?.text}</span>
+    }
 
+    const renderMKDName_region = (region: string) => {
+        const mkRegion = regions.find(reg => reg.value === region)
         return <span className="block truncate">{mkRegion?.text}</span>
     }
 
@@ -66,93 +63,130 @@ const ActionsPanel: FC<{}> = () => {
             <div className="grid grid-cols-2 gap-4">
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Филтрирај по категорија:</label>
-                    <select onChange={handleCategoryChange}>
-                        <>
-                        <option value='all'>Сите</option>
-                        {
-                            categories.map(cat => {
-                                return <option value={cat.value} key={cat.value}>{cat.text}</option>
-                            })
-                        }
-                        </>
-                    </select>
-                    
-                    <br/>
-                    <br/>
-                
 
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Филтрирај по регион:</label>
-                    {/* <select onChange={handleRegionChange}>
-                        <>
-                        <option value='all'>Сите</option>
-                        {
-                            regions.map(reg => {
-                                return <option value={reg.value} key={reg.value}>{reg.text}</option>
-                            })
-                        }
-                        </>
-                    </select> */}
+                    {/* //* Categories dropdown */}
+                    <div className="mb-4 lg:w-96">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Филтрирај по категорија:</label>
+                        <Listbox value={category} onChange={handleCategoryChange}>
+                            {({ open }) => (
+                                <>
+                                <div className="mt-1 relative">
+                                    <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 sm:text-sm">
+                                    {renderMKDName_category(category)}
+                                    <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                        <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                    </span>
+                                    </Listbox.Button>
 
-                    
-
-                    {/* //* Regions dropdown */}
-                    <Listbox value={region} onChange={handleRegionChange2}>
-                        {({ open }) => (
-                            <>
-                            <div className="mt-1 relative">
-                                <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 sm:text-sm">
-                                {renderMKDName_region(region)}
-                                <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                                    <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                                </span>
-                                </Listbox.Button>
-
-                                <Transition
-                                    show={open}
-                                    as={Fragment}
-                                    leave="transition ease-in duration-100"
-                                    leaveFrom="opacity-100"
-                                    leaveTo="opacity-0"
-                                >
-                                <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                                    {regions.map((reg) => (
-                                    <Listbox.Option
-                                        key={reg.value}
-                                        className={({ active }) =>
-                                        classNames(
-                                            active ? 'text-white bg-green-600' : 'text-gray-900',
-                                            'cursor-default select-none relative py-2 pl-3 pr-9'
-                                        )
-                                        }
-                                        value={reg}
+                                    <Transition
+                                        show={open}
+                                        as={Fragment}
+                                        leave="transition ease-in duration-100"
+                                        leaveFrom="opacity-100"
+                                        leaveTo="opacity-0"
                                     >
-                                        {({ selected, active }) => (
-                                        <>
-                                            <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
-                                            {reg.text}
-                                            </span>
+                                    <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                                        {categories.map((cat) => (
+                                        <Listbox.Option
+                                            key={cat.value}
+                                            className={({ active }) =>
+                                            classNames(
+                                                active ? 'text-white bg-green-600' : 'text-gray-900',
+                                                'cursor-default select-none relative py-2 pl-3 pr-9'
+                                            )
+                                            }
+                                            value={cat}
+                                        >
+                                            {({ selected, active }) => (
+                                            <>
+                                                <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
+                                                {cat.text}
+                                                </span>
 
-                                            {selected ? (
-                                            <span
-                                                className={classNames(
-                                                active ? 'text-white' : 'text-green-600',
-                                                'absolute inset-y-0 right-0 flex items-center pr-4'
-                                                )}
-                                            >
-                                                <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                            </span>
-                                            ) : null}
-                                        </>
-                                        )}
-                                    </Listbox.Option>
-                                    ))}
-                                </Listbox.Options>
-                                </Transition>
-                            </div>
-                            </>
-                        )}
-                    </Listbox>
+                                                {selected ? (
+                                                <span
+                                                    className={classNames(
+                                                    active ? 'text-white' : 'text-green-600',
+                                                    'absolute inset-y-0 right-0 flex items-center pr-4'
+                                                    )}
+                                                >
+                                                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                </span>
+                                                ) : null}
+                                            </>
+                                            )}
+                                        </Listbox.Option>
+                                        ))}
+                                    </Listbox.Options>
+                                    </Transition>
+                                </div>
+                                </>
+                            )}
+                        </Listbox>
+                    </div>
+                    
+                    
+                
+                    {/* //* Regions dropdown */}
+                    <div className="lg:w-96">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Филтрирај по регион:</label>
+                        <Listbox value={region} onChange={handleRegionChange}>
+                            {({ open }) => (
+                                <>
+                                <div className="mt-1 relative">
+                                    <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 sm:text-sm">
+                                    {renderMKDName_region(region)}
+                                    <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                        <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                    </span>
+                                    </Listbox.Button>
+
+                                    <Transition
+                                        show={open}
+                                        as={Fragment}
+                                        leave="transition ease-in duration-100"
+                                        leaveFrom="opacity-100"
+                                        leaveTo="opacity-0"
+                                    >
+                                    <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                                        {regions.map((reg) => (
+                                        <Listbox.Option
+                                            key={reg.value}
+                                            className={({ active }) =>
+                                            classNames(
+                                                active ? 'text-white bg-green-600' : 'text-gray-900',
+                                                'cursor-default select-none relative py-2 pl-3 pr-9'
+                                            )
+                                            }
+                                            value={reg}
+                                        >
+                                            {({ selected, active }) => (
+                                            <>
+                                                <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
+                                                {reg.text}
+                                                </span>
+
+                                                {selected ? (
+                                                <span
+                                                    className={classNames(
+                                                    active ? 'text-white' : 'text-green-600',
+                                                    'absolute inset-y-0 right-0 flex items-center pr-4'
+                                                    )}
+                                                >
+                                                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                </span>
+                                                ) : null}
+                                            </>
+                                            )}
+                                        </Listbox.Option>
+                                        ))}
+                                    </Listbox.Options>
+                                    </Transition>
+                                </div>
+                                </>
+                            )}
+                        </Listbox>
+                    </div>
                 </div>
 
 
