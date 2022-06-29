@@ -8,7 +8,7 @@ import { deleteFoundAdvert } from '../../utils/restServices/foundAdvertsService'
 import { useUI_ZustandStore } from '../../utils/zustandStores/userInfoStore';
 import shallow from 'zustand/shallow';
 import CarFiltersInputs from './CarFiltersInputs';
-
+import FoundAdsTable from './FoundAdsTable';
 
 
 interface IProps {
@@ -214,9 +214,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
     return (
         <>  
-            {/* {console.log(userInterests)} */}
-            {/* {console.log(shownAds)} */}
-
+            
             {
 
                 userInterests.length > 0 
@@ -225,12 +223,6 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
                     {
 
                         <>
-
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-
 
 
                             {/* // * User interests dropdown */}
@@ -271,7 +263,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
 
                             {/* // * Found ads table */}
-                            {
+                            {/* {
                                 shownAds ? 
                                 shownAds.map(fa => {
                                     return <div key={fa.id}>
@@ -286,23 +278,9 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
                                         
                                 }) :
                                 <> Сеуште нема пронајдени огласи! </>
-                            }
-                            {/* {
-                                shownUserInterest.foundAdverts ? 
-                                shownUserInterest.foundAdverts.map(fa => {
-                                    return <div key={fa.id}>
-                                                <button onClick={() => {
-                                                    if(shownUserInterest.id) handleDeleteFoundAd(fa, shownUserInterest.id);
-                                                }}>
-                                                    X
-                                                </button>
-                                                {fa.id} {fa.url.split('/')[2]} --- {fa.title}  
-                                                --- {fa.carYear}, {fa.carMileage}km
-                                            </div>
-                                        
-                                }) :
-                                <> Сеуште нема пронајдени огласи! </>
                             } */}
+                            <FoundAdsTable shownUserInterest={shownUserInterest} shownAds={shownAds} handleDeleteFoundAd={handleDeleteFoundAd}/>
+                            
 
                         </>
                     }

@@ -107,7 +107,9 @@ const Home: FC<{}> = () => {
                     </>
                 :
                     <>
-                        <ActionsPanel/>
+                        <div className="lg:mb-20 mb-8">
+                            <ActionsPanel/>
+                        </div>
                         <UserInterestsTable userInterests={userInterests} setUserInterests={setUserInterests}/>
                     </>
             }
