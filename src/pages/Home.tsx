@@ -42,16 +42,32 @@ const Home: FC<{}> = () => {
 
             let userInterests: IUserInterest[];
 
-            if(category === 'all' && region === 'all'){         
+            // ! Uncomment for the mindfuck error
+            // console.log(category, region)
+            // console.log(category.length)
+
+            // console.log(category==='аll')
+            // console.log(region==='аll')
+            // console.log(category === 'all' && region === 'all')
+            // console.log(category === region)
+
+
+
+            if(category === 'all' && region === 'AllRegions'){     
+                console.log('Se desava all all')    
                 userInterests = await getAllUserInterestsOfUser(userId, auth0UserInfo.token);
-            } else if(category !== 'all' && region === 'all'){
+
+            } else if(category !== 'all' && region === 'AllRegions'){
+                console.log('Se desava !all all')    
                 userInterests = await getAllUserInterestsOfUserByCategory(category, userId, auth0UserInfo.token);
-            } else if(category === 'all' && region !== 'all') {
+            } else if(category === 'all' && region !== 'AllRegions') {
+                console.log('Se desava all !all')    
+              
                 userInterests = await getAllUserInterestsOfUserByRegion(region, userId, auth0UserInfo.token);
             } else {                                        // * Specific category & region
+                console.log('Se desava !all !all')    
                 userInterests = await getAllUserInterestsOfUserByCatrgoryAndRegion(category, region, userId, auth0UserInfo.token);
             }
-
 
             if(showActiveUserInterests){        // * Show only active interests
                 return userInterests.filter(ui => ui.active)

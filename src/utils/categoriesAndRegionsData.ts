@@ -9,6 +9,7 @@ export const categories = [
 ]
 
 export const regions = [
+    { value:"AllRegions", text:"Сите" },
     { value:"Skopje", text:"Скопје" }, 
     { value:"Bitola", text:"Битола" }, 
     { value:"Kumanovo", text:"Куманово" }, 
