@@ -1,4 +1,5 @@
 export const categories = [
+    { value:"AllCategories", text:"Сите" },
     { value:"Avtomobili", text:"Автомобили" }, 
     { value:"Kukji/Vili", text:"Куќи/Вили" }, 
     { value:"Stanovi", text:"Станови" }, 
