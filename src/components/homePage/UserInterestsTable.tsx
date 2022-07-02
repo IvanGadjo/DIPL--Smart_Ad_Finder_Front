@@ -1,6 +1,6 @@
-import { FC, useEffect, useState } from "react";
+import { FC, Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { IFoundAdvert, IUserInterest } from "../../utils/interfaces";
+import { IFoundAdvert, IUser, IUserInterest } from "../../utils/interfaces";
 import { setActiveOnUserInterest, 
          getAllUserInterestsOfUser,
          getUserInterestById } from '../../utils/restServices/userInterestsService';
@@ -9,6 +9,16 @@ import { useUI_ZustandStore } from '../../utils/zustandStores/userInfoStore';
 import shallow from 'zustand/shallow';
 import CarFiltersInputs from './CarFiltersInputs';
 import FoundAdsTable from './FoundAdsTable';
+import { Listbox, Transition } from "@headlessui/react";
+import { SelectorIcon, CheckIcon } from "@heroicons/react/outline";
+import { categories } from "../../utils/categoriesAndRegionsData";
+
+
+function classNames(...classes: string[]) {
+    return classes.filter(Boolean).join(' ')
+  }
+
+
 
 
 interface IProps {
@@ -35,13 +45,18 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
         if(shownUserInterest)setShownAds(shownUserInterest.foundAdverts)
     },[shownUserInterest])
 
-    const handleShownInterestChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    
 
-        const ui = userInterests.find(ui => ui.id === parseInt(e.currentTarget.value));
-            
-        if(ui)
-            setShownUserInterest(ui);
-        else console.log('Error in handleShownInterestChange()');
+    const handleShownInterestChange = async (userInt: any) => {
+
+        console.log(userInt)
+        if(userInt && userInt.id) {
+            let ui = userInterests.find(ui => ui.id === parseInt(userInt.id));
+                
+            if(ui)
+                setShownUserInterest(ui);
+            else console.log('Error in handleShownInterestChange()');
+        }
 
     } 
 
@@ -132,6 +147,13 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
     }
 
+    const renderOtherKeywords = (otherKeywords: string[] | undefined) => {
+        if(otherKeywords && otherKeywords.length>0){
+            let restructured = otherKeywords.reduce((prev, next) => prev + ', '+ next)
+            return <>, {restructured}</>
+        }
+    } 
+
     // * Car filters handle methods    
     // ! KRSH SE OVIE
     const handleCarYearChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -213,7 +235,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
  
 
     return (
-        <>  
+        <>  {console.log(userInterests)}
             
             {
 
@@ -226,15 +248,71 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
 
                             {/* // * User interests dropdown */}
-                            <select onChange={handleShownInterestChange}>
-                                {
-                                    userInterests.map(ui => {
-                                        return <option key={ui.id} value={ui.id}>
-                                            {ui.id}, word: {ui.keywords.mainKeyword}, active: {ui.active.toString()}
-                                        </option>
-                                    })
-                                }
-                            </select>
+                            <div className="lg:w-96 mb-10 ">
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Твои барања:</label>
+                                <Listbox value={shownUserInterest} onChange={handleShownInterestChange}>
+                                    {({ open }) => (
+                                        <>
+                                        <div className="mt-1 relative">
+                                            <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 sm:text-sm">
+                                            <span className="block truncate"> 
+                                                {shownUserInterest.keywords.mainKeyword}
+                                                {renderOtherKeywords(shownUserInterest.keywords.otherKeywords)}
+                                                {shownUserInterest.active ?  ' (Активно)' : ' (Неактивно)'}</span>
+                                            <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                                <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                            </span>
+                                            </Listbox.Button>
+
+                                            <Transition
+                                                show={open}
+                                                as={Fragment}
+                                                leave="transition ease-in duration-100"
+                                                leaveFrom="opacity-100"
+                                                leaveTo="opacity-0"
+                                            >
+                                            <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                                                {userInterests.map((ui) => (
+                                                <Listbox.Option
+                                                    key={ui.id}
+                                                    className={({ active }) =>
+                                                    classNames(
+                                                        active ? 'text-white bg-green-600' : 'text-gray-900',
+                                                        'cursor-default select-none relative py-2 pl-3 pr-9'
+                                                    )
+                                                    }
+                                                    value={ui}
+                                                >
+                                                    {({ selected, active }) => (
+                                                    <>
+                                                        <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
+                                                        {ui.keywords.mainKeyword}
+                                                        {renderOtherKeywords(ui.keywords.otherKeywords)}
+                                                        </span>
+
+                                                        {selected ? (
+                                                        <span
+                                                            className={classNames(
+                                                            active ? 'text-white' : 'text-green-600',
+                                                            'absolute inset-y-0 right-0 flex items-center pr-4'
+                                                            )}
+                                                        >
+                                                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                        </span>
+                                                        ) : null}
+                                                    </>
+                                                    )}
+                                                </Listbox.Option>
+                                                ))}
+                                            </Listbox.Options>
+                                            </Transition>
+                                        </div>
+                                        </>
+                                    )}
+                                </Listbox>
+                            </div>
+
+
 
 
                             {/* //* Tools for user interests */}
