@@ -14,24 +14,32 @@ const CarFiltersInputs: FC<IProps> = ({ handleCarMileageChange, handleCarYearCha
 
     return (
         <>
+  
 
-                    
-                <br/>
-                <br/>
+                <div>
+                    <label className="block text-sm font-medium text-gray-700">Година:</label>
+                    <div className="mt-1">
+                        <input
+                        type="number"
+                        className="lg:w-96 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-md"
+                        placeholder="пр. 2022"
+                        onChange={handleCarYearChange}
+                        />
+                    </div>
+                </div>
 
-                <label>Година:</label>
-                <input type="number" onChange={handleCarYearChange}/>
+                <div className="mt-2 mb-6">
+                    <label className="block text-sm font-medium text-gray-700">Километража до:</label>
+                    <div className="mt-1">
+                        <input
+                        type="number"
+                        className="lg:w-96 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-md"
+                        placeholder="пр. 20 000"
+                        onChange={handleCarMileageChange}
+                        />
+                    </div>
+                </div>
 
-                <br/>
-                <br/>
-
-                <label>Километража до:</label>
-                <input type="number" onChange={handleCarMileageChange}/>
-
-                <br/>
-                <br/>
-
-                
 
         </>
     );

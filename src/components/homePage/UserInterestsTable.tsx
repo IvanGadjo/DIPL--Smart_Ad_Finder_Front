@@ -1,6 +1,6 @@
 import { FC, Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { IFoundAdvert, IUser, IUserInterest } from "../../utils/interfaces";
+import { IFoundAdvert, IUserInterest } from "../../utils/interfaces";
 import { setActiveOnUserInterest, 
          getAllUserInterestsOfUser,
          getUserInterestById } from '../../utils/restServices/userInterestsService';
@@ -11,7 +11,6 @@ import CarFiltersInputs from './CarFiltersInputs';
 import FoundAdsTable from './FoundAdsTable';
 import { Listbox, Transition } from "@headlessui/react";
 import { SelectorIcon, CheckIcon, ExclamationCircleIcon, PencilAltIcon } from "@heroicons/react/outline";
-import { categories } from "../../utils/categoriesAndRegionsData";
 
 
 function classNames(...classes: string[]) {
@@ -249,7 +248,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
                             <div className="grid grid-cols-2 gap-2">
 
                                 {/* // * User interests dropdown */}
-                                <div className="lg:w-96 mb-4">
+                                <div className="lg:w-96 mb-6">
                                     <Listbox value={shownUserInterest} onChange={handleShownInterestChange}>
                                         {({ open }) => (
                                             <>
