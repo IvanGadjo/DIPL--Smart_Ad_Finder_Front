@@ -10,7 +10,7 @@ import shallow from 'zustand/shallow';
 import CarFiltersInputs from './CarFiltersInputs';
 import FoundAdsTable from './FoundAdsTable';
 import { Listbox, Transition } from "@headlessui/react";
-import { SelectorIcon, CheckIcon } from "@heroicons/react/outline";
+import { SelectorIcon, CheckIcon, ExclamationCircleIcon, PencilAltIcon } from "@heroicons/react/outline";
 import { categories } from "../../utils/categoriesAndRegionsData";
 
 
@@ -90,29 +90,27 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
         }
     }
 
-    const handleWebsiteChoiceChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
-        e.preventDefault();
+    // ? TODO: Sredi da e funkcionalno posle UI design
+    // const handleWebsiteChoiceChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    //     e.preventDefault();
+    //     console.log(e.currentTarget.value)
 
-        // * Sredi da e funkcionalno posle UI design
+    //     const unchangedUserInt = userInterests.find(ui => ui.id === shownUserInterest?.id);
 
-        // console.log(e.currentTarget.value)
+    //     if(e.target.value !== 'all') {
 
-        // const unchangedUserInt = userInterests.find(ui => ui.id === shownUserInterest?.id);
+    //         console.log(unchangedUserInt?.foundAdverts?.filter(fa => fa.url.split('/')[2] === e.target.value))
 
-        // if(e.target.value !== 'all') {
+    //         if(unchangedUserInt && unchangedUserInt.foundAdverts) {
+    //             unchangedUserInt.foundAdverts = unchangedUserInt?.foundAdverts?.filter(fa => fa.url.split('/')[2] === e.target.value)
+    //             console.log(unchangedUserInt)
 
-        //     console.log(unchangedUserInt?.foundAdverts?.filter(fa => fa.url.split('/')[2] === e.target.value))
+    //             setShownUserInterest(unchangedUserInt)
+    //         }
+    //     } else {
 
-        //     if(unchangedUserInt && unchangedUserInt.foundAdverts) {
-        //         unchangedUserInt.foundAdverts = unchangedUserInt?.foundAdverts?.filter(fa => fa.url.split('/')[2] === e.target.value)
-        //         console.log(unchangedUserInt)
-
-        //         setShownUserInterest(unchangedUserInt)
-        //     }
-        // } else {
-
-        // }
-    }
+    //     }
+    // }
 
     const handleDeleteFoundAd = async (foundAdvert: IFoundAdvert, userInterestId: number) => {
 
@@ -244,89 +242,106 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
                 <>
                     {
 
+
                         <>
 
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Твои барања:</label>
+                            <div className="grid grid-cols-2 gap-2">
 
-                            {/* // * User interests dropdown */}
-                            <div className="lg:w-96 mb-10 ">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Твои барања:</label>
-                                <Listbox value={shownUserInterest} onChange={handleShownInterestChange}>
-                                    {({ open }) => (
-                                        <>
-                                        <div className="mt-1 relative">
-                                            <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 sm:text-sm">
-                                            <span className="block truncate"> 
-                                                {shownUserInterest.keywords.mainKeyword}
-                                                {renderOtherKeywords(shownUserInterest.keywords.otherKeywords)}
-                                                {shownUserInterest.active ?  ' (Активно)' : ' (Неактивно)'}</span>
-                                            <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                                                <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                                            </span>
-                                            </Listbox.Button>
+                                {/* // * User interests dropdown */}
+                                <div className="lg:w-96 mb-4">
+                                    <Listbox value={shownUserInterest} onChange={handleShownInterestChange}>
+                                        {({ open }) => (
+                                            <>
+                                            <div className="mt-1 relative">
+                                                <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 sm:text-sm">
+                                                <span className="block truncate"> 
+                                                    {shownUserInterest.keywords.mainKeyword}
+                                                    {renderOtherKeywords(shownUserInterest.keywords.otherKeywords)}
+                                                    {shownUserInterest.active ?  ' (Активно)' : ' (Неактивно)'}</span>
+                                                <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                                    <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                </span>
+                                                </Listbox.Button>
 
-                                            <Transition
-                                                show={open}
-                                                as={Fragment}
-                                                leave="transition ease-in duration-100"
-                                                leaveFrom="opacity-100"
-                                                leaveTo="opacity-0"
-                                            >
-                                            <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                                                {userInterests.map((ui) => (
-                                                <Listbox.Option
-                                                    key={ui.id}
-                                                    className={({ active }) =>
-                                                    classNames(
-                                                        active ? 'text-white bg-green-600' : 'text-gray-900',
-                                                        'cursor-default select-none relative py-2 pl-3 pr-9'
-                                                    )
-                                                    }
-                                                    value={ui}
+                                                <Transition
+                                                    show={open}
+                                                    as={Fragment}
+                                                    leave="transition ease-in duration-100"
+                                                    leaveFrom="opacity-100"
+                                                    leaveTo="opacity-0"
                                                 >
-                                                    {({ selected, active }) => (
-                                                    <>
-                                                        <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
-                                                        {ui.keywords.mainKeyword}
-                                                        {renderOtherKeywords(ui.keywords.otherKeywords)}
-                                                        </span>
+                                                <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                                                    {userInterests.map((ui) => (
+                                                    <Listbox.Option
+                                                        key={ui.id}
+                                                        className={({ active }) =>
+                                                        classNames(
+                                                            active ? 'text-white bg-green-600' : 'text-gray-900',
+                                                            'cursor-default select-none relative py-2 pl-3 pr-9'
+                                                        )
+                                                        }
+                                                        value={ui}
+                                                    >
+                                                        {({ selected, active }) => (
+                                                        <>
+                                                            <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
+                                                            {ui.keywords.mainKeyword}
+                                                            {renderOtherKeywords(ui.keywords.otherKeywords)}
+                                                            </span>
 
-                                                        {selected ? (
-                                                        <span
-                                                            className={classNames(
-                                                            active ? 'text-white' : 'text-green-600',
-                                                            'absolute inset-y-0 right-0 flex items-center pr-4'
-                                                            )}
-                                                        >
-                                                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                        </span>
-                                                        ) : null}
-                                                    </>
-                                                    )}
-                                                </Listbox.Option>
-                                                ))}
-                                            </Listbox.Options>
-                                            </Transition>
-                                        </div>
-                                        </>
-                                    )}
-                                </Listbox>
+                                                            {selected ? (
+                                                            <span
+                                                                className={classNames(
+                                                                active ? 'text-white' : 'text-green-600',
+                                                                'absolute inset-y-0 right-0 flex items-center pr-4'
+                                                                )}
+                                                            >
+                                                                <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                            </span>
+                                                            ) : null}
+                                                        </>
+                                                        )}
+                                                    </Listbox.Option>
+                                                    ))}
+                                                </Listbox.Options>
+                                                </Transition>
+                                            </div>
+                                            </>
+                                        )}
+                                    </Listbox>
+                                </div>
+
+                                {/* //* Tools for user interests */}
+                                <div>
+                                    <Link to='/editUserInterest' state={shownUserInterest}>
+                                        <button type="button"
+                                                className="w-32 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-yellow-700 bg-yellow-100 hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+                                        >
+                                            Промени
+                                            <PencilAltIcon className="ml-2 -mr-1 h-5 w-5" aria-hidden="true" />
+                                        </button>
+                                    </Link>
+                                    
+                                    <button type="button"
+                                            onClick={() => handleSetActiveOnInterest(shownUserInterest)}
+                                            className="mt-1 lg:ml-4 w-32 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                                        >
+                                            { shownUserInterest.active ? <>Деактивирај</> : <>Активирај</>}
+                                            <ExclamationCircleIcon className="ml-2 -mr-1 h-5 w-5" aria-hidden="true" />
+                                    </button>
+                                </div>
+
+
                             </div>
 
-
-
-
-                            {/* //* Tools for user interests */}
-                            <Link to='/editUserInterest' state={shownUserInterest}>
-                                <button>Промени</button>
-                            </Link>
-                            
-                            <button onClick={() => handleSetActiveOnInterest(shownUserInterest)}>Активирај/Деактивирај</button>
-
-                            <select onChange={handleWebsiteChoiceChange}>
+                            {/* <select onChange={handleWebsiteChoiceChange}>
                                 <option value='all' key='all'>Сите</option>
                                 <option value='www.pazar3.mk' key='pazar3'>Пазар 3</option>
                                 <option value='reklama5.mk' key='reklama5'>Реклама 5</option>
-                            </select>
+                            </select> */}
+
+
 
 
                             {/* //* Car filters */}
@@ -339,24 +354,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
 
 
-
                             {/* // * Found ads table */}
-                            {/* {
-                                shownAds ? 
-                                shownAds.map(fa => {
-                                    return <div key={fa.id}>
-                                                <button onClick={() => {
-                                                    if(shownUserInterest.id) handleDeleteFoundAd(fa, shownUserInterest.id);
-                                                }}>
-                                                    X
-                                                </button>
-                                                {fa.id} {fa.url.split('/')[2]} --- {fa.title}  
-                                                --- {fa.carYear}, {fa.carMileage}km
-                                            </div>
-                                        
-                                }) :
-                                <> Сеуште нема пронајдени огласи! </>
-                            } */}
                             <FoundAdsTable shownUserInterest={shownUserInterest} shownAds={shownAds} handleDeleteFoundAd={handleDeleteFoundAd}/>
                             
 
