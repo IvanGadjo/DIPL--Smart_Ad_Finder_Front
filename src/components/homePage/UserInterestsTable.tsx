@@ -52,9 +52,11 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
         if(userInt && userInt.id) {
             let ui = userInterests.find(ui => ui.id === parseInt(userInt.id));
                 
-            if(ui)
+            if(ui) {
                 setShownUserInterest(ui);
-            else console.log('Error in handleShownInterestChange()');
+                setPrevShownAds(ui.foundAdverts);
+
+            } else console.log('Error in handleShownInterestChange()');
         }
 
     } 
@@ -232,7 +234,7 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
  
 
     return (
-        <>  {console.log(userInterests)}
+        <>  
             
             {
 
