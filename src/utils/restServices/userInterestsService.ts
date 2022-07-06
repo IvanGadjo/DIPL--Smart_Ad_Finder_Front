@@ -120,6 +120,8 @@ export const editUserInterest = async (userInterest:IUserInterest, userId: numbe
 }
 
 export const createUserInterest = async (newUserInterest:IUserInterest, userId: number, token: string) => {
+
+    console.log(newUserInterest)
     
     try {
         let resp = await axios.post(`/api/userInterests/createUserInterest?userId=${userId}`, newUserInterest, {
