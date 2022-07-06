@@ -65,6 +65,10 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
         if(userId) {
 
+            let restructuredOtherKeywords = userInterest.keywords.otherKeywords?.reduce((prev, next) => prev + ' '+ next);
+            userInterest.keywords.mainKeyword = userInterest.keywords.mainKeyword + ' ' + restructuredOtherKeywords;
+            userInterest.keywords.otherKeywords = [''];
+
             if(userInterest.active){
                 await setActiveOnUserInterest(userInterest, userId, false, auth0UserInfo.token);
             }
