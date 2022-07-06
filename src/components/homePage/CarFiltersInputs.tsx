@@ -21,7 +21,7 @@ const CarFiltersInputs: FC<IProps> = ({ handleCarMileageChange, handleCarYearCha
                     <div className="mt-1">
                         <input
                         type="number"
-                        className="lg:w-96 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-md"
+                        className="lg:w-96 shadow-sm focus:ring-green-500 focus:border-green-500 block sm:text-sm border-gray-300 rounded-md"
                         placeholder="пр. 2022"
                         onChange={handleCarYearChange}
                         />
@@ -33,7 +33,7 @@ const CarFiltersInputs: FC<IProps> = ({ handleCarMileageChange, handleCarYearCha
                     <div className="mt-1">
                         <input
                         type="number"
-                        className="lg:w-96 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-md"
+                        className="lg:w-96 shadow-sm focus:ring-green-500 focus:border-green-500 block sm:text-sm border-gray-300 rounded-md"
                         placeholder="пр. 20 000"
                         onChange={handleCarMileageChange}
                         />

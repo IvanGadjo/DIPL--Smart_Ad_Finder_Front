@@ -1,4 +1,4 @@
-import { MailIcon, ExternalLinkIcon, XCircleIcon } from "@heroicons/react/outline";
+import { ExternalLinkIcon, XCircleIcon } from "@heroicons/react/outline";
 import { FC } from "react";
 import { IFoundAdvert, IUserInterest } from "../../utils/interfaces";
 import noImageLogo from '../../shared/scale-image-pngrepo-com.png';

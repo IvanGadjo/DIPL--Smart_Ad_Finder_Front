@@ -147,6 +147,8 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
     }
 
     const renderOtherKeywords = (otherKeywords: string[] | undefined) => {
+        // console.log(otherKeywords)
+
         if(otherKeywords && otherKeywords.length>0){
             let restructured = otherKeywords.reduce((prev, next) => prev + ', '+ next)
             return <>, {restructured}</>
