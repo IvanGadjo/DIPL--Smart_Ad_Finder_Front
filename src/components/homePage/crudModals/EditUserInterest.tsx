@@ -46,7 +46,7 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
     }, []);
 
 
-
+    // * Handle methods
     const handleTitleChange = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
 
@@ -71,6 +71,7 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
         setTitle('');
     }
 
+    // * Utility methods
     const renderMKDName_category = (category: string) => {
         const mkCategory = categories.find(cat => cat.value === category)
         return <span className="block truncate">{mkCategory?.text}</span>
