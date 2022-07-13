@@ -43,6 +43,7 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
         // @ts-ignore
         setTitle(location.state.keywords.mainKeyword + ' ' + restructureOtherKeywords(location.state.keywords.otherKeywords))
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

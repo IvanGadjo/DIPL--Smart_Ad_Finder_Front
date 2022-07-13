@@ -179,8 +179,10 @@ const Layout: FC<{}> = () => {
             {
 
                 isLoading ? 
-
-                <Loader/> :
+                
+                <div className="lg:ml-64 lg:mt-64 ml-3 mt-28">
+                    <Loader/>
+                </div> :
 
                     isAuthenticated ?
 

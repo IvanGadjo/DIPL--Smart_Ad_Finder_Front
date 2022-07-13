@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useEffect, useState } from "react";
+import React, { FC, Fragment, useState } from "react";
 import { categories, regions } from "../../../utils/categoriesAndRegionsData";
 import { createUserInterest } from "../../../utils/restServices/userInterestsService";
 import { IUserInterest } from "../../../utils/interfaces";
