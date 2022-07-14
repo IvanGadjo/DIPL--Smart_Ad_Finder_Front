@@ -195,7 +195,6 @@ const CreateUserAdvert: FC<{}> = () => {
                     multiple={false}
                     onChange={handleImageChange}
                 />
-                <br/>
 
 
                 {/* <select onChange={handleCategoryChange}>
