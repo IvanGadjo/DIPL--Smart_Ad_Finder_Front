@@ -67,40 +67,87 @@ const AdvertCard: FC<IProps> = ({ userAdvert, typeOfAdsShown }) => {
         <>
                 
 
-                <div style={{backgroundColor: '#f1fcc7', width: '400px'}}>
-                    <strong>{userAdvert.category}, {userAdvert.region}</strong>
+            <div key={userAdvert.id} className="group relative">
 
+              {/* // * Image */}
+              <div className="w-84 min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 h-80 lg:aspect-none">
+                {
+                    typeOfAdsShown === 'byUser' ?
 
                     <>
-                        {
-                            typeOfAdsShown === 'byUser' ?
+                        <Link to='/editUserAdvert' state={userAdvert}>
+                            <button
+                            className="inline-flex items-center ml-3 px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            >Промени</button>
+                        </Link>
 
-                            <>
-                                <Link to='/editUserAdvert' state={userAdvert}>
-                                    <button>Промени</button>
-                                </Link>
+                        <>
+                            {
+                                userAdvert.isActive ?
+                                <button 
+                                className="ml-2 inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none "
+                                onClick={() => {handleSetActiveOnAdvert()}}>Деактивирај</button>
+                                :
+                                <button 
+                                className="ml-2 inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none "
+                                onClick={() => {handleSetActiveOnAdvert()}}>Активирај</button>
 
-                                <button onClick={() => {handleSetActiveOnAdvert()}}>Активирај/Деактивирај</button>
-                            </>
-                            : 
+                            }
+                        </>
 
-                            <></>
-                        }
                         
                     </>
+                    : 
+
+                    <></>
+                }
+
+                <>
+                    <img
+                    src={"data:image/png;base64," + arrayBufferToBase64(userAdvert.image)}
+                    alt='Нема слика'
+                    className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+                    />
+
+                    {
+                        typeOfAdsShown === 'byUser' ?
+                        <>
+                            <h3 className="px-2.5 py-0.5 rounded-full font-medium text-xs bg-gray-400 absolute text-black top-9 left-3">{userAdvert.region}</h3>
+                            <h3 className="px-2.5 py-0.5 rounded-full font-medium text-xs bg-gray-400 absolute text-black top-16 left-3">{userAdvert.category}</h3>
+                        </> : 
+                        <>
+                            <h3 className="px-2.5 py-0.5 rounded-full font-medium text-xs bg-gray-400 absolute text-black top-3 left-3">{userAdvert.region}</h3>
+                            <h3 className="px-2.5 py-0.5 rounded-full font-medium text-xs bg-gray-400 absolute text-black top-9 left-3">{userAdvert.category}</h3>
+                        </> 
+                    }
+                    
+                    
+
+                </>
+              </div>
 
 
-                    <h2>{userAdvert.title}</h2>
-                    <p>{userAdvert.description}, {userAdvert.price}, {userAdvert.isActive ? userAdvert.isActive.toString() : 'false'}, {userAdvert.id}</p>
-                    <p>{userAdvert.contactInfo}</p>
+              {/* // * Descriptions */}
+              <div className="mt-4 flex justify-between">
 
-
-
-                    <img alt='нема слика' src={"data:image/png;base64," + arrayBufferToBase64(userAdvert.image)} style={{ width: '250px', height:'250px'}}/>
+                <div>
+                  <h3 className="text-sm text-gray-700">
+                    {userAdvert.title}
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500">{userAdvert.description}</p>
+                  <p className="mt-1 text-sm text-gray-500">{userAdvert.contactInfo}</p>
                 </div>
 
-                <br/>
-                <br/> 
+                <div>
+                <p className="text-sm font-medium text-gray-900">{userAdvert.price}</p>
+                
+
+
+                </div>
+
+              </div>
+            </div>
+          
 
 
         </>

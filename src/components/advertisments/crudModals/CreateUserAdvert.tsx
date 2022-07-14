@@ -127,7 +127,7 @@ const CreateUserAdvert: FC<{}> = () => {
                 <br/>
 
 
-                <label>Цена:</label>
+                <label>Цена (со валута):</label>
                 <input type='text' onChange={handlePriceChange}/>
                 <br/>
 

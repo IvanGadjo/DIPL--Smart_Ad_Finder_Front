@@ -26,7 +26,22 @@ const Advertisments: FC<{}> = () => {
             if(shownAdverts.length === 0){
                 return <>Сеуште немате внесено оглас!</>
             } else {
-                return shownAdverts.map((adv: IUserAdvert) => <AdvertCard key={adv.id} userAdvert={adv} typeOfAdsShown={typeOfAdsShown}/>)
+                // return shownAdverts.map((adv: IUserAdvert) => <AdvertCard key={adv.id} userAdvert={adv} typeOfAdsShown={typeOfAdsShown}/>)
+                return (
+                <div className="bg-white">
+                    <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+                        <div className=" grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-12">
+                            {shownAdverts.map((adv: IUserAdvert) => {
+                                if(typeOfAdsShown==='all' && adv.isActive)
+                                    return <AdvertCard key={adv.id} userAdvert={adv} typeOfAdsShown={typeOfAdsShown}/>
+                                else if(typeOfAdsShown==='byUser')
+                                    return <AdvertCard key={adv.id} userAdvert={adv} typeOfAdsShown={typeOfAdsShown}/>
+                            }
+                            )}
+                        </div>
+                    </div>
+                </div>
+                )
             }
         } else {
             return <></>
@@ -45,9 +60,9 @@ const Advertisments: FC<{}> = () => {
                 </> 
                 :
                 <>
-                    <ActionsPanel setShownAdverts={setShownAdverts} typeOfAdsShown={typeOfAdsShown} setTypeOfAdsShown={setTypeOfAdsShown}/>
-                    <br/>
-                    <br/>
+                    <div className="lg:ml-8 ml-7">
+                        <ActionsPanel setShownAdverts={setShownAdverts} typeOfAdsShown={typeOfAdsShown} setTypeOfAdsShown={setTypeOfAdsShown}/>
+                    </div>
 
                     {/* {allAdverts.map((adv: IUserAdvert) => <AdvertCard key={adv.id} userAdvert={adv}/>)} */}
                     
