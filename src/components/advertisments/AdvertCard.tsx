@@ -5,6 +5,8 @@ import { setActiveOnUserAdvert } from '../../utils/restServices/userAdvertsServi
 import { useUserAdverts } from "../../utils/swrHooks/useUserAdverts";
 import { useUI_ZustandStore } from "../../utils/zustandStores/userInfoStore";
 import shallow from 'zustand/shallow';
+import { categories, regions } from "../../utils/categoriesAndRegionsData";
+
 
 interface IProps {
     userAdvert: IUserAdvert, 
@@ -58,6 +60,17 @@ const AdvertCard: FC<IProps> = ({ userAdvert, typeOfAdsShown }) => {
             console.error('UserID e UNDEFINED!')
         }
     } 
+
+    // * Utility methods
+    const renderMKDName_category = (category: string) => {
+        const mkCategory = categories.find(cat => cat.value === category)
+        return <span className="block truncate">{mkCategory?.text}</span>
+    }
+
+    const renderMKDName_region = (region: string) => {
+        const mkRegion = regions.find(reg => reg.value === region)
+        return <span className="block truncate">{mkRegion?.text}</span>
+    }
     
 
    
@@ -70,7 +83,7 @@ const AdvertCard: FC<IProps> = ({ userAdvert, typeOfAdsShown }) => {
             <div key={userAdvert.id} className="group relative">
 
               {/* // * Image */}
-              <div className="w-84 min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 h-80 lg:aspect-none">
+              <div className="w-84 min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden h-80 lg:aspect-none">
                 {
                     typeOfAdsShown === 'byUser' ?
 
@@ -112,12 +125,14 @@ const AdvertCard: FC<IProps> = ({ userAdvert, typeOfAdsShown }) => {
                     {
                         typeOfAdsShown === 'byUser' ?
                         <>
-                            <h3 className="px-2.5 py-0.5 rounded-full font-medium text-xs bg-gray-400 absolute text-black top-9 left-3">{userAdvert.region}</h3>
-                            <h3 className="px-2.5 py-0.5 rounded-full font-medium text-xs bg-gray-400 absolute text-black top-16 left-3">{userAdvert.category}</h3>
+                            <h3 className="px-2.5 py-0.5 rounded-full font-medium text-xs bg-gray-400 absolute text-black top-9 left-3">{renderMKDName_region(userAdvert.region)}</h3>
+                            <h3 className="px-2.5 py-0.5 rounded-full font-medium text-xs bg-gray-400 absolute text-black top-16 left-3">{renderMKDName_category(userAdvert.category)}</h3>
+                            <h3 className="px-2.5 py-0.5 rounded-full font-medium text-xs bg-green-300 absolute text-black top-24 left-3">{userAdvert.price}</h3>
                         </> : 
                         <>
-                            <h3 className="px-2.5 py-0.5 rounded-full font-medium text-xs bg-gray-400 absolute text-black top-3 left-3">{userAdvert.region}</h3>
-                            <h3 className="px-2.5 py-0.5 rounded-full font-medium text-xs bg-gray-400 absolute text-black top-9 left-3">{userAdvert.category}</h3>
+                            <h3 className="px-2.5 py-0.5 rounded-full font-medium text-xs bg-gray-400 absolute text-black top-3 left-3">{renderMKDName_region(userAdvert.region)}</h3>
+                            <h3 className="px-2.5 py-0.5 rounded-full font-medium text-xs bg-gray-400 absolute text-black top-9 left-3">{renderMKDName_category(userAdvert.category)}</h3>
+                            <h3 className="px-2.5 py-0.5 rounded-full font-medium text-xs bg-green-300 absolute text-black top-16 left-3">{userAdvert.price}</h3>
                         </> 
                     }
                     
@@ -131,18 +146,11 @@ const AdvertCard: FC<IProps> = ({ userAdvert, typeOfAdsShown }) => {
               <div className="mt-4 flex justify-between">
 
                 <div>
-                  <h3 className="text-sm text-gray-700">
+                  <h3 className="text-sm font-semibold text-gray-700">
                     {userAdvert.title}
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">{userAdvert.description}</p>
-                  <p className="mt-1 text-sm text-gray-500">{userAdvert.contactInfo}</p>
-                </div>
-
-                <div>
-                <p className="text-sm font-medium text-gray-900">{userAdvert.price}</p>
-                
-
-
+                  <p className="mt-1 text-sm text-gray-700">{userAdvert.contactInfo}</p>
                 </div>
 
               </div>
