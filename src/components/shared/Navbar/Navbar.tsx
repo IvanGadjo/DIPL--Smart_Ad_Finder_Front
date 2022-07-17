@@ -10,6 +10,7 @@ import shallow from 'zustand/shallow';
 import { navigation } from "../../../utils/navigationData";
 import smartAdFinderLogo from '../../../shared/logo_transparent_crop.png';
 import userAvatarLogo from '../../../shared/User_Avatar_Outline.png';
+import { Link } from "react-router-dom";
 
 
 
@@ -133,7 +134,10 @@ const Navbar: FC<{}> = () => {
 
                   {/* Profile section */}
                   <div className="flex-shrink-0 flex bg-green-800 p-4">
-                    <a href="/settings" className="flex-shrink-0 w-full group block">
+                    
+                    <div className="flex-shrink-0 w-full group block">
+                    <Link to={'/settings'}>
+
                       <div className="flex items-center">
                         <div>
                           <img
@@ -147,7 +151,9 @@ const Navbar: FC<{}> = () => {
                           <p className="text-xs font-medium text-gray-300 group-hover:text-gray-200">Види профил</p>
                         </div>
                       </div>
-                    </a>
+                    </Link>
+                    </div>
+
                   </div>
                 </div>
 

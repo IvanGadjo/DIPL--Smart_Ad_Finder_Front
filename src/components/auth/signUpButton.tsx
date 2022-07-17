@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { LoginIcon } from '@heroicons/react/outline';
+import { UsersIcon } from '@heroicons/react/outline';
 
 
 const SignUpButton: FC<{}> = () => {
@@ -17,10 +17,10 @@ const SignUpButton: FC<{}> = () => {
         }}
       >
        Регистрирај се
-        <LoginIcon
+        <UsersIcon
           className="ml-2 -mr-1 h-5 w-5"
           aria-hidden='true'
-        ></LoginIcon>
+        ></UsersIcon>
       </button>
     </>
   );
