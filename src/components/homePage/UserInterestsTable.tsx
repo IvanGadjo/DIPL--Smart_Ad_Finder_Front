@@ -11,6 +11,7 @@ import CarFiltersInputs from './CarFiltersInputs';
 import FoundAdsTable from './FoundAdsTable';
 import { Listbox, Transition } from "@headlessui/react";
 import { SelectorIcon, CheckIcon, ExclamationCircleIcon, PencilAltIcon } from "@heroicons/react/outline";
+import { useRUIIS_ZustandStore } from "../../utils/zustandStores/renderUserInterestsInfoStore";
 
 
 function classNames(...classes: string[]) {
@@ -32,6 +33,9 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
             setShownUserInterest, 
             auth0UserInfo,
             userId ] = useUI_ZustandStore(state => [state.shownUserInterest, state.setShownUserInterest, state.auth0UserInfo, state.userId], shallow);
+
+    const [ setShowActiveUserInterests ] = useRUIIS_ZustandStore(state => [state.setShowActiveUserInterests], shallow)
+
     const [ shownAds, setShownAds ] = useState<IFoundAdvert[] | undefined>();
     const [ prevShownAds, setPrevShownAds ] = useState<IFoundAdvert[] | undefined>();
 
@@ -65,7 +69,14 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
         if(userId) {
 
-            let restructuredOtherKeywords = userInterest.keywords.otherKeywords?.reduce((prev, next) => prev + ' '+ next);
+            let restructuredOtherKeywords = '';
+            
+            if(userInterest.keywords.otherKeywords) {
+                if(userInterest.keywords.otherKeywords?.length > 0) {
+                    restructuredOtherKeywords = userInterest.keywords.otherKeywords?.reduce((prev, next) => prev + ' '+ next);
+                }
+            }
+            
             userInterest.keywords.mainKeyword = userInterest.keywords.mainKeyword + ' ' + restructuredOtherKeywords;
             userInterest.keywords.otherKeywords = [''];
 
@@ -76,7 +87,17 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
                 await setActiveOnUserInterest(userInterest, userId, true, auth0UserInfo.token);
             }
 
-            let newUserInterests: IUserInterest[] = await getAllUserInterestsOfUser(userId, auth0UserInfo.token);
+
+            let newUserInterests: IUserInterest[] = [];
+
+            if(userInterest.active){
+                newUserInterests = await getAllUserInterestsOfUser(userId, auth0UserInfo.token);
+                newUserInterests = newUserInterests.filter(ui => ui.active);
+            } else {
+                newUserInterests = await getAllUserInterestsOfUser(userId, auth0UserInfo.token);
+                newUserInterests = newUserInterests.filter(ui => !ui.active);
+            }
+
 
 
             newUserInterests.sort((prev, next) => {       // * Sort userInterests by id and then show them in dropdown
@@ -90,6 +111,10 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
 
 
             setUserInterests(newUserInterests);     // * State change triggers rerender
+            
+            // ! Experimental
+            // setShownUserInterest(newUserInterests[0])
+            
         } else {
             console.error('UserID e UNDEFINED!')
         }

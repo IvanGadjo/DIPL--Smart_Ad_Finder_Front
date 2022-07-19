@@ -74,7 +74,14 @@ const Settings: FC<{}> = () => {
         ];
 
         userInterests.forEach(ui => {
-            let restructuredOtherKeywords = ui.keywords.otherKeywords?.reduce((prev, next) => prev + ' '+ next);
+
+            let restructuredOtherKeywords = '';
+            
+            if(ui.keywords.otherKeywords) {
+                if(ui.keywords.otherKeywords?.length > 0) {
+                    restructuredOtherKeywords = ui.keywords.otherKeywords?.reduce((prev, next) => prev + ' '+ next);
+                }
+            }
             if(ui.foundAdverts) {
                 foundAdsStats.push({
                     userInterestName: ui.keywords.mainKeyword + restructuredOtherKeywords,

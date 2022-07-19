@@ -68,7 +68,7 @@ export const useUI_ZustandStore = create<UserInterestsState>()((set) => ({
                             }
                             // ui.foundAdverts?.push(newFoundAd);
 
-                            console.log(ui)
+                            // console.log(ui)
 
                             return ui;
                         } else return ui;
