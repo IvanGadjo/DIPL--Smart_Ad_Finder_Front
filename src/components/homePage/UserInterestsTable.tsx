@@ -114,7 +114,10 @@ const UserInterestsTable: FC<IProps> = ({ userInterests, setUserInterests }) => 
             
             // ! Experimental
             // setShownUserInterest(newUserInterests[0])
-            
+            if(userInterest.active)
+                setShowActiveUserInterests(true)
+            else 
+                setShowActiveUserInterests(false)
         } else {
             console.error('UserID e UNDEFINED!')
         }
