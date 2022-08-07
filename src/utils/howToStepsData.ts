@@ -18,8 +18,8 @@ export const howToSteps = [
     },
     {
         id: 3,
-        content: 'Резултатите се видливи на почетната страница во',
-        target: 'real time',
+        content: 'Резултатите се видливи на почетната страница',
+        target: 'инстантно',
         icon: InformationCircleIcon,
         iconBackground: 'bg-green-500',
     },
