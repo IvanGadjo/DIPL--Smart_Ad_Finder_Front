@@ -87,7 +87,7 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
         if(otherKeywords && otherKeywords.length>0){
             let restructured = otherKeywords.reduce((prev, next) => prev + ' '+ next)
             return restructured;
-        }
+        } else return '';
     } 
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
@@ -122,6 +122,7 @@ const EditUserInterest: FC<{}> = () => {        // ! Pocetni values za kategorij
                     className="lg:w-96 shadow-sm focus:ring-green-500 focus:border-green-500 block sm:text-sm border-gray-300 rounded-md"
                     onChange={handleTitleChange}
                     value={title}
+                    required
                 />
 
 

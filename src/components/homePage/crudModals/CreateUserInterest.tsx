@@ -105,6 +105,7 @@ const CreateUserInterest: FC<{}> = () => {
                     className="lg:w-96 shadow-sm focus:ring-green-500 focus:border-green-500 block sm:text-sm border-gray-300 rounded-md"
                     onChange={handleTitleChange}
                     value={title}
+                    required
                 />
 
               

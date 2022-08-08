@@ -183,6 +183,7 @@ const EditUserAdvert: FC<{}> = () => {
                     className="lg:w-96 shadow-sm focus:ring-green-500 focus:border-green-500 block sm:text-sm border-gray-300 rounded-md"
                     onChange={handleTitleChange}
                     value={title}
+                    required
                 />
 
                 <label className="block text-sm font-medium text-gray-700 mb-2">Опис:</label>
@@ -190,6 +191,7 @@ const EditUserAdvert: FC<{}> = () => {
                     className="lg:w-96 shadow-sm focus:ring-green-500 focus:border-green-500 block sm:text-sm border-gray-300 rounded-md"
                     onChange={handleDescriptionChange}
                     value={description}
+                    required
                 />
 
 
@@ -198,6 +200,7 @@ const EditUserAdvert: FC<{}> = () => {
                     className="lg:w-96 shadow-sm focus:ring-green-500 focus:border-green-500 block sm:text-sm border-gray-300 rounded-md"
                     onChange={handlePriceChange}
                     value={price}
+                    required
                 />
 
                 <label className="block text-sm font-medium text-gray-700 mb-2">Информации за контакт:</label>
@@ -205,6 +208,7 @@ const EditUserAdvert: FC<{}> = () => {
                     className="lg:w-96 shadow-sm focus:ring-green-500 focus:border-green-500 block sm:text-sm border-gray-300 rounded-md"
                     onChange={handleContactInfoChange}
                     value={contactInfo}
+                    required
                 />
 
 
