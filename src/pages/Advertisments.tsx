@@ -13,20 +13,15 @@ const Advertisments: FC<{}> = () => {
     const [ typeOfAdsShown, setTypeOfAdsShown ] = useState<string>('all');
 
     useEffect(() => {
-        // console.log(allAdverts)
         setShownAdverts(allAdverts)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[isLoadingData]);
-
-
-
 
     const renderAdvertCards = () => {
         if(shownAdverts){
             if(shownAdverts.length === 0){
                 return <>Сеуште немате внесено оглас!</>
             } else {
-                // return shownAdverts.map((adv: IUserAdvert) => <AdvertCard key={adv.id} userAdvert={adv} typeOfAdsShown={typeOfAdsShown}/>)
                 return (
                 <div className="bg-white">
                     <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -50,8 +45,6 @@ const Advertisments: FC<{}> = () => {
 
     return (
         <>  
-        {console.log(shownAdverts)}
-
             {
                 isLoadingData 
                 ? 
@@ -61,18 +54,13 @@ const Advertisments: FC<{}> = () => {
                 :
                 <>
                     <div className="lg:ml-8 ml-7">
-                        <ActionsPanel setShownAdverts={setShownAdverts} typeOfAdsShown={typeOfAdsShown} setTypeOfAdsShown={setTypeOfAdsShown}/>
+                        <ActionsPanel setShownAdverts={setShownAdverts} typeOfAdsShown={typeOfAdsShown}
+                                        setTypeOfAdsShown={setTypeOfAdsShown}/>
                     </div>
 
-                    {/* {allAdverts.map((adv: IUserAdvert) => <AdvertCard key={adv.id} userAdvert={adv}/>)} */}
-                    
-
                     { renderAdvertCards() } 
-
                 </>
             }
-
-            
         </>
     )
 }
